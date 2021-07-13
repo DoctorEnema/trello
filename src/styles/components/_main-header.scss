@@ -1,0 +1,16 @@
+.main-header {
+    display: flex;
+    align-items: center;
+    background-color: burlywood;
+    justify-content: space-between;
+    nav{
+        display: flex;
+    }
+    a{
+        padding: 0.5rem;
+    }
+    .logo{
+       display: flex;
+       align-items: center; 
+    }
+}
