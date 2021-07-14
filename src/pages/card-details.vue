@@ -1,5 +1,5 @@
 <template>
-  <section class="card-details">
+  <section class="card-details" >
     <header class="details-header">
       <h1>(Card name will be here)</h1>
       <h3>in list (Group name will be here)</h3>
@@ -15,21 +15,25 @@
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button @click="membersModal" >Members</button>
+        <button @click="membersModal">Members</button>
         <button @click="labelsModal">Labels</button>
         <button @click="checklistModal">Checklist</button>
         <button @click="datesModal">Dates</button>
         <button @click="attachmentModal">Attachment</button>
       </div>
-      <add-label v-if="isLabels" @closeModals="resetModals"></add-label>
+      <add-label v-if="isOpen.isLabels" @closeModals="resetModals"></add-label>
       <add-checklist
-        v-if="isChecklist"
+        v-if="isOpen.isChecklist"
         @closeModals="resetModals"
       ></add-checklist>
-      <add-date v-if="isDates" @closeModals="resetModals"></add-date>
-      <add-member v-if="isMembers" @closeModals="resetModals" @addUser="addUserMember"></add-member>
+      <add-date v-if="isOpen.isDates" @closeModals="resetModals"></add-date>
+      <add-member
+        v-if="isOpen.isMembers"
+        @closeModals="resetModals"
+        @addUser="addUserMember"
+      ></add-member>
       <add-attachment
-        v-if="isAttachment"
+        v-if="isOpen.isAttachment"
         @closeModals="resetModals"
       ></add-attachment>
     </div>
@@ -63,11 +67,13 @@ export default {
   },
   data() {
     return {
-      isMembers: false,
-      isLabels: false,
-      isChecklist: false,
-      isDates: false,
-      isAttachment: false,
+      isOpen: {
+        isMembers: false,
+        isLabels: false,
+        isChecklist: false,
+        isDates: false,
+        isAttachment: false,
+      },
     };
   },
   created() {
@@ -79,35 +85,42 @@ export default {
     },
   },
   methods: {
-    addUserMember(user){
+    addUserMember(user) {
       console.log(user);
     },
     membersModal() {
       this.resetModals();
-      this.isMembers = true;
+      this.isOpen.isMembers = true;
     },
     labelsModal() {
       this.resetModals();
-      this.isLabels = true;
+      this.isOpen.isLabels = true;
     },
     checklistModal() {
       this.resetModals();
-      this.isChecklist = true;
+      this.isOpen.isChecklist = true;
     },
     datesModal() {
       this.resetModals();
-      this.isDates = true;
+      this.isOpen.isDates = true;
     },
     attachmentModal() {
       this.resetModals();
-      this.isAttachment = true;
+      this.isOpen.isAttachment = true;
     },
     resetModals() {
-      this.isMembers = false;
-      this.isLabels = false;
-      this.isChecklist = false;
-      this.isDates = false;
-      this.isAttachment = false;
+      // var isOpen = false;
+      // for (var modal in this.isOpen) {
+      //   if (this.isOpen[modal] === true) isOpen = false;
+      // }
+      // console.log(false);
+
+      // if (!isOpen) return;
+      this.isOpen.isMembers = false;
+      this.isOpen.isLabels = false;
+      this.isOpen.isChecklist = false;
+      this.isOpen.isDates = false;
+      this.isOpen.isAttachment = false;
     },
   },
 };
