@@ -7,17 +7,15 @@
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
-        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
         <checklist v-if="board.groups[1].cards[1].checklists"></checklist>
         <date v-if="board.groups[1].cards[1].dueDate"></date>
         <member v-if="board.groups[1].cards[1].members"></member>
         <attachment v-if="board.groups[1].cards[1].attachments"></attachment>
-        <!-- {{ board.groups[1].cards[1] }} -->
-        <!-- {{board.groups[1].checklists}} -->
+        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button @click="membersModal">Members</button>
+        <button @click="membersModal" >Members</button>
         <button @click="labelsModal">Labels</button>
         <button @click="checklistModal">Checklist</button>
         <button @click="datesModal">Dates</button>
@@ -29,7 +27,7 @@
         @closeModals="resetModals"
       ></add-checklist>
       <add-date v-if="isDates" @closeModals="resetModals"></add-date>
-      <add-member v-if="isMembers" @closeModals="resetModals"></add-member>
+      <add-member v-if="isMembers" @closeModals="resetModals" @addUser="addUserMember"></add-member>
       <add-attachment
         v-if="isAttachment"
         @closeModals="resetModals"
@@ -81,6 +79,9 @@ export default {
     },
   },
   methods: {
+    addUserMember(user){
+      console.log(user);
+    },
     membersModal() {
       this.resetModals();
       this.isMembers = true;

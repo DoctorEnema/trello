@@ -14,13 +14,17 @@ export const boardStore = {
         }
     },
     mutations: {
-        setBoards(state, { boards }) {
-            state.boards = boards
-        },
+        // setBoards(state, { boards }) {
+        //     state.boards = boards
+        // },
         setBoard(state, { board }) {
             state.board = board
         }
     },
+        removeGroup(state, {groupId}){
+            console.log(groupId);
+            state.board.groups = state.board.groups.filter((group) => group.id !== groupId )
+        },
     actions: {
         // async loadBoards(context) {
         //     try {
@@ -40,6 +44,14 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
+        async removeGroup(context, {groupId}){
+            try{
+                await boardService.update(board)
+                context.commit({type: 'removeGroup', groupId})
+            } catch(err){
+                console.log('Cannot delete group', err);
+            }
+        }
 
     }
 }

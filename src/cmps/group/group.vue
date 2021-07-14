@@ -1,7 +1,8 @@
 <template>
   <section>
+    <button @click="removeGroup(group.id)">REMOVE</button>
     <div class="group-header">
-      <h2>{{group.title}}</h2>
+      <textarea></textarea>
       <div>...</div>
     </div>
     <card-preview
@@ -24,8 +25,10 @@ export default {
     return {
     };
   },
+  methods:{
+    removeGroup(groupId){
+      this.$emit('removeGroup', groupId)
+    }
+  }
 };
 </script>
-
-<style>
-</style>

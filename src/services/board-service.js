@@ -210,7 +210,9 @@ function addBoard(board) {
 }
 
 function saveBoard(board) {
-    board.isRead = true
     return storageService.put(BOARD_KEY, board)
+}
 
+function removeGroup(groupId){
+    
 }
