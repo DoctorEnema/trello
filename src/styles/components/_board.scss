@@ -1,0 +1,16 @@
+.board-container{
+    .board-header{
+        display: flex;
+        background-color: bisque;
+        justify-content: space-evenly;
+    }
+    .board-content{
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .group{
+        padding: 0 1rem;
+        border:1px solid black;
+    }
+}

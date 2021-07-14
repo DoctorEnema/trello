@@ -2,18 +2,22 @@
   <section class="board-container">
     <div class="board-header">
         <div>Board Name</div>
-        <div>isFavorite, a star that filled or not filled</div>
-        <div>Members, will be a v-for</div>
+        <div>isFavorite</div>
+        <div>Members</div>
         <button>Invite</button>
     </div>
     <div class="board-content">
-      <div v-for="(group, idx) in groups" :key="idx">{{group}}</div>
+      <group class="group" v-for="(group, idx) in groups" :key="idx"></group>
     </div>
   </section>
 </template>
 
 <script>
+import group from '../cmps/group/group.vue'
 export default {
+  components:{
+    group
+  },
   data() {
     return {
       groups: ["1", "2"],
