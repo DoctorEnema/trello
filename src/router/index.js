@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from '../pages/home'
 import board from '../pages/board'
+import cardDetails from '../pages/card-details'
 
 Vue.use(VueRouter)
 
@@ -16,11 +17,11 @@ const routes = [
     name: 'board',
     component: board
   },
-  // {
-  //   path: '/card/:id',
-  //   name: 'card',
-  //   component: cardDetails
-  // }
+  {
+    path: '/card/:id',
+    name: 'card',
+    component: cardDetails
+  }
 ]
 
 const router = new VueRouter({
