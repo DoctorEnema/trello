@@ -5,8 +5,15 @@
       <h3>in list (Group name will be here)</h3>
     </header>
     <div class="details-body">
-      <div class="left-side">
+      <div v-if="board" class="left-side">
         <h1>Left Side</h1>
+        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
+        <checklist v-if="board.groups[1].cards[1].checklists"></checklist>
+        <date v-if="board.groups[1].cards[1].dueDate"></date>
+        <member v-if="board.groups[1].cards[1].members"></member>
+        <attachment v-if="board.groups[1].cards[1].attachments"></attachment>
+        <!-- {{ board.groups[1].cards[1] }} -->
+        <!-- {{board.groups[1].checklists}} -->
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
@@ -37,6 +44,12 @@ import addChecklist from "../cmps/card/add-checklist.vue";
 import addDate from "../cmps/card/add-date.vue";
 import addMember from "../cmps/card/add-member.vue";
 import addAttachment from "../cmps/card/add-attachment.vue";
+import labels from "../cmps/card/label.vue";
+import checklist from "../cmps/card/checklist.vue";
+import date from "../cmps/card/date.vue";
+import member from "../cmps/card/member.vue";
+import attachment from "../cmps/card/attachment.vue";
+
 export default {
   components: {
     addLabel,
@@ -44,6 +57,11 @@ export default {
     addDate,
     addMember,
     addAttachment,
+    labels,
+    checklist,
+    date,
+    member,
+    attachment,
   },
   data() {
     return {
@@ -54,7 +72,14 @@ export default {
       isAttachment: false,
     };
   },
-  computed: {},
+  created() {
+    this.$store.dispatch({ type: "loadBoard" });
+  },
+  computed: {
+    board() {
+      return this.$store.getters.board;
+    },
+  },
   methods: {
     membersModal() {
       this.resetModals();
