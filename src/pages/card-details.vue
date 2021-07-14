@@ -11,11 +11,11 @@
       <button @click="datesModal">Dates</button>
       <button @click="attachmentModal">Attachment</button>
     </div>
-    <add-label v-if="isLabels" ></add-label>
-    <add-checklist v-if="isChecklist"></add-checklist>
-    <add-date v-if="isDates" ></add-date>
-    <add-member v-if="isMembers" ></add-member>
-    <add-attachment v-if="isAttachment" ></add-attachment>
+    <add-label v-if="isLabels" @closeModals="resetModals"></add-label>
+    <add-checklist v-if="isChecklist" @closeModals="resetModals"></add-checklist>
+    <add-date v-if="isDates" @closeModals="resetModals"></add-date>
+    <add-member v-if="isMembers" @closeModals="resetModals"></add-member>
+    <add-attachment v-if="isAttachment" @closeModals="resetModals"></add-attachment>
   </section>
 </template>
 
