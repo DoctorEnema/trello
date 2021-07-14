@@ -10,7 +10,12 @@
     }
 
     .group{
-        padding: 0 1rem;
         border:1px solid black;
+        width: 272px;
+        margin: 0 4px;
+        height: 100%;
+    }
+    .group-header{
+        display: flex;
     }
 }

@@ -1,5 +1,9 @@
 <template>
   <section>
+    <div class="group-header">
+      <h2>{{group.title}}</h2>
+      <div>...</div>
+    </div>
     <card-preview
       class="card-preview"
       :card="card"
