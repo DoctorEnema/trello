@@ -7,7 +7,7 @@
       <button>Invite</button>
     </div>
     <div class="board-content">
-      <group
+      <group @removeGroup="removeGroup"
         class="group"
         :group="group"
         v-for="group in board.groups"
@@ -30,6 +30,11 @@ export default {
     board() {
       return this.$store.getters.board;
     },
+  },
+  methods:{
+    removeGroup(groupId){
+      
+    }
   },
   created() {
     this.$store.dispatch({ type: "loadBoard" });

@@ -1,5 +1,6 @@
 <template>
   <section>
+    <button @click="removeGroup(group.id)">REMOVE</button>
     <div class="group-header">
       <textarea></textarea>
       <div>...</div>
@@ -24,8 +25,10 @@ export default {
     return {
     };
   },
+  methods:{
+    removeGroup(groupId){
+      this.$emit('removeGroup', groupId)
+    }
+  }
 };
 </script>
-
-<style>
-</style>

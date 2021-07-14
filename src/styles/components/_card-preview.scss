@@ -1,4 +1,18 @@
 .card-preview{
     background-color: blanchedalmond;
+    margin: 8px;
+    .card-preview-cover{
+        height: 3rem;
+
+    }
+    .card-preview-title{
+        font-weight: 600;
+    }
+    .card-preview-badges{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
 
 }
