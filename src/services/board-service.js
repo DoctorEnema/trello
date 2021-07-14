@@ -1,4 +1,4 @@
-import { utilService } from '../services/util-service';
+import { utilService } from '../services/util-service.js';
 import { storageService } from '../services/async-storage-service.js';
 
 
@@ -177,7 +177,8 @@ export const boardService = {
     getById,
     addBoard,
     saveBoard,
-    removeGroup
+    removeGroup,
+    addGroup,
 };
 
 
@@ -214,8 +215,13 @@ function saveBoard(board) {
 }
 
 function removeGroup(board, groupId) {
-    console.log(board);
     const idx = board.groups.findIndex(group => groupId === group.id)
-    const newBoard = board.groups.splice(idx, 1)
-    storageService.put(BOARD_KEY, newBoard)
+    board.groups.splice(idx, 1)
+    storageService.put(BOARD_KEY, board)
+}
+
+function addGroup(board, group){
+    group.id = utilService.makeId()
+    board.groups.push(group)
+    storageService.put(BOARD_KEY, board)
 }

@@ -2,7 +2,8 @@
   <section>
     <button @click="removeGroup(group.id)">REMOVE</button>
     <div class="group-header">
-      <textarea></textarea>
+      <!-- <textarea></textarea> -->
+      <p>{{group.title}}</p>
       <div>...</div>
     </div>
     <card-preview
