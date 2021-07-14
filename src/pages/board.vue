@@ -1,5 +1,5 @@
 <template>
-  <section v-if="board" class="board-container">
+  <section v-if="selectedBoard" class="board-container">
     <div class="board-header">
       <div>Board Name</div>
       <div>isFavorite</div>
@@ -7,10 +7,11 @@
       <button>Invite</button>
     </div>
     <div class="board-content">
-      <group @removeGroup="removeGroup"
+      <group
+        @removeGroup="removeGroup"
         class="group"
         :group="group"
-        v-for="group in board.groups"
+        v-for="group in selectedBoard.groups"
         :key="group.id"
       ></group>
     </div>
@@ -18,26 +19,35 @@
 </template>
 
 <script>
+import { boardService } from "../services/board-service.js";
 import group from "../cmps/group/group.vue";
 export default {
   components: {
     group,
   },
   data() {
-    return {};
+    return {
+      selectedBoard: null,
+    };
   },
   computed: {
-    board() {
-      return this.$store.getters.board;
+    // board() {
+    //   return this.$store.getters.board;
+    // },
+    boardId() {
+      return this.$route.params.boardId;
     },
   },
-  methods:{
-    removeGroup(groupId){
-      
-    }
+  methods: {
+    removeGroup(groupId) {
+      this.$store.dispatch({ type: "removeGroup", groupId });
+    },
   },
   created() {
-    this.$store.dispatch({ type: "loadBoard" });
+    boardService.getById(this.boardId).then((board) => {
+      this.selectedBoard = board;
+    this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
+    });
   },
 };
 </script>
