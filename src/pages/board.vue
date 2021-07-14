@@ -1,27 +1,37 @@
 <template>
-  <section class="board-container">
+  <section v-if="board" class="board-container">
     <div class="board-header">
-        <div>Board Name</div>
-        <div>isFavorite</div>
-        <div>Members</div>
-        <button>Invite</button>
+      <div>Board Name</div>
+      <div>isFavorite</div>
+      <div>Members</div>
+      <button>Invite</button>
     </div>
     <div class="board-content">
-      <group class="group" v-for="(group, idx) in groups" :key="idx"></group>
+      <group  
+        class="group"
+        v-for="group in board.groups"
+        :key="group.id"
+      ></group>
     </div>
   </section>
 </template>
 
 <script>
-import group from '../cmps/group/group.vue'
+import group from "../cmps/group/group.vue";
 export default {
-  components:{
-    group
+  components: {
+    group,
   },
   data() {
-    return {
-      groups: ["1", "2"],
-    };
+    return {};
+  },
+  computed: {
+    board() {
+      return this.$store.getters.board;
+    },
+  },
+  created() {
+    this.$store.dispatch({ type: "loadBoard" });
   },
 };
 </script>
