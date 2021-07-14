@@ -17,5 +17,20 @@
             top: 0;
             right: 0;
         }
+    }
+    .create-label{
+        .card-label-color {
+            display: inline-block;
+            float: left;
+            height: 32px;
+            margin: 0 8px 8px 0;
+            padding: 0;
+            width: 48px;    
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        div {
+            clear: both;
+        }
     }  
 }
