@@ -1,24 +1,38 @@
 <template>
   <section class="add-to-card">
-       <h1>Hello Attachment</h1>
-<button @click="resetModals">X</button>
+    <header class="add-label-header">
+      <span class="add-label-title">Add attachment</span>
+      <button @click="resetModals">X</button>
+    </header>
+    <hr />
+    <form @submit.prevent="setLink(), resetModals()">
+      <label for="attachment">Attach a link</label>
+      <input ref="attach" type="text" placeholder="Paste any link here..." />
+      <button>Attach</button>
+    </form>
   </section>
 </template>
 
 <script>
 export default {
-data(){
-  return{
-  }
-},
-methods:{
-  resetModals(){
-      this.$emit('closeModals');
-  }
-}
-}
+  mounted() {
+    this.$refs.attach.focus();
+  },
+  data() {
+    return {
+      link: ''
+    };
+  },
+  methods: {
+    resetModals() {
+      this.$emit("closeModals");
+    },
+    setLink() {
+      this.$emit('linkAdded', this.link)
+    }
+  },
+};
 </script>
 
 <style>
-
 </style>
