@@ -16,11 +16,9 @@ export const boardStore = {
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
-            console.log(boards);
         },
         setBoard(state, { board }) {
             state.board = board
-            console.log(board);
         }
     },
     actions: {
