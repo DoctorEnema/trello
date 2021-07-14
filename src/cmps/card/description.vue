@@ -1,6 +1,6 @@
 <template>
-  <section class="label">
-     <h1>Label</h1>
+  <section>
+      <h1>description</h1>
   </section>
 </template>
 

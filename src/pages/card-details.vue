@@ -7,13 +7,11 @@
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
-        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
         <checklist v-if="board.groups[1].cards[1].checklists"></checklist>
         <date v-if="board.groups[1].cards[1].dueDate"></date>
         <member v-if="board.groups[1].cards[1].members"></member>
         <attachment v-if="board.groups[1].cards[1].attachments"></attachment>
-        <!-- {{ board.groups[1].cards[1] }} -->
-        <!-- {{board.groups[1].checklists}} -->
+        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
