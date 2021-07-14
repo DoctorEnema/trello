@@ -3,7 +3,7 @@ import { storageService } from '../services/async-storage-service.js';
 
 
 
-const boardsJson = {
+const boardsJson = [{
     "_id": "b101",
     "title": "Robot dev proj",
     "createdAt": 1589983468418,
@@ -105,7 +105,7 @@ const boardsJson = {
                         "fullname": "Tal Tarablus",
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
-                    "attachments":["url", "url2"],
+                    "attachments": ["url", "url2"],
                     "style": {
                         "bgColor": "#26de81"
                     }
@@ -153,7 +153,7 @@ const boardsJson = {
             }
         }
     ]
-}
+}]
 // const user = {
 //     "_id": "u101",
 //     "fullname": "Abi Abambi",
@@ -177,7 +177,7 @@ export const boardService = {
     getById,
     addBoard,
     saveBoard,
-   
+    removeGroup
 };
 
 
@@ -213,6 +213,9 @@ function saveBoard(board) {
     return storageService.put(BOARD_KEY, board)
 }
 
-function removeGroup(groupId){
-    
+function removeGroup(board, groupId) {
+    console.log(board);
+    const idx = board.groups.findIndex(group => groupId === group.id)
+    const newBoard = board.groups.splice(idx, 1)
+    storageService.put(BOARD_KEY, newBoard)
 }

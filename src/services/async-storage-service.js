@@ -16,7 +16,7 @@ function query(entityType) {
 
 function get(entityType, entityId) {
     return query(entityType)
-        .then(entities => entities.find(entity => entity.id === entityId))
+        .then(entities => entities.find(entity => entity._id === entityId))
 }
 
 function post(entityType, newEntity) {
@@ -51,7 +51,7 @@ function put(entityType, updatedEntity) {
 function remove(entityType, entityId) {
     return query(entityType)
         .then(entities => {
-            const idx = entities.findIndex(entity => entity.id === entityId);
+            const idx = entities.findIndex(entity => entity._id === entityId);
             entities.splice(idx, 1)
             _save(entityType, entities)
         })

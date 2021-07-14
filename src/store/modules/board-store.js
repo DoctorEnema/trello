@@ -2,56 +2,44 @@ import { boardService } from "../../services/board-service"
 
 export const boardStore = {
     state: {
-        // boards: [],
-        board: null
+        selectedBoard: null
     },
     getters: {
-        // boards(state) {
-        //     return state.boards
-        // },
-        board(state){
-            return state.board
+        selectedBoard(state) {
+            return state.selectedBoard
         }
     },
     mutations: {
-        // setBoards(state, { boards }) {
-        //     state.boards = boards
-        // },
         setBoard(state, { board }) {
-            state.board = board
-        }
-    },
-        removeGroup(state, {groupId}){
-            console.log(groupId);
-            state.board.groups = state.board.groups.filter((group) => group.id !== groupId )
+            state.selectedBoard = board
         },
+        removeGroup(state, { groupId }) {
+            console.log('wow');
+            state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
+        },
+    },
     actions: {
-        // async loadBoards(context) {
-        //     try {
-        //         const boards = await boardService.query()
-        //         context.commit({ type: 'setBoard', boards })
-        //         return boards
-        //     } catch (err) {
-        //         console.log('Cannot load boards', err);
-        //     }
-        // },
-        async loadBoard(context) {
+        async loadBoard(context, {boardId}) {
             try {
-                const board = await boardService.query()
+                const board = await boardService.getById(boardId)
                 context.commit({ type: 'setBoard', board })
+                console.log(board);
                 return board
             } catch (err) {
                 console.log('Cannot load board', err);
             }
         },
-        async removeGroup(context, {groupId}){
-            try{
-                await boardService.update(board)
-                context.commit({type: 'removeGroup', groupId})
-            } catch(err){
+        async removeGroup(context, { groupId }) {
+            try {
+                const board = context.getters.selectedBoard
+                await boardService.removeGroup(board, groupId)
+                context.commit({ type: 'removeGroup', groupId })
+                // boardService.saveBoard(board)
+            } catch (err) {
                 console.log('Cannot delete group', err);
             }
         }
 
     }
 }
+
