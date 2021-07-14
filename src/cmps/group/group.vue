@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="group-header">
-      <h2>{{group.title}}</h2>
+      <textarea></textarea>
       <div>...</div>
     </div>
     <card-preview
