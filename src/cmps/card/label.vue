@@ -1,5 +1,7 @@
 <template>
-  <section class="label"></section>
+  <section class="label">
+     <h1></h1>
+  </section>
 </template>
 
 <script>
