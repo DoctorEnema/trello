@@ -7,7 +7,7 @@
       <button>Invite</button>
     </div>
     <div class="board-content">
-      <group  
+      <group :group="group"  
         class="group"
         v-for="group in board.groups"
         :key="group.id"

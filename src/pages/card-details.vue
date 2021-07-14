@@ -1,21 +1,33 @@
 <template>
-  <section>
-    <header>
+  <section class="card-details">
+    <header class="details-header">
       <h1>(Card name will be here)</h1>
       <h3>in list (Group name will be here)</h3>
     </header>
-    <div class="btn-container">
-      <button @click="membersModal">Members</button>
-      <button @click="labelsModal">Labels</button>
-      <button @click="checklistModal">Checklist</button>
-      <button @click="datesModal">Dates</button>
-      <button @click="attachmentModal">Attachment</button>
+    <div class="details-body">
+      <div class="left-side">
+        <h1>Left Side</h1>
+      </div>
+      <div class="right-side">
+        <h3>Add to Card</h3>
+        <button @click="membersModal">Members</button>
+        <button @click="labelsModal">Labels</button>
+        <button @click="checklistModal">Checklist</button>
+        <button @click="datesModal">Dates</button>
+        <button @click="attachmentModal">Attachment</button>
+      </div>
+      <add-label v-if="isLabels" @closeModals="resetModals"></add-label>
+      <add-checklist
+        v-if="isChecklist"
+        @closeModals="resetModals"
+      ></add-checklist>
+      <add-date v-if="isDates" @closeModals="resetModals"></add-date>
+      <add-member v-if="isMembers" @closeModals="resetModals"></add-member>
+      <add-attachment
+        v-if="isAttachment"
+        @closeModals="resetModals"
+      ></add-attachment>
     </div>
-    <add-label v-if="isLabels" @closeModals="resetModals"></add-label>
-    <add-checklist v-if="isChecklist" @closeModals="resetModals"></add-checklist>
-    <add-date v-if="isDates" @closeModals="resetModals"></add-date>
-    <add-member v-if="isMembers" @closeModals="resetModals"></add-member>
-    <add-attachment v-if="isAttachment" @closeModals="resetModals"></add-attachment>
   </section>
 </template>
 
@@ -45,24 +57,24 @@ export default {
   computed: {},
   methods: {
     membersModal() {
-        this.resetModals()
-         this.isMembers = true;
+      this.resetModals();
+      this.isMembers = true;
     },
     labelsModal() {
-        this.resetModals()
-        this.isLabels = true;
+      this.resetModals();
+      this.isLabels = true;
     },
     checklistModal() {
-        this.resetModals()
-        this.isChecklist = true;
+      this.resetModals();
+      this.isChecklist = true;
     },
     datesModal() {
-        this.resetModals()
-        this.isDates = true;
+      this.resetModals();
+      this.isDates = true;
     },
     attachmentModal() {
-        this.resetModals()
-        this.isAttachment = true;
+      this.resetModals();
+      this.isAttachment = true;
     },
     resetModals() {
       this.isMembers = false;

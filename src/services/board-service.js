@@ -31,7 +31,7 @@ const boardsJson = {
         {
             "id": "g101",
             "title": "Group 1",
-            "tasks": [
+            "cards": [
                 {
                     "id": "c101",
                     "title": "Replace logo"
@@ -39,6 +39,14 @@ const boardsJson = {
                 {
                     "id": "c102",
                     "title": "Add Samples"
+                },
+                {
+                    "id": "c103",
+                    "title": "wiwa"
+                },
+                {
+                    "id": "c104",
+                    "title": "wow"
                 }
             ],
             "style": {}
@@ -46,7 +54,7 @@ const boardsJson = {
         {
             "id": "g102",
             "title": "Group 2",
-            "tasks": [
+            "cards": [
                 {
                     "id": "c103",
                     "title": "Do that"
@@ -97,13 +105,37 @@ const boardsJson = {
                         "fullname": "Tal Tarablus",
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
+                    "attachments":["url", "url2"],
                     "style": {
                         "bgColor": "#26de81"
                     }
                 }
             ],
             "style": {}
-        }
+        },
+        {
+            "id": "g103",
+            "title": "Group 1",
+            "cards": [
+                {
+                    "id": "c101",
+                    "title": "Replace logo"
+                },
+                {
+                    "id": "c102",
+                    "title": "Add Samples"
+                },
+                {
+                    "id": "c103",
+                    "title": "wiwa"
+                },
+                {
+                    "id": "c104",
+                    "title": "wow"
+                }
+            ],
+            "style": {}
+        },
     ],
     "activities": [
         {
