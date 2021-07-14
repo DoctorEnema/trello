@@ -1,5 +1,40 @@
-.btn-container{
+
+.card-details{
+    background: #f4f5f7;
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    margin: 30px;
+    border: 1px solid rgb(227, 227, 227);
+
     display: flex;
     flex-direction: column;
-    width: 200px;
+
+    .details-header{
+        background-color: lightsteelblue;
+    }
+}
+
+.details-body{
+    display: flex;
+}
+
+.left-side{
+    width: 80%;
+}
+
+.right-side{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    button{
+        background-color: #eff0f4;
+        border: unset;
+        margin-top: 10px;
+        margin-right: 10px;
+        padding: 4px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
 }
