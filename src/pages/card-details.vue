@@ -15,7 +15,7 @@
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button @click="membersModal">Members</button>
+        <button @click="membersModal" >Members</button>
         <button @click="labelsModal">Labels</button>
         <button @click="checklistModal">Checklist</button>
         <button @click="datesModal">Dates</button>
@@ -27,7 +27,7 @@
         @closeModals="resetModals"
       ></add-checklist>
       <add-date v-if="isDates" @closeModals="resetModals"></add-date>
-      <add-member v-if="isMembers" @closeModals="resetModals"></add-member>
+      <add-member v-if="isMembers" @closeModals="resetModals" @addUser="addUserMember"></add-member>
       <add-attachment
         v-if="isAttachment"
         @closeModals="resetModals"
@@ -79,6 +79,9 @@ export default {
     },
   },
   methods: {
+    addUserMember(user){
+      console.log(user);
+    },
     membersModal() {
       this.resetModals();
       this.isMembers = true;
