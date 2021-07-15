@@ -6,15 +6,16 @@
       <p>{{ group.title }}</p>
       <div>...</div>
     </div>
-    <card-preview
+    <card-preview 
       @removeCard="removeCard"
       class="card-preview"
+      :group="group"
       :card="card"
       v-for="card in group.cards"
       :key="card.id"
     ></card-preview>
     <button @click="addCard(group.id, card)">Add Card</button>
-    <input type="text" v-model="emptyCard.title" />
+    <input type="text" v-model="emptyCard.title" /> 
   </section>
 </template>
 

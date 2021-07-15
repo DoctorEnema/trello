@@ -56,11 +56,11 @@ const boardsJson = [{
             "title": "Group 2",
             "cards": [
                 {
-                    "id": "c103",
+                    "id": "c105",
                     "title": "Do that"
                 },
                 {
-                    "id": "c104",
+                    "id": "c106",
                     "title": "Help me",
                     "description": "description",
                     "comments": [
@@ -115,22 +115,22 @@ const boardsJson = [{
         },
         {
             "id": "g103",
-            "title": "Group 1",
+            "title": "Group 3",
             "cards": [
                 {
-                    "id": "c101",
+                    "id": "c107",
                     "title": "Replace logo"
                 },
                 {
-                    "id": "c102",
+                    "id": "c108",
                     "title": "Add Samples"
                 },
                 {
-                    "id": "c103",
+                    "id": "c109",
                     "title": "wiwa"
                 },
                 {
-                    "id": "c104",
+                    "id": "c110",
                     "title": "wow"
                 }
             ],
@@ -182,6 +182,7 @@ export const boardService = {
     removeCard,
     addCard,
     updateCard,
+    getCardById
 };
 
 
@@ -223,13 +224,13 @@ function removeGroup(board, groupId) {
     storageService.put(BOARD_KEY, board)
 }
 
-function addGroup(board, group){
+function addGroup(board, group) {
     group.id = utilService.makeId()
     board.groups.push(group)
     storageService.put(BOARD_KEY, board)
 }
 
-function removeCard(board, group, cardId){
+function removeCard(board, group, cardId) {
     const cardIdx = group.cards.findIndex(card => cardId === card.id)
     group.cards.splice(cardIdx, 1)
     const grIdx = board.groups.findIndex(gr => gr.id === group.id)
@@ -237,7 +238,7 @@ function removeCard(board, group, cardId){
     return storageService.put(BOARD_KEY, board)
 }
 
-function updateCard(board, group, cardId, newCard){
+function updateCard(board, group, cardId, newCard) {
     const cardIdx = group.cards.findIndex(card => cardId === card.id)
     group.cards.splice(cardIdx, 1, newCard)
     const grIdx = board.groups.findIndex(gr => gr.id === group.id)
@@ -245,8 +246,19 @@ function updateCard(board, group, cardId, newCard){
     return storageService.put(BOARD_KEY, board)
 }
 
-function addCard(board, groupId, card){
+function addCard(board, groupId, card) {
     card.id = utilService.makeId()
     board.groups.card.push(card)
     storageService.put(BOARD_KEY, board)
+}
+
+async function getCardById(cardId, groupId, boardId) {
+    try {
+        const board = await getById(boardId)
+        const groupIdx = board.groups.findIndex(group => group.id === groupId)
+        const cardIdx = board.groups[groupIdx].cards.findIndex(card => card.id === cardId)
+        return board.groups[groupIdx].cards[cardIdx]
+    } catch (err) {
+        console.log('cant get card', err);
+    }
 }

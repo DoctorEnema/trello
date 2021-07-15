@@ -1,5 +1,5 @@
 <template>
-  <section @click="openCard(card.id)">
+  <section @click="openCard(group.id, card.id)">
     <button @click.stop="removeCard(card.id)" >X</button>
     <div v-if="card.style" :style="{ backgroundColor:card.style.bgColor }"  class="card-preview-cover">
     </div>
@@ -28,13 +28,15 @@
 export default {
   props: {
     card: Object,
+    group: Object
   },
   methods:{
     removeCard(cardId){
       this.$emit('removeCard', cardId)
     },
-    openCard(cardId) {
-      this.$router.push(`/board/b101/card/${cardId}`)
+    openCard(groupId, cardId) {
+      // this.$store.commit({type:'setCard', data})
+      this.$router.push(`/board/b101/${groupId}/${cardId}`)
     }
   },
   computed: {
