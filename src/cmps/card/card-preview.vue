@@ -10,7 +10,7 @@
       <div v-if="card.description" class="card-preview-desc">blabla</div>
       <div v-if="card.comments">${{ card.comments.length }}</div>
       <div v-if="card.attachments" class="card-preview-attachments">
-        #{{ card.attachments.length }}
+        {{ card.attachments.length }}
       </div>
       <div v-if="card.checklists" class="card-preview-checklists">
         {{ numberOfTodos }}
