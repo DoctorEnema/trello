@@ -13,9 +13,13 @@
       v-for="card in group.cards"
       :key="card.id"
     ></card-preview>
-    <div class="group-footer">
-      <button @click="addCard(group.id, copiedEmptyCard)">+ Add a card</button>
-      <!-- <input type="text" v-model="emptyCard.title" /> -->
+          <section class="add-card-area" v-if="isAdding" >
+        <textarea v-model="emptyCard.title" />
+        <button @click="addCard(group.id, copiedEmptyCard)">Add card</button>
+        <button @click="isAdding=false">X</button>
+      </section>
+    <div v-else class="group-footer">
+      <button @click="isAdding=true" >+ Add a card</button>
     </div>
   </section>
 </template>
@@ -32,6 +36,7 @@ export default {
       emptyCard: {
         title: "",
       },
+      isAdding: false,
     };
   },
   computed: {
@@ -50,9 +55,10 @@ export default {
       this.$emit("removeCard", this.copiedGroup, cardId);
     },
     addCard(groupId, card) {
-      // console.log(card);
+      if(!this.emptyCard.title) return
       this.$emit("addCard", groupId, card);
       this.emptyCard.title = "";
+      this.isAdding = false
     },
   },
 };
