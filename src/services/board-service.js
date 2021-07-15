@@ -225,3 +225,6 @@ function addGroup(board, group){
     board.groups.push(group)
     storageService.put(BOARD_KEY, board)
 }
+
+function removeCard(group, cardId){
+}
