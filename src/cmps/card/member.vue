@@ -17,7 +17,6 @@ props: {
     card: Object
   },
   created(){
-console.log(this.card);
   },
   data(){
     return{

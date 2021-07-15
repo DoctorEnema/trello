@@ -22,7 +22,7 @@
         <button class="add-attachment" @click.stop="setModalType">Attachment</button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
-        <component  :is="openModalType" @closeModal="closeModal" @addUser="addUserMember"></component>
+        <component  :is="openModalType" @closeModal="closeModal" @addUser="addMember"></component>
       </section>
     </div>
   </section>
@@ -82,10 +82,9 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
-    addUserMember(member) {
-      // console.log((this.card.members.some(member => member.id ===memberId )))
-      if(this.card.members.some(m => m.id ===member.id )){
-        this.removeMember(member.id)
+    addMember(member) {
+      if(this.card.members.some(m => m._id ===member._id )){
+        this.removeMember(member._id)
         return
       }
       this.card.members.push(member)
