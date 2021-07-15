@@ -1,5 +1,5 @@
 <template>
-  <section class="card-details" >
+  <section class="card-details" @click="closeModal">
     <header class="details-header">
       <h1>(Card name will be here)</h1>
       <h3>in list (Group name will be here)</h3>
@@ -15,27 +15,15 @@
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button @click="membersModal">Members</button>
-        <button @click="labelsModal">Labels</button>
-        <button @click="checklistModal">Checklist</button>
-        <button @click="datesModal">Dates</button>
-        <button @click="attachmentModal">Attachment</button>
+        <button class="add-member" @click="setModalType">Members</button>
+        <button class="add-label" @click="setModalType">Labels</button>
+        <button class="add-checklist" @click="setModalType">Checklist</button>
+        <button class="add-date" @click="setModalType">Dates</button>
+        <button class="add-attachment" @click="setModalType">Attachment</button>
       </div>
-      <add-label v-if="isOpen.isLabels" @closeModals="resetModals"></add-label>
-      <add-checklist
-        v-if="isOpen.isChecklist"
-        @closeModals="resetModals"
-      ></add-checklist>
-      <add-date v-if="isOpen.isDates" @closeModals="resetModals"></add-date>
-      <add-member
-        v-if="isOpen.isMembers"
-        @closeModals="resetModals"
-        @addUser="addUserMember"
-      ></add-member>
-      <add-attachment
-        v-if="isOpen.isAttachment"
-        @closeModals="resetModals"
-      ></add-attachment>
+      <section class="modal" v-if="openModalType">
+        <component :is="openModalType" @closeModals="closeModal"></component>
+      </section>
     </div>
   </section>
 </template>
@@ -67,17 +55,11 @@ export default {
   },
   data() {
     return {
-      isOpen: {
-        isMembers: false,
-        isLabels: false,
-        isChecklist: false,
-        isDates: false,
-        isAttachment: false,
-      },
+      openModalType: null,
     };
   },
   created() {
-    this.$store.dispatch({ type: "loadBoard",boardId: "b101" });
+    this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
   },
   computed: {
     board() {
@@ -89,39 +71,18 @@ export default {
     addUserMember(user) {
       console.log(user);
     },
-    membersModal() {
-      this.resetModals();
-      this.isOpen.isMembers = true;
-    },
-    labelsModal() {
-      this.resetModals();
-      this.isOpen.isLabels = true;
-    },
-    checklistModal() {
-      this.resetModals();
-      this.isOpen.isChecklist = true;
-    },
-    datesModal() {
-      this.resetModals();
-      this.isOpen.isDates = true;
-    },
-    attachmentModal() {
-      this.resetModals();
-      this.isOpen.isAttachment = true;
-    },
-    resetModals() {
-      // var isOpen = false;
-      // for (var modal in this.isOpen) {
-      //   if (this.isOpen[modal] === true) isOpen = false;
-      // }
-      // console.log(false);
-
-      // if (!isOpen) return;
-      this.isOpen.isMembers = false;
-      this.isOpen.isLabels = false;
-      this.isOpen.isChecklist = false;
-      this.isOpen.isDates = false;
-      this.isOpen.isAttachment = false;
+      closeModal() {
+        if (!this.openModalType)  {
+          console.log('as')
+          return
+        }
+        console.log(this.openModalType);
+          console.log('happening');
+          this.openModalType = null;
+      },
+    setModalType(ev) {
+      var value = ev.target.className;
+      this.openModalType = value;
     },
   },
 };
