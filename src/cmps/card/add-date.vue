@@ -1,58 +1,47 @@
 <template>
-  <section class="add-to-card">
-    <div class="block">
-      <header class="header-add-member">
-        <h4>Dates</h4>
-        <button @click="closeModal">X</button>
-      </header>
-      <span class="demonstration">Date</span>
-      <el-date-picker
-        ref="dateInput"
-        v-model="value1"
-        type="date"
-        placeholder="Pick a day"
-      >
-      </el-date-picker>
-    </div>
-  </section>
+  <div class="add-to-card">
+    <span class="demonstration">Date: </span>
+    <el-date-picker @change="addDate"
+      ref="dateInput"
+      v-model="date"
+      type="datetime"
+      placeholder="Select date and time"
+      value-format="timestamp"
+      default-time="12:00:00">
+    </el-date-picker>
+  </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        },
-        shortcuts: [
-          {
-            text: "Today",
+  export default {
+    data() {
+      return {
+        pickerOptions: {
+          shortcuts: [{
+            text: 'Today',
             onClick(picker) {
-              picker.$emit("pick", new Date());
-            },
-          },
-          {
-            text: "Yesterday",
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit("pick", date);
-            },
-          },
-          {
-            text: "A week ago",
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", date);
-            },
-          },
-        ],
-      },
-      value1: "",
-    };
-  },
+              picker.$emit('pick', date);
+            }
+          }]
+        },
+        date: ''
+      };
+    },
+  
   mounted() {
     this.$refs.dateInput.focus();
   },
@@ -60,6 +49,10 @@ export default {
     closeModal() {
       this.$emit("closeModal");
     },
+    addDate(){
+      this.$emit("addDate",this.date);
+    }
   },
 };
 </script>
+      

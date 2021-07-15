@@ -83,12 +83,14 @@ const boardsJson = [{
                                 {
                                     "id": "212jX",
                                     "title": "To Do 1",
-                                    "isDone": true
+                                    "isDone": true,
+                                    "isEdit":false
                                 },
                                 {
                                     "id": "212jy",
                                     "title": "To Do 2",
-                                    "isDone": false
+                                    "isDone": false,
+                                    "isEdit":false
                                 }
                             ]
                         },
@@ -99,7 +101,8 @@ const boardsJson = [{
                                 {
                                     "id": "212jX",
                                     "title": "To Do 1",
-                                    "isDone": true
+                                    "isDone": true,
+                                    "isEdit":false
                                 }
                             ]
                         }
@@ -112,9 +115,9 @@ const boardsJson = [{
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         }
                     ],
-                    "labelIds": ["101"],
+                    "labelIds": ["#61bd4", "#91bd4"],
                     "createdAt": 1590999730348,
-                    "dueDate": 16156215211,
+                    "dueDate": {date:16156215211,isComplete:false},
                     "byMember": {
                         "_id": "u101",
                         "username": "Tal",
@@ -286,6 +289,7 @@ function getEmptyTodo() {
     return {
         id: utilService.makeId(),
         title: '',
-        isDone:false
+        isDone:false,
+        isEdit:false
     }
 }

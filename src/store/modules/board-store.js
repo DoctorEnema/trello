@@ -85,6 +85,15 @@ export const boardStore = {
             } catch (err) {
                 console.log('Cant add card', err);
             }
+        },
+        async updateCard(context, { group, cardId,card }) {
+            try {
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                await boardService.addCard(board, groupId, card)
+                context.commit({ type: 'addCard', groupId, card })
+            } catch (err) {
+                console.log('Cant add card', err);
+            }
         }
     }
 }
