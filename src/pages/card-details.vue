@@ -1,26 +1,38 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
     <header class="details-header">
-      <h2>{{card.title}}</h2>
-      <h5>in list {{group.title}}</h5>
+      <h2>{{ card.title }}</h2>
+      <h5>in list {{ group.title }}</h5>
     </header>
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
         <description></description>
-        <checklist :card="card" v-if="card.checklists"></checklist>
         <date :card="card" v-if="card.dueDate"></date>
-        <member :card="card" v-if="card.members" @removeMember="removeMember"></member>
+        <member
+          :card="card"
+          v-if="card.members"
+          @removeMember="removeMember"
+        ></member>
+        <ul v-if="card.checklists">
+          <li v-for="(checklist, idx) in card.checklists" :key="idx">
+            <checklist :checklist="checklist"></checklist>
+          </li>
+        </ul>
         <attachment :card="card" v-if="card.attachments" @removeLink="removeLink"></attachment>
         <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button class="add-member" @click.stop="setModalType" >Members</button>
+        <button class="add-member" @click.stop="setModalType">Members</button>
         <button class="add-label" @click.stop="setModalType">Labels</button>
-        <button class="add-checklist" @click.stop="setModalType">Checklist</button>
+        <button class="add-checklist" @click.stop="setModalType">
+          Checklist
+        </button>
         <button class="add-date" @click.stop="setModalType">Dates</button>
-        <button class="add-attachment" @click.stop="setModalType">Attachment</button>
+        <button class="add-attachment" @click.stop="setModalType">
+          Attachment
+        </button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
         <component  :is="openModalType" @closeModal="closeModal" @addUser="addMember" @linkAdded="linkAdded"></component>
@@ -60,26 +72,30 @@ export default {
   data() {
     return {
       openModalType: null,
-      board:null,
-      group:null,
-      card:null,
+      board: null,
+      group: null,
+      card: null,
     };
   },
   async created() {
     this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
-    const {cardId, groupId, boardId} = this.$route.params
-    const {board,group,card} = await boardService.getCardById(cardId, groupId, boardId)
-    this.board= board
-    this.group= group
-    this.card= card
+    const { cardId, groupId, boardId } = this.$route.params;
+    const { board, group, card } = await boardService.getCardById(
+      cardId,
+      groupId,
+      boardId
+    );
+    this.board = board;
+    this.group = group;
+    this.card = card;
   },
   computed: {
     // board() {
     //   return this.$store.getters.selectedBoard;
     // },
     selectedCard() {
-      return this.$store.getters.selectedCard
-    }
+      return this.$store.getters.selectedCard;
+    },
   },
   methods: {
     stop(event) {
@@ -97,17 +113,19 @@ export default {
     },
 
     addMember(member) {
-      if(this.card.members.some(m => m._id ===member._id )){
-        this.removeMember(member._id)
-        return
+      if (this.card.members.some((m) => m._id === member._id)) {
+        this.removeMember(member._id);
+        return;
       }
-      this.card.members.push(member)
-      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+      this.card.members.push(member);
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
-    removeMember(memberId){
-      const memberIdx = this.card.members.findIndex(member => member.id ===memberId )
-      this.card.members.splice(memberIdx,1)
-      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    removeMember(memberId) {
+      const memberIdx = this.card.members.findIndex(
+        (member) => member.id === memberId
+      );
+      this.card.members.splice(memberIdx, 1);
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     closeModal() {
       if (!this.openModalType) return;
