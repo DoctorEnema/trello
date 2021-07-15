@@ -15,7 +15,7 @@
         ></member>
         <ul v-if="card.checklists">
           <li v-for="(checklist, idx) in card.checklists" :key="idx">
-            <checklist :checklist="checklist"></checklist>
+            <checklist :checklist="checklist" @addTodo="addTodo"></checklist>
           </li>
         </ul>
         <attachment :card="card" v-if="card.attachments"></attachment>
@@ -108,6 +108,14 @@ export default {
         return;
       }
       this.card.members.push(member);
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+    },
+    addTodo(checklist) {
+      const checklistIdx = this.card.checklists.findIndex(
+        (c) => c.id === checklist.id
+      );
+      console.log('called');
+      this.card.checklists.splice(checklistIdx, 1, checklist)
       boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     removeMember(memberId) {

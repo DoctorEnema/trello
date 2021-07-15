@@ -4,6 +4,7 @@ export const boardStore = {
     state: {
         selectedBoard: null,
         card: null,
+        textareaOpen: false
     },
     getters: {
         selectedBoard(state) {
@@ -11,6 +12,9 @@ export const boardStore = {
         },
         selectedCard(state) {
             return state.card
+        },
+        isTextareaOpen(state) {
+            return state.textareaOpen
         }
     },
     mutations: {
@@ -34,6 +38,9 @@ export const boardStore = {
             const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
             state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
         },
+        setTextarea(state) {
+            state.textareaOpen = !state.textareaOpen
+        }
     },
     actions: {
         async loadBoard(context, { boardId }) {

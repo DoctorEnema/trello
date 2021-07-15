@@ -84,6 +84,22 @@ const boardsJson = [{
                                     "id": "212jX",
                                     "title": "To Do 1",
                                     "isDone": true
+                                },
+                                {
+                                    "id": "212jy",
+                                    "title": "To Do 2",
+                                    "isDone": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "YEhms",
+                            "title": "Checklist",
+                            "todos": [
+                                {
+                                    "id": "212jX",
+                                    "title": "To Do 1",
+                                    "isDone": true
                                 }
                             ]
                         }
