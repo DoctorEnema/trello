@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <button @click="removeCard(card.id)">X</button>
+  <section @click="openCard(card.id)">
+    <button @click.stop="removeCard(card.id)" >X</button>
     <div v-if="card.style" :style="{ backgroundColor:card.style.bgColor }"  class="card-preview-cover">
     </div>
     <div v-for="label in card.labelIds" :key="label">{{label}}</div>
@@ -32,6 +32,9 @@ export default {
   methods:{
     removeCard(cardId){
       this.$emit('removeCard', cardId)
+    },
+    openCard(cardId) {
+      this.$router.push(`/board/b101/card/${cardId}`)
     }
   },
   computed: {
@@ -47,7 +50,7 @@ export default {
       let month = time.getMonth()
       let day = time.getDay()
       return `${month} ${day}`
-    }
+    },
   },
 };
 </script>

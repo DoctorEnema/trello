@@ -60,10 +60,10 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
+    console.log(111);
   },
   computed: {
     board() {
-      console.log(this.$store.getters.selectedBoard);
       return this.$store.getters.selectedBoard;
     },
   },
