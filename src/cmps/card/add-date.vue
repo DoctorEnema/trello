@@ -1,6 +1,7 @@
 <template>
   <section class="add-to-card">
        <h1>Hello Date</h1>
+       <input type="date">
        <button @click="resetModals">X</button>
   </section>
 </template>
