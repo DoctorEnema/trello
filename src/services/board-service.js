@@ -57,7 +57,8 @@ const boardsJson = [{
             "cards": [
                 {
                     "id": "c105",
-                    "title": "Do that"
+                    "title": "Do that",
+                    "members":[]
                 },
                 {
                     "id": "c106",

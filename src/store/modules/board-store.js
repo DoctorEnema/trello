@@ -3,6 +3,8 @@ import { boardService } from "../../services/board-service"
 export const boardStore = {
     state: {
         selectedBoard: null,
+        selectedGroup:null,
+        selectedCard:null,
         card: null,
         textareaOpen: false
     },
@@ -10,8 +12,11 @@ export const boardStore = {
         selectedBoard(state) {
             return state.selectedBoard
         },
+        selectedGroup(state) {
+            return state.selectedGroup
+        },
         selectedCard(state) {
-            return state.card
+            return state.selectedCard
         },
         isTextareaOpen(state) {
             return state.textareaOpen
@@ -20,6 +25,13 @@ export const boardStore = {
     mutations: {
         setBoard(state, { board }) {
             state.selectedBoard = board
+        },
+        setGroup(state, { group }) {
+            state.selectedGroup = group
+        },
+        setCard(state, { card }) {
+            console.log("card", card)
+            state.selectedCard = card
         },
         removeGroup(state, { groupId }) {
             state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
@@ -36,11 +48,31 @@ export const boardStore = {
             if (!state.selectedBoard.groups[idx].cards) state.selectedBoard.groups[idx].cards = []
             state.selectedBoard.groups[idx].cards.push(card)
         },
+        updateCard(state,{groupCopy, cardId, cardCopy}){
+            console.log("state", state)
+            const cardIdx = groupCopy.cards.findIndex(card => cardId === card.id)
+            groupCopy.cards.splice(cardIdx, 1, cardCopy)
+            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === groupCopy.id)
+            state.selectedBoard.groups.splice(grIdx, 1, groupCopy)
+            // state.commit
+            // state.selectedCard = cardCopy
+        },
         setTextarea(state) {
             state.textareaOpen = !state.textareaOpen
         }
     },
     actions: {
+        async loadCard(context, { cardId,groupId,boardId }) {
+            try {
+                const { card,group } =  await boardService.getCardById(cardId,groupId,boardId)
+                console.log("card", card)
+                context.commit({ type: 'setCard', card })
+                context.commit({ type: 'setGroup', group })
+                return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
         async loadBoard(context, { boardId }) {
             try {
                 const board = await boardService.getById(boardId)
@@ -89,8 +121,12 @@ export const boardStore = {
         async updateCard(context, { group, cardId,card }) {
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
-                await boardService.addCard(board, groupId, card)
-                context.commit({ type: 'addCard', groupId, card })
+                const groupCopy = JSON.parse(JSON.stringify(group))
+                const cardCopy = JSON.parse(JSON.stringify(card))
+                boardService.updateCard(board, group, cardId, card);
+                context.commit({ type: 'updateCard', groupCopy, cardId, cardCopy })
+                context.commit({ type: 'setCard', card:cardCopy })
+
             } catch (err) {
                 console.log('Cant add card', err);
             }
