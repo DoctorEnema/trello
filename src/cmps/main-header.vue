@@ -5,7 +5,7 @@
     </div>
     <nav>
       <router-link to="/">Home</router-link>
-      <router-link :to="'/board/1'">Board</router-link>
+      <router-link :to="'/board/b101'">Board</router-link>
     </nav>
   </section>
 </template>
