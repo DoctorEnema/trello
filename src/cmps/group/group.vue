@@ -28,12 +28,17 @@ export default {
     return {
     };
   },
+  computed:{
+    copiedGroup(){
+      return JSON.parse(JSON.stringify(this.group))
+    }
+  },
   methods:{
     removeGroup(groupId){
       this.$emit('removeGroup', groupId)
     },
     removeCard(cardId){
-      this.$emit('removeCard', this.group, cardId)
+      this.$emit('removeCard', this.copiedGroup, cardId)
     },
   },
 };
