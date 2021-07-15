@@ -115,7 +115,7 @@ const boardsJson = [{
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         }
                     ],
-                    "labelIds": ["#61bd4", "#61bd4"],
+                    "labelIds": ["#61bd4", "#91bd4"],
                     "createdAt": 1590999730348,
                     "dueDate": {date:16156215211,isComplete:false},
                     "byMember": {
