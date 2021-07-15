@@ -17,10 +17,11 @@ export const boardStore = {
             state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
         },
         addGroup(state, { group }) {
-            // state.selectedBoard.groups = state.selectedBoard.groups.push(group)
+            state.selectedBoard.groups.push(group)
         },
-        removeCard(state, {group, cardId}){
-            state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
+        removeCard(state, { group, cardId }) {
+            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
+            state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
         }
     },
     actions: {
@@ -35,7 +36,7 @@ export const boardStore = {
         },
         async removeGroup(context, { groupId }) {
             try {
-                const board = context.getters.selectedBoard
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.removeGroup(board, groupId)
                 context.commit({ type: 'removeGroup', groupId })
             } catch (err) {
@@ -44,7 +45,7 @@ export const boardStore = {
         },
         async addGroup(context, { group }) {
             try {
-                const board = context.getters.selectedBoard
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.addGroup(board, group)
                 context.commit({ type: 'addGroup', group })
             } catch (err) {
@@ -53,8 +54,9 @@ export const boardStore = {
         },
         async removeCard(context, { group, cardId }) {
             try {
-                const board = context.getters.selectedBoard
-                await boardService.removeCard(board, group, cardId)
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                const newBoard = await boardService.removeCard(board, group, cardId)
+                context.commit({ type: 'removeCard', group, cardId })
             } catch (err) {
                 console.log('Cant remove card', err);
             }

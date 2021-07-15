@@ -229,9 +229,11 @@ function addGroup(board, group){
 }
 
 function removeCard(board, group, cardId){
-    const idx = group.cards.findIndex(card => cardId === card.id)
-    group.cards.splice(idx, 1)
-    storageService.put(BOARD_KEY, board)
+    const cardIdx = group.cards.findIndex(card => cardId === card.id)
+    group.cards.splice(cardIdx, 1)
+    const grIdx = board.groups.findIndex(gr => gr.id === group.id)
+    board.groups.splice(grIdx, 1, group)
+    return storageService.put(BOARD_KEY, board)
 }
 
 function addCard(board, group, card){
