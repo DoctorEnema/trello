@@ -5,7 +5,7 @@
       <h5>in list {{ group.title }}</h5>
     </header>
     <div class="details-body">
-      <div v-if="board" class="left-side">
+      <div v-if="card" class="left-side">
         <h1>Left Side</h1>
         <description></description>
         <date
@@ -51,6 +51,7 @@
           @addDate="addDate"
         ></component>
       </section>
+      <!-- {{selectedBoard}} -->
     </div>
   </section>
 </template>
@@ -87,28 +88,32 @@ export default {
     return {
       openModalType: null,
       board: null,
-      group: null,
-      card: null,
     };
   },
   async created() {
-    this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
+    // this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
     const { cardId, groupId, boardId } = this.$route.params;
-    const { board, group, card } = await boardService.getCardById(
-      cardId,
-      groupId,
-      boardId
-    );
-    this.board = board;
-    this.group = group;
-    this.card = card;
+    this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
+    // const { board, group, card } = await boardService.getCardById(cardId,groupId,boardId);
+    // console.log("card", card)
+    // this.board = board;
+    // this.group = group;
+    // this.card = card;
+    // this.$store.commit({type:'setCard', card})
   },
   computed: {
-    // board() {
-    //   return this.$store.getters.selectedBoard;
-    // },
-    selectedCard() {
-      return this.$store.getters.selectedCard;
+    selectedBoard() {
+      // return this.$store.getters.selectedBoard;
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
+    },
+    card() {
+      console.log("card-getter", this.$store.getters.selectedCard);
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedCard));
+    },
+    group() {
+      // console.log('110',this.$store.getters.selectedGroup);
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedGroup));
+      return this.$store.getters.selectedGroup;
     },
   },
   methods: {
@@ -117,42 +122,82 @@ export default {
     },
     changeComplete(isComplete) {
       this.card.dueDate.isComplete = isComplete;
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        cardId: this.card.id,
+        card: this.card,
+      });
     },
     addDate(date) {
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        cardId: this.card.id,
+        card: this.card,
+      });
     },
     linkAdded(link) {
       console.log(link);
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(link);
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        cardId: this.card.id,
+        card: this.card,
+      });
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     removeLink(linkIdx) {
       this.card.attachments.splice(linkIdx, 1);
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        cardId: this.card.id,
+        card: this.card,
+      });
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
 
     addMember(member) {
-      if(!this.card.members) { this.card.members=[] }
-      console.log(this.card);
-      console.log(member);
+      const card = JSON.parse(JSON.stringify(this.card));
+      const group = JSON.parse(JSON.stringify(this.group));
+      if (!card.members) card.members = [];
       // if(!this.card.members.length) {
       //   this.card.members.push(member);
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
       // return
       // }
-
-      if (this.card.members.some((m) => m._id === member._id)) {
+      if (card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);
         return;
       }
-      this.card.members.push(member);
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
-        // this.$store.dispatch({ type: "updateCard", group:this.group ,cardId:this.card.id, card:this.card});
-      this.$store.dispatch({ type: "loadBoard", boardId: "b101" })
+      card.members.push(member);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: group,
+        cardId: card.id,
+        card: card,
+      });
+    },
+    removeMember(memberId) {
+      const card = JSON.parse(JSON.stringify(this.card));
+      const group = JSON.parse(JSON.stringify(this.group));
+      const memberIdx = card.members.findIndex(
+        (member) => member.id === memberId
+      );
+      card.members.splice(memberIdx, 1);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: group,
+        cardId: card.id,
+        card: card,
+      });
     },
     addTodo(checklist) {
       const checklistIdx = this.card.checklists.findIndex(
@@ -160,14 +205,13 @@ export default {
       );
       console.log("called");
       this.card.checklists.splice(checklistIdx, 1, checklist);
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
-    },
-    removeMember(memberId) {
-      const memberIdx = this.card.members.findIndex(
-        (member) => member.id === memberId
-      );
-      this.card.members.splice(memberIdx, 1);
-      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        cardId: this.card.id,
+        card: this.card,
+      });
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     closeModal() {
       if (!this.openModalType) return;
