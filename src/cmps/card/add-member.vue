@@ -3,7 +3,7 @@
     <section class="add-member">
       <header class="header-add-member">
     <h4>Members</h4>
-    <button @click="resetModals">X</button>
+    <button @click="closeModal">X</button>
       </header>
     <input ref="searchInput"  type="text" placeholder="Search members">
     <ul>
@@ -31,10 +31,11 @@ export default {
     this.$refs.searchInput.focus();
   },
   methods: {
-    resetModals() {
-      this.$emit("closeModals");
+    closeModal() {
+      this.$emit("closeModal");
     },
     addUser(user){
+      console.log('lala');
       this.$emit("addUser", user)
     }
   },

@@ -3,11 +3,11 @@
     <section class="add-checklist">
       <header class="add-label-header">
         <span class="add-label-title">Add checklist</span>
-        <button @click="resetModals">X</button>
+        <button @click="closeModal">X</button>
       </header>
       <hr />
       <div>
-        <form @submit.prevent="setList(), resetModals()" >
+        <form @submit.prevent="setList(), closeModal()" >
           <label for="checklist">Title</label>
           <input ref="check" id="checklist" v-model="listname" type="text" />
           <button>Add</button>
@@ -29,12 +29,12 @@ export default {
     };
   },
   methods: {
-    resetModals() {
-      this.$emit("closeModals");
-    },
     setList() {
       // console.log('listAdded')
       this.$emit("listAdded", this.listname);
+    },
+    closeModal() {
+      this.$emit("closeModal");
     },
   },
 };
