@@ -1,6 +1,6 @@
 <template>
   <section class="date">
-      <h5>DUE DATE</h5>
+      <h6>DUE DATE</h6>
       <span>  
    <input type="checkbox" v-model="checkbox" >{{time}} <span v-if="checkbox">Complete</span>
       </span>

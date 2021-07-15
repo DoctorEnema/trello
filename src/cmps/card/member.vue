@@ -1,6 +1,5 @@
 <template>
   <section class="member">
-      <h1>Member</h1>
       <section v-if="card.members">
       <div v-for="member in card.members" :key="member.id">
         <button @click="removeMember(member.id)">
