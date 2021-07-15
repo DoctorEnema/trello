@@ -15,13 +15,20 @@ const routes = [
   {
     path: '/board/:boardId',
     name: 'board',
-    component: board
+    component: board,
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: 'card/:cardId',
+        component: cardDetails
+      },]
   },
-  {
-    path: '/card/:cardId',
-    name: 'card',
-    component: cardDetails
-  }
+  // {
+  //   path: '/card/:cardId',
+  //   name: 'card',
+  //   component: cardDetails
+  // }
 ]
 
 const router = new VueRouter({
