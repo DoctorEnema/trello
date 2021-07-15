@@ -236,8 +236,8 @@ function removeCard(board, group, cardId){
     return storageService.put(BOARD_KEY, board)
 }
 
-function addCard(board, group, card){
+function addCard(board, groupId, card){
     card.id = utilService.makeId()
-    group.card.push(card)
+    board.groups.card.push(card)
     storageService.put(BOARD_KEY, board)
 }
