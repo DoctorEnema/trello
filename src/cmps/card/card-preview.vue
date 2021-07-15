@@ -1,5 +1,6 @@
 <template>
   <section>
+    <button @click="removeCard(card.id)">X</button>
     <div v-if="card.style" :style="{ backgroundColor:card.style.bgColor }"  class="card-preview-cover">
     </div>
     <div v-for="label in card.labelIds" :key="label">{{label}}</div>
@@ -27,6 +28,11 @@
 export default {
   props: {
     card: Object,
+  },
+  methods:{
+    removeCard(cardId){
+      this.$emit('removeCard', cardId)
+    }
   },
   computed: {
     numberOfTodos() {

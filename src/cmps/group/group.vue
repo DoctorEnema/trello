@@ -7,11 +7,13 @@
       <div>...</div>
     </div>
     <card-preview
+      @removeCard="removeCard"
       class="card-preview"
       :card="card"
       v-for="card in group.cards"
       :key="card.id"
     ></card-preview>
+    <button>Add Card</button>
   </section>
 </template>
 
@@ -29,7 +31,10 @@ export default {
   methods:{
     removeGroup(groupId){
       this.$emit('removeGroup', groupId)
-    }
-  }
+    },
+    removeCard(cardId){
+      this.$emit('removeCard', this.group, cardId)
+    },
+  },
 };
 </script>
