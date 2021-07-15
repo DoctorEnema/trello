@@ -1,11 +1,9 @@
 <template>
   <section class="date">
       <h5>DUE DATE</h5>
-      <span>
-   
+      <span>  
    <input type="checkbox" v-model="checkbox" >{{time}} <span v-if="checkbox">Complete</span>
       </span>
-
   </section>
 </template>
 
