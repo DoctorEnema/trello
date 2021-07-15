@@ -15,11 +15,42 @@ const boardsJson = [{
     "style": {},
     "labels": [
         {
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        }
-    ],
+          "id": 100,
+          "name": null,
+          "color": "#61bd4f",
+          "isPicked": false
+        },
+        {
+          "id": 101,
+          "name": null,
+          "color": "#ff9f1a",
+          "isPicked": false
+        },
+        {
+          "id": 102,
+          "name": null,
+          "color": "#eb5a46",
+          "isPicked": false
+        },
+        {
+          "id": 103,
+          "name": null,
+          "color": "#c377e0",
+          "isPicked": false
+        },
+        {
+          "id": 104,
+          "name": null,
+          "color": "#0079bf",
+          "isPicked": false
+        },
+        {
+          "id": 105,
+          "name": null,
+          "color": "#00c2e0",
+          "isPicked": false
+        },
+      ],
     "members": [
         {
             "_id": "u101",
