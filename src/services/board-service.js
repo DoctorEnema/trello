@@ -223,13 +223,13 @@ function removeGroup(board, groupId) {
     storageService.put(BOARD_KEY, board)
 }
 
-function addGroup(board, group){
+function addGroup(board, group) {
     group.id = utilService.makeId()
     board.groups.push(group)
     storageService.put(BOARD_KEY, board)
 }
 
-function removeCard(board, group, cardId){
+function removeCard(board, group, cardId) {
     const cardIdx = group.cards.findIndex(card => cardId === card.id)
     group.cards.splice(cardIdx, 1)
     const grIdx = board.groups.findIndex(gr => gr.id === group.id)
@@ -237,7 +237,7 @@ function removeCard(board, group, cardId){
     return storageService.put(BOARD_KEY, board)
 }
 
-function updateCard(board, group, cardId, newCard){
+function updateCard(board, group, cardId, newCard) {
     const cardIdx = group.cards.findIndex(card => cardId === card.id)
     group.cards.splice(cardIdx, 1, newCard)
     const grIdx = board.groups.findIndex(gr => gr.id === group.id)
@@ -245,8 +245,10 @@ function updateCard(board, group, cardId, newCard){
     return storageService.put(BOARD_KEY, board)
 }
 
-function addCard(board, groupId, card){
+function addCard(board, groupId, card) {
     card.id = utilService.makeId()
-    board.groups.card.push(card)
+    const idx = board.groups.findIndex(group => groupId === group.id)
+    if (!board.groups[idx].cards) board.groups[idx].cards = []
+    board.groups[idx].cards.push(card)
     storageService.put(BOARD_KEY, board)
 }

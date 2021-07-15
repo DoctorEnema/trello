@@ -10,6 +10,7 @@
       <group
         @removeCard="removeCard"
         @removeGroup="removeGroup"
+        @addCard="addCard"
         class="group"
         :group="group"
         v-for="group in board.groups"

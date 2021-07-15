@@ -13,7 +13,7 @@
       v-for="card in group.cards"
       :key="card.id"
     ></card-preview>
-    <button @click="addCard(group.id, card)">Add Card</button>
+    <button @click="addCard(group.id, copiedEmptyCard)">Add Card</button>
     <input type="text" v-model="emptyCard.title" />
   </section>
 </template>
@@ -36,6 +36,9 @@ export default {
     copiedGroup() {
       return JSON.parse(JSON.stringify(this.group));
     },
+    copiedEmptyCard(){
+      return JSON.parse(JSON.stringify(this.emptyCard));
+    }
   },
   methods: {
     removeGroup(groupId) {
@@ -45,7 +48,9 @@ export default {
       this.$emit("removeCard", this.copiedGroup, cardId);
     },
     addCard(groupId, card) {
+      // console.log(card);
       this.$emit("addCard", groupId, card);
+      this.emptyCard.title = ''
     },
   },
 };

@@ -20,8 +20,13 @@ export const boardStore = {
             state.selectedBoard.groups.push(group)
         },
         removeCard(state, { group, cardId }) {
-            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
-            state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
+            const idx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
+            state.selectedBoard.groups[idx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
+        },
+        addCard(state, { groupId, card }) {
+            const idx = state.selectedBoard.groups.findIndex(gr => gr.id === groupId)
+            if (!state.selectedBoard.groups[idx].cards) state.selectedBoard.groups[idx].cards = []
+            state.selectedBoard.groups[idx].cards.push(card)
         }
     },
     actions: {
@@ -61,11 +66,12 @@ export const boardStore = {
                 console.log('Cant remove card', err);
             }
         },
-        async addCard(context, {groupId, card}){
-            try{
+        async addCard(context, { groupId, card }) {
+            try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.addCard(board, groupId, card)
-            }catch(err){
+                context.commit({ type: 'addCard', groupId, card })
+            } catch (err) {
                 console.log('Cant add card', err);
             }
         }
