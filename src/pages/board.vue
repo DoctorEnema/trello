@@ -22,6 +22,7 @@
       <button @click="addGroup(copiedGroup)">Add</button>
     </div>
     <button v-else @click="toggleAdding">Add new Group</button>
+    <router-view></router-view>
   </section>
 </template>
 
@@ -63,6 +64,9 @@ export default {
     },
     removeCard(group, cardId) {
       this.$store.dispatch({ type: "removeCard", group, cardId });
+    },
+    addCard(groupId, card) {
+      this.$store.dispatch({ type: "addCard", groupId, card });
     },
     toggleAdding() {
       this.isAdding = !this.isAdding;

@@ -3,7 +3,7 @@
     <button @click="removeGroup(group.id)">REMOVE</button>
     <div class="group-header">
       <!-- <textarea></textarea> -->
-      <p>{{group.title}}</p>
+      <p>{{ group.title }}</p>
       <div>...</div>
     </div>
     <card-preview
@@ -13,7 +13,8 @@
       v-for="card in group.cards"
       :key="card.id"
     ></card-preview>
-    <button>Add Card</button>
+    <button @click="addCard(group.id, card)">Add Card</button>
+    <input type="text" v-model="emptyCard.title" />
   </section>
 </template>
 
@@ -26,19 +27,25 @@ export default {
   },
   data() {
     return {
+      emptyCard: {
+        title: "",
+      },
     };
   },
-  computed:{
-    copiedGroup(){
-      return JSON.parse(JSON.stringify(this.group))
-    }
-  },
-  methods:{
-    removeGroup(groupId){
-      this.$emit('removeGroup', groupId)
+  computed: {
+    copiedGroup() {
+      return JSON.parse(JSON.stringify(this.group));
     },
-    removeCard(cardId){
-      this.$emit('removeCard', this.copiedGroup, cardId)
+  },
+  methods: {
+    removeGroup(groupId) {
+      this.$emit("removeGroup", groupId);
+    },
+    removeCard(cardId) {
+      this.$emit("removeCard", this.copiedGroup, cardId);
+    },
+    addCard(groupId, card) {
+      this.$emit("addCard", groupId, card);
     },
   },
 };

@@ -61,10 +61,10 @@ export const boardStore = {
                 console.log('Cant remove card', err);
             }
         },
-        async addCard(context, {group, card}){
+        async addCard(context, {groupId, card}){
             try{
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
-                await boardService.addCard(board, group, card)
+                await boardService.addCard(board, groupId, card)
             }catch(err){
                 console.log('Cant add card', err);
             }
