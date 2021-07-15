@@ -1,9 +1,10 @@
 .card-preview{
-    background-color: blanchedalmond;
-    margin: 8px;
+    background-color: #ffffff;
+    margin: 0 8px 8px;
+    border-radius: 3px;
     .card-preview-cover{
         height: 3rem;
-
+        border-radius: 3px 3px 0 0
     }
     .card-preview-title{
         font-weight: 600;

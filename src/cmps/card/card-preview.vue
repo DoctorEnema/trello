@@ -35,7 +35,6 @@ export default {
       this.$emit('removeCard', cardId)
     },
     openCard(groupId, cardId) {
-      // this.$store.commit({type:'setCard', data})
       this.$router.push(`/board/b101/${groupId}/${cardId}`)
     }
   },

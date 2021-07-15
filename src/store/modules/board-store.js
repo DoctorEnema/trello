@@ -25,7 +25,7 @@ export const boardStore = {
         },
         removeCard(state, { group, cardId }) {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
-            state.selectedBoard.groups[idx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
+            state.selectedBoard.groups[idx].cards = state.selectedBoard.groups[idx].cards.filter((card) => card.id !== cardId)
         },
         addCard(state, { groupId, card }) {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === groupId)
