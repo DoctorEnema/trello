@@ -15,14 +15,14 @@
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button class="add-member" @click="setModalType">Members</button>
-        <button class="add-label" @click="setModalType">Labels</button>
-        <button class="add-checklist" @click="setModalType">Checklist</button>
-        <button class="add-date" @click="setModalType">Dates</button>
-        <button class="add-attachment" @click="setModalType">Attachment</button>
+        <button class="add-member" @click.stop="setModalType">Members</button>
+        <button class="add-label" @click.stop="setModalType">Labels</button>
+        <button class="add-checklist" @click.stop="setModalType">Checklist</button>
+        <button class="add-date" @click.stop="setModalType">Dates</button>
+        <button class="add-attachment" @click.stop="setModalType">Attachment</button>
       </div>
-      <section class="modal" v-if="openModalType">
-        <component :is="openModalType" @closeModals="closeModal"></component>
+      <section class="modal" v-if="openModalType" @click.stop="stop">
+        <component :is="openModalType" @closeModal="closeModal"></component>
       </section>
     </div>
   </section>
@@ -68,18 +68,21 @@ export default {
     },
   },
   methods: {
+    stop(event) {
+      // event.stopPropagation
+    },
     addUserMember(user) {
       console.log(user);
     },
-      closeModal() {
-        if (!this.openModalType)  {
-          console.log('as')
-          return
-        }
-        console.log(this.openModalType);
-          console.log('happening');
-          this.openModalType = null;
-      },
+    closeModal() {
+      if (!this.openModalType) {
+        console.log("as");
+        return;
+      }
+      console.log(this.openModalType);
+      console.log("happening");
+      this.openModalType = null;
+    },
     setModalType(ev) {
       var value = ev.target.className;
       this.openModalType = value;

@@ -3,7 +3,7 @@
     <section class="add-label">
       <header class="add-label-header">
         <span class="add-label-title">Labels</span>
-        <button @click="resetModals">X</button>
+        <button @click="closeModal">X</button>
       </header>
       <div class="actions-container"></div>
       <div v-if="!isCreate" class="choose-label">
@@ -24,7 +24,7 @@
             <a href="#">edit icon</a>
           </li>
         </ul>
-        <button @click="createLabel">Create new label</button>
+        <button class="button" @click.stop="createLabel" type="button">Create new label</button>
       </div>
       <div v-else class="create-label">
         <form @submit.prevent="setLabel(), createLabel()">
@@ -53,6 +53,7 @@
 export default {
   created() {},
   mounted() {
+    //  this.$refs.page.focus();
     this.$refs.searchInput.focus();
   },
   data() {
@@ -118,9 +119,8 @@ export default {
     };
   },
   methods: {
-    resetModals() {
-      console.log(this.$refs.page);
-      this.$emit("closeModals");
+    closeModal() {
+      this.$emit("closeModal");
     },
     setLabel(label) {
       this.$emit("labelClicked", label);

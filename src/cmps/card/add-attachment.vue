@@ -2,10 +2,10 @@
   <section class="add-to-card">
     <header class="add-label-header">
       <span class="add-label-title">Add attachment</span>
-      <button @click="resetModals">X</button>
+      <button @click="closeModal">X</button>
     </header>
     <hr />
-    <form @submit.prevent="setLink(), resetModals()">
+    <form @submit.prevent="setLink(), closeModal()">
       <label for="attachment">Attach a link</label>
       <input ref="attach" type="text" placeholder="Paste any link here..." />
       <button>Attach</button>
@@ -29,7 +29,10 @@ export default {
     },
     setLink() {
       this.$emit('linkAdded', this.link)
-    }
+    },
+    closeModal() {
+      this.$emit("closeModal");
+    },
   },
 };
 </script>
