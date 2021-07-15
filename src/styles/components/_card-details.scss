@@ -12,6 +12,7 @@
     border: 1px solid rgb(227, 227, 227);
     .details-header{
         background-color: lightsteelblue;
+        min-height:70px;
     }
 }
 
@@ -20,15 +21,14 @@
 }
 
 .left-side{
-    // width: 80%;
-    flex:8;
+    width: 75%;
+    padding: 0 8px 0 16px
 }
 
 .right-side{
     display: flex;
     flex-direction: column;
-    // width: 20%;
-    flex: 2;
+    width: 25%;
     button{
         background-color: #eff0f4;
         border: unset;

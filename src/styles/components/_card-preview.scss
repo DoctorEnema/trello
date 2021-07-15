@@ -16,5 +16,35 @@
         gap: 0.4rem;
     }
 
+    
+}
 
+.card-preview-date::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f017';
+}
+
+.card-preview-desc::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f036';
+}
+
+.card-preview-comments::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f14a';
+}
+
+.card-preview-attachments::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f0c6';
+}
+
+.card-preview-checklists::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f14a';
+}
+
+.card-preview-members::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f14a';
 }
