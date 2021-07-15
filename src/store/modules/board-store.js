@@ -16,12 +16,15 @@ export const boardStore = {
         removeGroup(state, { groupId }) {
             state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
         },
-        addGroup(state, {group}){
+        addGroup(state, { group }) {
             // state.selectedBoard.groups = state.selectedBoard.groups.push(group)
+        },
+        removeCard(state, {group, cardId}){
+            state.selectedBoard.groups = state.selectedBoard.groups.filter((group) => group.id !== groupId)
         }
     },
     actions: {
-        async loadBoard(context, {boardId}) {
+        async loadBoard(context, { boardId }) {
             try {
                 const board = await boardService.getById(boardId)
                 context.commit({ type: 'setBoard', board })
@@ -39,13 +42,21 @@ export const boardStore = {
                 console.log('Cannot delete group', err);
             }
         },
-        async addGroup(context, {group}){
-            try{
+        async addGroup(context, { group }) {
+            try {
                 const board = context.getters.selectedBoard
                 await boardService.addGroup(board, group)
-                context.commit({type: 'addGroup', group})
-            }catch(err){
+                context.commit({ type: 'addGroup', group })
+            } catch (err) {
                 console.log('Cannot add group', err);
+            }
+        },
+        async removeCard(context, { group, cardId }) {
+            try {
+                const board = context.getters.selectedBoard
+                await boardService.removeCard(board, group, cardId)
+            } catch (err) {
+                console.log('Cant remove card', err);
             }
         }
 
