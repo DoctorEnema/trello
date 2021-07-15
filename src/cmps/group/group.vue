@@ -6,9 +6,10 @@
       <p>{{ group.title }}</p>
       <div>...</div>
     </div>
-    <card-preview
+    <card-preview 
       @removeCard="removeCard"
       class="card-preview"
+      :group="group"
       :card="card"
       v-for="card in group.cards"
       :key="card.id"

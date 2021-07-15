@@ -13,14 +13,14 @@ const routes = [
     component: home
   },
   {
-    path: '/board/:boardId',
+    path: '/board/:boardId/',
     name: 'board',
     component: board,
     children: [
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
-        path: 'card/:cardId',
+        path: ':groupId/:cardId',
         component: cardDetails
       },]
   },

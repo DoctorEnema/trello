@@ -7,6 +7,7 @@
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
+        {{selectedCard}}
         <checklist v-if="board.groups[1].cards[1].checklists"></checklist>
         <date v-if="board.groups[1].cards[1].dueDate"></date>
         <member v-if="board.groups[1].cards[1].members"></member>
@@ -39,6 +40,7 @@ import checklist from "../cmps/card/checklist.vue";
 import date from "../cmps/card/date.vue";
 import member from "../cmps/card/member.vue";
 import attachment from "../cmps/card/attachment.vue";
+import { boardService } from '../services/board-service';
 
 export default {
   components: {
@@ -58,14 +60,19 @@ export default {
       openModalType: null,
     };
   },
-  created() {
+  async created() {
     this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
-    console.log(111);
+    const {cardId, groupId, boardId} = this.$route.params
+    const card = await boardService.getCardById(cardId, groupId, boardId)
+    console.log('card',card);
   },
   computed: {
     board() {
       return this.$store.getters.selectedBoard;
     },
+    selectedCard() {
+      return this.$store.getters.selectedCard
+    }
   },
   methods: {
     stop(event) {

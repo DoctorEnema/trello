@@ -56,11 +56,11 @@ const boardsJson = [{
             "title": "Group 2",
             "cards": [
                 {
-                    "id": "c103",
+                    "id": "c105",
                     "title": "Do that"
                 },
                 {
-                    "id": "c104",
+                    "id": "c106",
                     "title": "Help me",
                     "description": "description",
                     "comments": [
@@ -115,22 +115,22 @@ const boardsJson = [{
         },
         {
             "id": "g103",
-            "title": "Group 1",
+            "title": "Group 3",
             "cards": [
                 {
-                    "id": "c101",
+                    "id": "c107",
                     "title": "Replace logo"
                 },
                 {
-                    "id": "c102",
+                    "id": "c108",
                     "title": "Add Samples"
                 },
                 {
-                    "id": "c103",
+                    "id": "c109",
                     "title": "wiwa"
                 },
                 {
-                    "id": "c104",
+                    "id": "c110",
                     "title": "wow"
                 }
             ],
@@ -182,6 +182,7 @@ export const boardService = {
     removeCard,
     addCard,
     updateCard,
+    getCardById
 };
 
 
@@ -251,4 +252,15 @@ function addCard(board, groupId, card) {
     if (!board.groups[idx].cards) board.groups[idx].cards = []
     board.groups[idx].cards.push(card)
     storageService.put(BOARD_KEY, board)
+}
+
+async function getCardById(cardId, groupId, boardId) {
+    try {
+        const board = await getById(boardId)
+        const groupIdx = board.groups.findIndex(group => group.id === groupId)
+        const cardIdx = board.groups[groupIdx].cards.findIndex(card => card.id === cardId)
+        return board.groups[groupIdx].cards[cardIdx]
+    } catch (err) {
+        console.log('cant get card', err);
+    }
 }

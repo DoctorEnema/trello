@@ -2,11 +2,15 @@ import { boardService } from "../../services/board-service"
 
 export const boardStore = {
     state: {
-        selectedBoard: null
+        selectedBoard: null,
+        card: null,
     },
     getters: {
         selectedBoard(state) {
             return state.selectedBoard
+        },
+        selectedCard(state) {
+            return state.card
         }
     },
     mutations: {
@@ -27,7 +31,9 @@ export const boardStore = {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === groupId)
             if (!state.selectedBoard.groups[idx].cards) state.selectedBoard.groups[idx].cards = []
             state.selectedBoard.groups[idx].cards.push(card)
-        }
+            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
+            state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
+        },
     },
     actions: {
         async loadBoard(context, { boardId }) {
