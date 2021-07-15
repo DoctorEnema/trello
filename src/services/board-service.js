@@ -179,6 +179,8 @@ export const boardService = {
     saveBoard,
     removeGroup,
     addGroup,
+    removeCard,
+    addCard,
 };
 
 
@@ -226,5 +228,14 @@ function addGroup(board, group){
     storageService.put(BOARD_KEY, board)
 }
 
-function removeCard(group, cardId){
+function removeCard(board, group, cardId){
+    const idx = group.cards.findIndex(card => cardId === card.id)
+    group.cards.splice(idx, 1)
+    storageService.put(BOARD_KEY, board)
+}
+
+function addCard(board, group, card){
+    card.id = utilService.makeId()
+    group.card.push(card)
+    storageService.put(BOARD_KEY, board)
 }

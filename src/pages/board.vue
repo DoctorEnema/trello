@@ -8,6 +8,7 @@
     </div>
     <div class="board-content">
       <group
+        @removeCard="removeCard"
         @removeGroup="removeGroup"
         class="group"
         :group="group"
@@ -37,7 +38,7 @@ export default {
       isAdding: false,
       emptyGroup: {
         title: "",
-        style: {}
+        style: {},
       },
     };
   },
@@ -59,6 +60,9 @@ export default {
     addGroup(group) {
       this.$store.dispatch({ type: "addGroup", group });
       this.emptyGroup.title = "";
+    },
+    removeCard(group, cardId) {
+      this.$store.dispatch({ type: "removeCard", group, cardId });
     },
     toggleAdding() {
       this.isAdding = !this.isAdding;
