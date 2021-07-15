@@ -75,12 +75,7 @@ export default {
       console.log(user);
     },
     closeModal() {
-      if (!this.openModalType) {
-        console.log("as");
-        return;
-      }
-      console.log(this.openModalType);
-      console.log("happening");
+      if (!this.openModalType) return;
       this.openModalType = null;
     },
     setModalType(ev) {
