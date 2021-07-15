@@ -83,12 +83,14 @@ const boardsJson = [{
                                 {
                                     "id": "212jX",
                                     "title": "To Do 1",
-                                    "isDone": true
+                                    "isDone": true,
+                                    "isEdit":false
                                 },
                                 {
                                     "id": "212jy",
                                     "title": "To Do 2",
-                                    "isDone": false
+                                    "isDone": false,
+                                    "isEdit":false
                                 }
                             ]
                         },
@@ -99,7 +101,8 @@ const boardsJson = [{
                                 {
                                     "id": "212jX",
                                     "title": "To Do 1",
-                                    "isDone": true
+                                    "isDone": true,
+                                    "isEdit":false
                                 }
                             ]
                         }
@@ -286,6 +289,7 @@ function getEmptyTodo() {
     return {
         id: utilService.makeId(),
         title: '',
-        isDone:false
+        isDone:false,
+        isEdit:false
     }
 }

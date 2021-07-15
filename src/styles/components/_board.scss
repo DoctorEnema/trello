@@ -1,4 +1,5 @@
 .board-container{
+    
     .board-header{
         display: flex;
         background-color: bisque;
@@ -8,73 +9,6 @@
     .board-content{
         display: flex;
         gap: 0.2rem;
-    }
-
-    .group{
-        font-weight: 600;
-        min-width: 272px;
-        margin: 0 4px;
-        height: 100%;
-        background-color: #ebecf0;
-        border-radius: 3px;
-    }
-    button{
-        
-        border-radius: 3px;
-       border: none;
-       background-color: inherit;
-       &:hover{
-           cursor: pointer;
-           background-color: #d9dce2;
-       }
-    }
-    .group-header{
-        min-height: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px;
-        button{
-            width: 32px;
-            height: 32px; 
-            padding-bottom: 10px;
-        }
-    }
-    .group-footer{
-        height: 38px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        button{
-            display: block;
-            text-align: start;
-            padding: 8px;
-            margin: 0px 8px 8px;
-            height: 28px;
-        }
-    }
-    .add-card-area{
-        padding: 8px;
-        background-color: blue;
-        .add-card-controls{
-            height:32px;
-        }
-
-        textarea{
-            min-width: 256px;
-            max-width: 256px;
-            min-height:57px;
-            max-height:240px;
-
-            background: none;
-border: none;
-height: auto;
-margin-bottom: 4px;
-max-height: 162px;
-min-height: 54px;
-overflow-y: auto;
-padding: 0;
-        }
     }
 
 }
