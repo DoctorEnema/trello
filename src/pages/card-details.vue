@@ -77,12 +77,12 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch({ type: "loadBoard" });
+    this.$store.dispatch({ type: "loadBoard",boardId: "b101" });
   },
   computed: {
     board() {
-      console.log(this.$store.getters.board);
-      return this.$store.getters.board;
+      console.log(this.$store.getters.selectedBoard);
+      return this.$store.getters.selectedBoard;
     },
   },
   methods: {
