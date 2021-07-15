@@ -8,7 +8,9 @@
           @click="checkTodo(todo)"
           :checked="todo.isDone"
         />
-        {{ todo.title }}
+        <div>
+          <span>{{ todo.title }}</span>
+        </div>
       </li>
     </ul>
     <section v-if="addMode">
