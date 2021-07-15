@@ -7,23 +7,22 @@
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
-        {{selectedCard}}
-        <checklist v-if="board.groups[1].cards[1].checklists"></checklist>
-        <date v-if="board.groups[1].cards[1].dueDate"></date>
-        <member v-if="board.groups[1].cards[1].members"></member>
-        <attachment v-if="board.groups[1].cards[1].attachments"></attachment>
-        <labels v-if="board.groups[1].cards[1].labelIds"></labels>
+        <checklist :card="card" v-if="card.checklists"></checklist>
+        <date :card="card" v-if="card.dueDate"></date>
+        <member :card="card" v-if="card.members" @removeMember="removeMember"></member>
+        <attachment :card="card" v-if="card.attachments"></attachment>
+        <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button class="add-member" @click.stop="setModalType">Members</button>
+        <button class="add-member" @click.stop="setModalType" >Members</button>
         <button class="add-label" @click.stop="setModalType">Labels</button>
         <button class="add-checklist" @click.stop="setModalType">Checklist</button>
         <button class="add-date" @click.stop="setModalType">Dates</button>
         <button class="add-attachment" @click.stop="setModalType">Attachment</button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
-        <component :is="openModalType" @closeModal="closeModal"></component>
+        <component  :is="openModalType" @closeModal="closeModal" @addUser="addUserMember"></component>
       </section>
     </div>
   </section>
@@ -58,18 +57,23 @@ export default {
   data() {
     return {
       openModalType: null,
+      board:null,
+      group:null,
+      card:null,
     };
   },
   async created() {
     this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
     const {cardId, groupId, boardId} = this.$route.params
-    const card = await boardService.getCardById(cardId, groupId, boardId)
-    console.log('card',card);
+    const {board,group,card} = await boardService.getCardById(cardId, groupId, boardId)
+    this.board= board
+    this.group= group
+    this.card= card
   },
   computed: {
-    board() {
-      return this.$store.getters.selectedBoard;
-    },
+    // board() {
+    //   return this.$store.getters.selectedBoard;
+    // },
     selectedCard() {
       return this.$store.getters.selectedCard
     }
@@ -78,8 +82,19 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
-    addUserMember(user) {
-      console.log(user);
+    addUserMember(member) {
+      // console.log((this.card.members.some(member => member.id ===memberId )))
+      if(this.card.members.some(m => m.id ===member.id )){
+        this.removeMember(member.id)
+        return
+      }
+      this.card.members.push(member)
+      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    },
+    removeMember(memberId){
+      const memberIdx = this.card.members.findIndex(member => member.id ===memberId )
+      this.card.members.splice(memberIdx,1)
+      boardService.updateCard(this.board,this.group,this.card.id,this.card)
     },
     closeModal() {
       if (!this.openModalType) return;

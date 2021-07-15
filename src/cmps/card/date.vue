@@ -9,21 +9,19 @@
 
 <script>
 export default {
+  props: {
+    card: Object
+  },
   data(){
     return{
       checkbox:true
     }
   },
 created() {
-    this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
   },
   computed: {
-    board() {
-      console.log(this.$store.getters.selectedBoard);
-      return this.$store.getters.selectedBoard;
-    },
     time(){
-      const date =  new Date(this.board.groups[1].cards[1].dueDate) 
+      const date =  new Date(this.card.dueDate) 
       return (date.getDate()+
           "/"+(date.getMonth()+1)+
           "/"+date.getFullYear()+

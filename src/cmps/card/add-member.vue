@@ -35,7 +35,6 @@ export default {
       this.$emit("closeModal");
     },
     addUser(user){
-      console.log('lala');
       this.$emit("addUser", user)
     }
   },

@@ -259,7 +259,7 @@ async function getCardById(cardId, groupId, boardId) {
         const board = await getById(boardId)
         const groupIdx = board.groups.findIndex(group => group.id === groupId)
         const cardIdx = board.groups[groupIdx].cards.findIndex(card => card.id === cardId)
-        return board.groups[groupIdx].cards[cardIdx]
+        return {card:board.groups[groupIdx].cards[cardIdx],group:board.groups[groupIdx],board:board}
     } catch (err) {
         console.log('cant get card', err);
     }
