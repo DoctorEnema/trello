@@ -6,9 +6,9 @@
     <div v-for="label in card.labelIds" :key="label">{{label}}</div>
     <div class="card-preview-title">{{ card.title }}</div>
     <div class="card-preview-badges">
-      <div class="card-preview-date">{{ card.dueDate }}</div>
-      <div v-if="card.description" class="card-preview-desc">blabla</div>
-      <div v-if="card.comments">${{ card.comments.length }}</div>
+      <div v-if="card.dueDate" class="card-preview-date">{{ card.dueDate }}</div>
+      <div v-if="card.description" class="card-preview-desc"></div>
+      <div v-if="card.comments">{{ card.comments.length }}</div>
       <div v-if="card.attachments" class="card-preview-attachments">
         {{ card.attachments.length }}
       </div>

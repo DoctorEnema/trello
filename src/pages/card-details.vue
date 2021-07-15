@@ -7,6 +7,7 @@
     <div class="details-body">
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
+        <description></description>
         <date :card="card" v-if="card.dueDate"></date>
         <member
           :card="card"
@@ -18,7 +19,7 @@
             <checklist :checklist="checklist" @addTodo="addTodo"></checklist>
           </li>
         </ul>
-        <attachment :card="card" v-if="card.attachments"></attachment>
+        <attachment :card="card" v-if="card.attachments" @removeLink="removeLink"></attachment>
         <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
@@ -34,11 +35,7 @@
         </button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
-        <component
-          :is="openModalType"
-          @closeModal="closeModal"
-          @addUser="addMember"
-        ></component>
+        <component  :is="openModalType" @closeModal="closeModal" @addUser="addMember" @linkAdded="linkAdded"></component>
       </section>
     </div>
   </section>
@@ -55,7 +52,8 @@ import checklist from "../cmps/card/checklist.vue";
 import date from "../cmps/card/date.vue";
 import member from "../cmps/card/member.vue";
 import attachment from "../cmps/card/attachment.vue";
-import { boardService } from "../services/board-service";
+import description from "../cmps/card/description.vue";
+import { boardService } from '../services/board-service';
 
 export default {
   components: {
@@ -69,6 +67,7 @@ export default {
     date,
     member,
     attachment,
+    description
   },
   data() {
     return {
@@ -102,6 +101,17 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
+    linkAdded(link){
+    console.log(link);
+    if(!this.card.attachments) this.card.attachments = []
+    this.card.attachments.push(link)
+      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    },
+    removeLink(linkIdx){
+      this.card.attachments.splice(linkIdx,1)
+      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    },
+
     addMember(member) {
       if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);

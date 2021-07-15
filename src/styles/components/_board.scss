@@ -53,4 +53,28 @@
             height: 28px;
         }
     }
+    .add-card-area{
+        padding: 8px;
+        background-color: blue;
+        .add-card-controls{
+            height:32px;
+        }
+
+        textarea{
+            min-width: 256px;
+            max-width: 256px;
+            min-height:57px;
+            max-height:240px;
+
+            background: none;
+border: none;
+height: auto;
+margin-bottom: 4px;
+max-height: 162px;
+min-height: 54px;
+overflow-y: auto;
+padding: 0;
+        }
+    }
+
 }

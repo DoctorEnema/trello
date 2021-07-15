@@ -7,7 +7,7 @@
     <hr />
     <form @submit.prevent="setLink(), closeModal()">
       <label for="attachment">Attach a link</label>
-      <input ref="attach" type="text" placeholder="Paste any link here..." />
+      <input ref="attach" v-model="link" type="text" placeholder="Paste any link here..." />
       <button>Attach</button>
     </form>
   </section>
@@ -28,6 +28,7 @@ export default {
       this.$emit("closeModals");
     },
     setLink() {
+      // console.log(this.link);
       this.$emit('linkAdded', this.link)
     },
     closeModal() {

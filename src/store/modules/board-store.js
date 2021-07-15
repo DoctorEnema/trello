@@ -35,8 +35,8 @@ export const boardStore = {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === groupId)
             if (!state.selectedBoard.groups[idx].cards) state.selectedBoard.groups[idx].cards = []
             state.selectedBoard.groups[idx].cards.push(card)
-            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
-            state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((card) => card.id !== cardId)
+            const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === groupId)
+            state.selectedBoard.groups[grIdx].cards = state.selectedBoard.groups[grIdx].cards.filter((c) => card.id !== c.id)
         },
         setTextarea(state) {
             state.textareaOpen = !state.textareaOpen
