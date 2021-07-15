@@ -1,12 +1,19 @@
 <template>
   <section class="main-header">
-    <div class="logo">
-      <h2>LOGO1</h2>
+    <div class="header-left">
+      <router-link class="to-home" to="/"></router-link>
+      <router-link class="to-boards" :to="'/board/b101'">Boards</router-link>
+      <input class="search" type="text" placeholder="Jump to..." />
     </div>
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link :to="'/board/b101'">Board</router-link>
-    </nav>
+      <div class="logo">
+        <h2>LOGO1</h2>
+      </div>
+    <div class="header-right">
+      <div>+</div>
+      <div>!</div>
+      <div>Bell</div>
+      <div>User</div>
+    </div>
   </section>
 </template>
 

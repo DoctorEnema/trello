@@ -4,14 +4,32 @@
     background-color: burlywood;
     justify-content: space-between;
     height: 40px; //maybe change to padding
-    nav{
+
+    .header-left{
         display: flex;
+        >*{
+            margin-left: 4px;
+            border-radius: 3px;
+            background-color: brown;
+            padding: 5px 6px;
+        }
     }
-    a{
-        padding: 0.5rem;
+    .header-right{
+        display: flex;
+        >*{
+            margin-right: 4px;
+            border-radius: 3px;
+            background-color: brown;
+        }
     }
-    .logo{
-       display: flex;
-       align-items: center; 
-    }
+}
+
+.to-home::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f80c'
+}
+
+.to-boards::before{
+    font-family: fontAwesome, sans serif;
+    content:'\f80c'  
 }
