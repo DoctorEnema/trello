@@ -83,7 +83,7 @@ const boardsJson = [{
                                 {
                                     "id": "212jX",
                                     "title": "To Do 1",
-                                    "isDone": false
+                                    "isDone": true
                                 }
                             ]
                         }
@@ -182,7 +182,8 @@ export const boardService = {
     removeCard,
     addCard,
     updateCard,
-    getCardById
+    getCardById,
+    getEmptyTodo
 };
 
 
@@ -262,5 +263,13 @@ async function getCardById(cardId, groupId, boardId) {
         return {card:board.groups[groupIdx].cards[cardIdx],group:board.groups[groupIdx],board:board}
     } catch (err) {
         console.log('cant get card', err);
+    }
+}
+
+function getEmptyTodo() {
+    return {
+        id: utilService.makeId(),
+        title: '',
+        isDone:false
     }
 }
