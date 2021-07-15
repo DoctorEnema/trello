@@ -10,15 +10,15 @@
         />
         {{ todo.title }}
       </li>
+    <div>
+      <button v-if="!addMode" @click="setAddMode">Add an item</button>
+    </div>
     </ul>
     <section v-if="addMode">
       <textarea v-model="todo.title" placeholder="Add an item"></textarea>
       <button class="add-btn" @click="addTodo">Add</button>
       <button @click="setAddMode">X</button>
     </section>
-    <div>
-      <button v-if="!addMode" @click="setAddMode">Add an item</button>
-    </div>
   </section>
 </template>
 

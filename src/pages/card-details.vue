@@ -8,7 +8,11 @@
       <div v-if="board" class="left-side">
         <h1>Left Side</h1>
         <description></description>
-        <date :card="card" v-if="card.dueDate"></date>
+        <date
+          :card="card"
+          v-if="card.dueDate"
+          @changeComplete="changeComplete"
+        ></date>
         <member
           :card="card"
           v-if="card.members"
@@ -19,7 +23,11 @@
             <checklist :checklist="checklist" @addTodo="addTodo"></checklist>
           </li>
         </ul>
-        <attachment :card="card" v-if="card.attachments" @removeLink="removeLink"></attachment>
+        <attachment
+          :card="card"
+          v-if="card.attachments"
+          @removeLink="removeLink"
+        ></attachment>
         <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
@@ -35,7 +43,13 @@
         </button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
-        <component  :is="openModalType" @closeModal="closeModal" @addUser="addMember" @linkAdded="linkAdded"></component>
+        <component
+          :is="openModalType"
+          @closeModal="closeModal"
+          @addUser="addMember"
+          @linkAdded="linkAdded"
+          @addDate="addDate"
+        ></component>
       </section>
     </div>
   </section>
@@ -53,7 +67,7 @@ import date from "../cmps/card/date.vue";
 import member from "../cmps/card/member.vue";
 import attachment from "../cmps/card/attachment.vue";
 import description from "../cmps/card/description.vue";
-import { boardService } from '../services/board-service';
+import { boardService } from "../services/board-service";
 
 export default {
   components: {
@@ -67,7 +81,7 @@ export default {
     date,
     member,
     attachment,
-    description
+    description,
   },
   data() {
     return {
@@ -101,15 +115,24 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
-    linkAdded(link){
-    console.log(link);
-    if(!this.card.attachments) this.card.attachments = []
-    this.card.attachments.push(link)
-      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    changeComplete(isComplete) {
+      this.card.dueDate.isComplete = isComplete;
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
-    removeLink(linkIdx){
-      this.card.attachments.splice(linkIdx,1)
-      boardService.updateCard(this.board,this.group,this.card.id,this.card)
+    addDate(date) {
+      this.card.dueDate.date = date;
+      if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+    },
+    linkAdded(link) {
+      console.log(link);
+      if (!this.card.attachments) this.card.attachments = [];
+      this.card.attachments.push(link);
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
+    },
+    removeLink(linkIdx) {
+      this.card.attachments.splice(linkIdx, 1);
+      boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
 
     addMember(member) {
@@ -124,8 +147,8 @@ export default {
       const checklistIdx = this.card.checklists.findIndex(
         (c) => c.id === checklist.id
       );
-      console.log('called');
-      this.card.checklists.splice(checklistIdx, 1, checklist)
+      console.log("called");
+      this.card.checklists.splice(checklistIdx, 1, checklist);
       boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     removeMember(memberId) {
