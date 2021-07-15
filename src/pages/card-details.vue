@@ -136,12 +136,19 @@ export default {
     },
 
     addMember(member) {
+      if(!this.card.members) { this.card.members=[] }
+      // if(!this.card.members.length) {
+      //   this.card.members.push(member);
+      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
+      // return
+      // }
       if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);
         return;
       }
       this.card.members.push(member);
       boardService.updateCard(this.board, this.group, this.card.id, this.card);
+        // this.$store.dispatch({ type: "updateCard", group:this.group ,cardId:this.card.id, card:this.card});
     },
     addTodo(checklist) {
       const checklistIdx = this.card.checklists.findIndex(

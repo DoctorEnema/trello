@@ -3,7 +3,8 @@
      <h1>Label</h1>
      <ul class="label-container">
        <li  v-for="(label,idx) in card.labelIds" :key="idx">
-         <span class="card-lable" :style="'background-color:' +  '#61bd4f'"  >a</span>
+         {{card.labelIds}}
+         <span class="card-lable" :style="'background-color:' +  card.labelIds.color"  >a</span>
        </li>
      </ul>
   </section>
