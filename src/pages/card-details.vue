@@ -1,8 +1,8 @@
 <template>
-  <section class="card-details" @click="closeModal">
+  <section v-if="card" class="card-details" @click="closeModal">
     <header class="details-header">
-      <h1>(Card name will be here)</h1>
-      <h3>in list (Group name will be here)</h3>
+      <h2>{{card.title}}</h2>
+      <h5>in list {{group.title}}</h5>
     </header>
     <div class="details-body">
       <div v-if="board" class="left-side">
