@@ -238,6 +238,6 @@ function removeCard(board, group, cardId){
 
 function addCard(board, group, card){
     card.id = utilService.makeId()
-    group.card.push(card)
+    board.groups.card.push(card)
     storageService.put(BOARD_KEY, board)
 }
