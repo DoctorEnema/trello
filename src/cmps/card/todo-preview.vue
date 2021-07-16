@@ -9,10 +9,11 @@
           <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
         </div>
         <div v-else class="todo-edit">
-            <textarea v-model="currTodo.title"></textarea>
+            <textarea ref="textarea" v-model="currTodo.title"></textarea>
             <button @click="editTodo">Save</button>
-            <button>X</button>
+            <button @click="closeEdit">X</button>
         </div>
+            <slot name="edit"></slot>
   </section>
 </template>
 
@@ -40,6 +41,13 @@ methods: {
       this.$root.$emit("isEditMode");
       this.currTodo = {...todo};
       this.editMode = !this.editMode
+      this.$nextTick(() => {
+        this.$refs.textarea.focus();
+        this.$refs.textarea.select()
+      });
+    },
+    closeEdit() {
+      this.editMode = false
     },
     editTodo() {
       this.editMode = !this.editMode

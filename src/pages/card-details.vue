@@ -1,10 +1,15 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
-    <div v-if="card.cover" class="details-cover" :style="{backgroundColor:card.cover.color}">
-      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="">
-      <button class="close-details"></button>
-      <button class="choose-cover">Cover</button>
+    <div
+      v-if="card.cover"
+      class="details-cover"
+      :style="{ backgroundColor: card.cover.color }"
+    >
+      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
+      <!-- <button class="close-details"></button> -->
+      <button class="choose-cover" data-cmp="add-cover" @click.stop="setModalType">Cover</button>
     </div>
+    <button class="close-details" @click="closeCard"></button>
     <header class="details-header">
       <span class="details-title"></span>
       <div>
@@ -26,7 +31,7 @@
           </div>
           <div class="details-labels">
             <h3>LABELS</h3>
-            <labels :card="card" v-if="card.labelIds"></labels>
+            <labels :card="card" v-if="card.labelIds" @setModalType="setModalType"></labels>
           </div>
           <div class="details-dates">
             <h3>DATES</h3>
@@ -41,7 +46,11 @@
 
         <ul v-if="card.checklists">
           <li v-for="(checklist, idx) in card.checklists" :key="idx">
-            <checklist :checklist="checklist" @addTodo="addTodo" @removeList="removeList"></checklist>
+            <checklist
+              :checklist="checklist"
+              @addTodo="addTodo"
+              @removeList="removeList"
+            ></checklist>
           </li>
         </ul>
         <attachment
@@ -52,16 +61,16 @@
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button class="add-member" @click.stop="setModalType">Members</button>
-        <button class="add-label" @click.stop="setModalType">Labels</button>
-        <button class="add-checklist" @click.stop="setModalType">
+        <button class="add-member" data-cmp="add-member"  @click.stop="setModalType">Members</button>
+        <button class="add-label" data-cmp="add-label"  @click.stop="setModalType">Labels</button>
+        <button class="add-checklist" data-cmp="add-checklist" @click.stop="setModalType">
           Checklist
         </button>
-        <button class="add-date" @click.stop="setModalType">Dates</button>
-        <button class="add-attachment" @click.stop="setModalType">
+        <button class="add-date" data-cmp="add-date"  @click.stop="setModalType">Dates</button>
+        <button class="add-attachment" data-cmp="add-attachment"  @click.stop="setModalType">
           Attachment
         </button>
-        <button class="add-cover" @click.stop="setModalType">Cover</button>
+        <button v-if="!card.cover" class="add-cover" data-cmp="add-cover"  @click.stop="setModalType">Cover</button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
         <component
@@ -73,6 +82,8 @@
           @createLabel="createLabel"
           @setLabel="setLabel"
           @listAdded="addList"
+          @setCover="setCover"
+          @removeCover="removeCover"
         ></component>
       </section>
       <!-- {{selectedBoard}} -->
@@ -140,6 +151,23 @@ export default {
   methods: {
     stop(event) {
       // event.stopPropagation
+    },
+    setCover(cover){
+      this.card.cover = {}
+      this.card.cover = cover;
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
+    },
+    removeCover(){
+      this.card.cover=null
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
     },
     setLabel(labelId) {
       // console.log("labelId", labelId)
@@ -251,6 +279,7 @@ export default {
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     addList(title) {
+      if(!this.card.checklists) this.card.checklists = []
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
@@ -276,9 +305,14 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
-      var value = ev.target.className;
+      console.log(ev);
+      // var value = ev.target.className;
+      var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },
+    closeCard() {
+      this.$router.push(`/board/${this.selectedBoard._id}`);
+    }
   },
 };
 </script>
