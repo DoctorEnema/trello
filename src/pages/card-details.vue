@@ -203,8 +203,10 @@ export default {
       const checklistIdx = this.card.checklists.findIndex(
         (c) => c.id === checklist.id
       );
+      console.log(checklistIdx);
       console.log("called");
       this.card.checklists.splice(checklistIdx, 1, checklist);
+      console.log('this.card',this.card);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,

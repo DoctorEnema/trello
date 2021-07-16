@@ -3,58 +3,106 @@
     <h3>{{ checklist.title }}</h3>
     <ul>
       <li v-for="(todo, idx) in checklist.todos" :key="idx">
-        <input
-          type="checkbox"
-          @click="checkTodo(todo)"
-          :checked="todo.isDone"
-        />
-        <div>
-          <span>{{ todo.title }}</span>
+        <!-- <div v-if="currTodo"> -->
+          <div v-if="!todo.isEdit" class="todo">
+            <input
+              type="checkbox"
+              @click="checkTodo(todo)"
+              :checked="todo.isDone"
+            />
+            <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
+          </div>
+        <!-- </div> -->
+        <div v-if="currTodo" class="todo-edit">
+          <div v-if="currTodo.id === todo.id">
+            <textarea v-model="currTodo.title"></textarea>
+            <button @click="editTodo">Save</button>
+            <button>X</button>
+          </div>
         </div>
       </li>
-    <div>
-      <button v-if="!addMode" @click="setAddMode">Add an item</button>
-    </div>
+      <div>
+        <button v-if="!addMode" @click="openTextarea">Add an item</button>
+      </div>
+      <!-- <todo-preview></todo-preview> -->
     </ul>
-    <section v-if="addMode">
+    <section class="todo-add" v-if="addMode">
       <textarea v-model="todo.title" placeholder="Add an item"></textarea>
       <button class="add-btn" @click="addTodo">Add</button>
-      <button @click="setAddMode">X</button>
+      <button @click="closeTextarea">X</button>
     </section>
   </section>
 </template>
 
 <script>
 import { boardService } from "../../services/board-service.js";
+// import todoPreview from './card/todo-preview.js';
+
 export default {
   props: {
     checklist: Object,
   },
+  components: {
+    // todoPreview
+  },
+  mounted() {
+    this.$root.$on("checklistTextClose", () => {
+      this.addMode = false;
+      console.log("gappeninng");
+    });
+  },
+  destroyed() {
+    this.$root.$off("checklistTextClose");
+  },
   data() {
     return {
       todo: boardService.getEmptyTodo(),
+      currTodo: null,
       addMode: false,
+      editMode: false,
     };
   },
   methods: {
     checkTodo(todo) {
       todo.isDone = !todo.isDone;
-      this.$emit("addTodo", this.checklist);
     },
-    setAddMode() {
-      // this.$emit("isAddModeOn");
-      if (this.isChecklistAddOpen) {
-        this.addMode = false
-      }
-      this.$store.commit({ type: "setTextarea" });
-      this.addMode = !this.addMode;
+    openTextarea() {
+      this.$root.$emit("checklistTextClose");
+      this.addMode = true;
     },
+    closeTextarea() {
+      this.addMode = false;
+    },
+    setCurrTodo(todo) {
+      // console.log('hi');
+      if (this.currTodo) this.currTodo.isEdit = false
+      todo.isEdit = true;
+      console.log(todo);
+      this.currTodo = todo;
+    },
+    // openEditarea() {
+    //   this.$root.$emit("checklistTextClose");
+    //   this.addMode = true;
+    // },
+    // closeEditarea() {
+    //   this.addMode = false;
+    // },
     addTodo() {
       if (!this.todo.title) return;
       this.checklist.todos.push({ ...this.todo });
       this.$emit("addTodo", this.checklist);
       this.todo = boardService.getEmptyTodo();
     },
+    editTodo() {
+      const todo = this.currTodo
+      if (!todo.title) return;
+      const idx = this.checklist.todos.findIndex(t => t.id === todo.id)
+      this.checklist.todos.splice(idx, 1, todo)
+      
+      this.$emit("addTodo", JSON.parse(JSON.stringify(this.checklist)));
+      // console.log('checklist', checklist);
+      this.currTodo = null
+    }
   },
   computed: {
     isChecklistAddOpen() {
