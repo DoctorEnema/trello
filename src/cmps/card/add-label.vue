@@ -21,13 +21,14 @@
               ><span class="icon"></span
             ></span>
             <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
-            <a href="#">edit icon</a>
+            <button @click=openEditor></button>
+            <a href="#" >edit icon</a>
           </li>
         </ul>
         <button class="button" @click.stop="createLabel" type="button">Create new label</button>
       </div>
       <div v-else class="create-label">
-        <form @submit.prevent="setLabel(), createLabel()">
+        <form @submit.prevent="createLabel()">
           <label for="name">Name</label>
           <input id="name" ref="name" type="text" v-model="pickedLabel.name" />
           <ul>
@@ -50,7 +51,11 @@
 </template>
 
 <script>
+import { utilService } from "../../services/util-service";
 export default {
+  components:{
+    utilService
+  },
   created() {},
   mounted() {
     //  this.$refs.page.focus();
@@ -58,44 +63,6 @@ export default {
   },
   data() {
     return {
-      labels: [
-        {
-          id: 100,
-          name: null,
-          color: "#61bd4f",
-          isPicked: false
-        },
-        {
-          id: 101,
-          name: null,
-          color: "#ff9f1a",
-          isPicked: false
-        },
-        {
-          id: 102,
-          name: null,
-          color: "#eb5a46",
-          isPicked: false
-        },
-        {
-          id: 103,
-          name: null,
-          color: "#c377e0",
-          isPicked: false
-        },
-        {
-          id: 104,
-          name: null,
-          color: "#0079bf",
-          isPicked: false
-        },
-        {
-          id: 105,
-          name: null,
-          color: "#00c2e0",
-          isPicked: false
-        },
-      ],
       editLabels: [
         "#61bd4f",
         "#f2d600",
@@ -133,9 +100,12 @@ selectedBoard() {
     },
     createLabel() {
       if (this.isCreate) {
-        var id = this.selectedBoard.labels[this.selectedBoard.labels.length-1].id
-        this.pickedLabel.id = ++id
-        this.$emit("createLabel", this.pickedLabel);
+        this.pickedLabel.id = utilService.makeId()
+        const pickedLabelCopy = JSON.parse(JSON.stringify(this.pickedLabel))
+         this.$emit("createLabel", pickedLabelCopy);
+        this.setPickedLabelEmpty()
+      
+        //  this.setLabel(this.pickedLabel.id)
         // this.labels.push({...this.pickedLabel});
         // return
       }
@@ -145,6 +115,12 @@ selectedBoard() {
         this.$refs.name.focus();
       });
     },
+    setPickedLabelEmpty(){
+        this.pickedLabel.id=null,
+        this.pickedLabel.name=null,
+        this.pickedLabel.color= "#344563",
+        this.pickedLabel.isPicked= true
+    }
   },
 };
 </script>
