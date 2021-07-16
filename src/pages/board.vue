@@ -10,7 +10,7 @@
         </button>
         <button>Invite</button>
       </div>
-      <button>Show menu</button>
+      <button class="show-board-menu"> Show menu</button>
     </div>
     <div class="board-content">
       <group

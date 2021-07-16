@@ -19,6 +19,7 @@
     a {
         text-decoration: none;
         color: inherit;
+        min-width: fit-content;
     }
 
     .header-left {
@@ -83,6 +84,7 @@
 
 .search {
     position: relative;
+    width: fit-content;
     .search-glass {
         position: absolute;
         right: 10px;
@@ -90,6 +92,7 @@
     }
 }
 .search-bar {
+    display: block;
     margin-left: 4px;
     border-radius: 3px;
     background-color: rgba($color: #ffffff, $alpha: 0.3);
