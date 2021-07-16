@@ -1,109 +1,113 @@
-  .group{
+.group {
+    min-width: 272px;
+    max-width: 272px;
+    margin: 0 4px;
+    height: 100%;
+    background-color: #ebecf0;
+    border-radius: 3px;
 
-        min-width: 272px;
-        max-width: 272px;
-        margin: 0 4px;
-        height: 100%;
-        background-color: #ebecf0;
+    button {
         border-radius: 3px;
-
-        button{  
-            border-radius: 3px;
-           border: none;
-           background-color: inherit;
-           &:hover{
-               cursor: pointer;
-           }
+        border: none;
+        background-color: inherit;
+        &:hover {
+            cursor: pointer;
         }
     }
+}
 
-    .group-header{
-        font-weight: 600;
-        min-height: 40px;
+.group-header {
+    font-weight: 600;
+    min-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+    padding-left: 16px;
+    button {
+        width: 32px;
+        height: 32px;
+        &::before {
+            font-family: fontAwesome, sans serif;
+            content: "\f141";
+        }
+        &:hover {
+            background-color: #d9dce2;
+        }
+    }
+}
+
+.group-content {
+    max-height: 78vh;
+    overflow-y: auto;
+}
+.group-footer {
+    height: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    button {
+        color: #5e6c84;
+        display: block;
+        text-align: start;
+        padding: 8px;
+        margin: 0px 8px 8px;
+        height: 28px;
+        line-height: 10px;
+        &::before {
+            font-family: fontAwesome, sans serif;
+            content: "\f067";
+        }
+        &:hover {
+            color: #172b4d;
+            background-color: #d9dce2;
+        }
+    }
+}
+.add-card-area {
+    margin: 8px;
+    .add-card-controls {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 6px;
-        padding-left:16px;
-        button{
-            width: 32px;
-            height: 32px; 
-            &::before{
-                font-family: fontAwesome, sans serif;
-                content:'\f141';
-            }
-            &:hover{
-               background-color: #d9dce2; ;
+        margin-top: 2px;
+        height: 32px;
+        button:first-of-type {
+            background-color: #0079bf;
+            padding: 6px 12px;
+            color: white;
+            line-height: 20px;
+            margin: 0 6px 0 0;
+            &:hover {
+                background-color: #056ba7;
             }
         }
     }
-    .group-footer{
-        height: 38px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        button{
-            color:#5e6c84;
-            display: block;
-            text-align: start;
-            padding: 8px;
-            margin: 0px 8px 8px;
-            height: 28px;
-            line-height: 10px;
-            &::before{
-                font-family: fontAwesome, sans serif;
-                content:'\f067'
-            }
-            &:hover{
-                color:#172b4d;
-                background-color: #d9dce2; ;
-             }
+    .close-adding {
+        width: 32px;
+        color: #5e6c84;
+        &:hover {
+            background-color: none;
+            color: #172b4d;
+        }
+        &::before {
+            font-size: 24px;
+            font-family: fontAwesome, sans serif;
+            content: "\f00d";
         }
     }
-    .add-card-area{
-        margin: 8px;
-        .add-card-controls{
-            display: flex;
-            align-items: center;
-            margin-top: 2px;
-            height:32px;
-            button:first-of-type{
-                background-color:#0079bf ;
-                padding: 6px 12px;
-                color: white;
-                line-height: 20px;
-                margin: 0 6px 0 0;
-                &:hover{
-                    background-color: #056ba7;
-                }
-            }
-        }
-        .close-adding{
-            width: 32px;
-            color:#5e6c84;
-            &:hover{
-                background-color: none;
-                color: #172b4d;
-            }
-            &::before{
-                font-size: 24px;
-                font-family: fontAwesome, sans serif;
-                content:'\f00d'
-            }
-        }
 
-        textarea{
-            border-radius: 3px;
-            resize:none;
-            min-width: 256px;
-            max-width: 256px;
-            background-color: #ffffff;
-            border: none;
-            height: auto;
-            margin-bottom: 4px;
-            max-height: 162px;
-            min-height: 54px;
-            overflow-y: auto;
-            outline: none;
-        }
+    textarea {
+        border-radius: 3px;
+        resize: none;
+        min-width: 256px;
+        max-width: 256px;
+        background-color: #ffffff;
+        border: none;
+        height: auto;
+        margin-bottom: 4px;
+        max-height: 162px;
+        min-height: 54px;
+        overflow-y: auto;
+        outline: none;
     }
+}

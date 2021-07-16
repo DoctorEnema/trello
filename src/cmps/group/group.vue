@@ -4,15 +4,17 @@
       <p>{{ group.title }}</p>
       <button @click="removeGroup(group.id)"></button>
     </div>
-    <card-preview
-      @changeComplete="changeComplete"
-      @removeCard="removeCard"
-      class="card-preview"
-      :group="group"
-      :card="card"
-      v-for="card in group.cards"
-      :key="card.id"
-    ></card-preview>
+    <div class="group-content">
+      <card-preview
+        @changeComplete="changeComplete"
+        @removeCard="removeCard"
+        class="card-preview"
+        :group="group"
+        :card="card"
+        v-for="card in group.cards"
+        :key="card.id"
+      ></card-preview>
+    </div>
     <section class="add-card-area" v-if="isAdding">
       <textarea
         placeholder="Enter a title for this card..."
@@ -65,9 +67,9 @@ export default {
       this.emptyCard.title = "";
       this.isAdding = false;
     },
-    changeComplete(isComplete){
-      this.$emit('changeComplete', isComplete)
-    }
+    changeComplete(isComplete) {
+      this.$emit("changeComplete", isComplete);
+    },
   },
 };
 </script>

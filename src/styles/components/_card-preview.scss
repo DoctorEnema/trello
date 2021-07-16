@@ -1,7 +1,7 @@
 .card-preview{
     position: relative;
     background-color: #ffffff;
-    margin: 0 8px 8px;
+    margin: 0 4px 8px 8px;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(9,30,66,.25);
     &:hover{
@@ -49,14 +49,14 @@
     }
 
     .card-preview-members{
-        display: grid;
+        display: flex;
         justify-content: flex-end;
     }
 
     .card-preview-member {
         position: relative;
         overflow: hidden;
-        margin: 6px 0;
+        margin: 6px 2px;
         width: 32px;
         height: 32px;
         color: transparent;
@@ -76,6 +76,12 @@
             filter: brightness(120%);
         }
     }
+}
+
+.card-preview-cover-img{
+    border-radius: 3px 3px 0 0;
+    max-height: 260px;
+    object-fit: contain;
 }
 
 .card-preview-cover{

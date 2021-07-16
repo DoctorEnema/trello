@@ -10,6 +10,7 @@
         :style="{ backgroundColor: card.cover.color }"
         class="card-preview-cover"
       ></div>
+      <img class="card-preview-cover-img" v-else :src="card.cover.imgUrl">
     </div>
     <div class="card-preview-content">
       <div v-if="card.labelIds" class="card-preview-labels">
@@ -111,7 +112,8 @@ export default {
       return sum;
     },
     isAttachments() {
-      if (!this.card.attachments || !this.card.attachments.length) return false;
+      if (!this.card.attachments || !this.card.attachments.length) return false
+      else return true
     },
     date() {
       let time = new Date(this.card.dueDate.date);
