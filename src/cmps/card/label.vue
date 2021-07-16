@@ -1,12 +1,11 @@
 <template>
   <section v-if="card.labelIds" class="label-cmp">
-     <h1>Label</h1>
-     <ul class="label-container">
-       <li  v-for="(label,idx) in card.labelIds" :key="idx">
-         {{card.labelIds}}
-         <span class="card-lable" :style="'background-color:' +  card.labelIds.color"  >a</span>
-       </li>
-     </ul>
+       <button v-for="(label,idx) in cardLabels" :key="idx" :style="{backgroundColor:label.color}">
+        
+         <!-- {{card.labelIds.name}} -->
+         <span class="card-label"  >{{label.name}}</span>
+       </button>
+     <button class="add-new-label"></button>
   </section>
 </template>
 
@@ -15,9 +14,20 @@ export default {
 props: {
     card: Object
   },
+   computed: {
+    boardLabels() {
+      const board = this.$store.getters.selectedBoard
+      return board.labels;
+    },
+    cardLabels(){
+       const cardLabels = []
+      this.card.labelIds.forEach(label=> {
+        const currLabel = this.boardLabels.filter(l=>l.id === label )
+        cardLabels.push(currLabel[0])
+      })
+      return cardLabels
+    }
+
+}
 }
 </script>
-
-<style>
-
-</style>

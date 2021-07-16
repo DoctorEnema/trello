@@ -55,7 +55,12 @@ const boardsJson = [{
         {
             "_id": "u101",
             "fullname": "Tal Tarablus",
-            "imgUrl": "https://www.google.com"
+            "imgUrl": "https://i1.sndcdn.com/avatars-IJz6w9tmDCEoQE6l-hzhpUg-t500x500.jpg"
+        },
+        {
+            "_id": "u102",
+            "fullname": "Abi Abambi",
+            "imgUrl": "https://avatars.githubusercontent.com/u/2770321?v=4"
         }
     ],
     "groups": [
@@ -147,7 +152,7 @@ const boardsJson = [{
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         }
                     ],
-                    "labelIds": ["#61bd4", "#91bd4"],
+                    
                     "createdAt": 1590999730348,
                     "dueDate": {date:16156215211,isComplete:false},
                     "byMember": {

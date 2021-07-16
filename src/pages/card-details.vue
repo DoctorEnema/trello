@@ -1,23 +1,43 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
+    <div class="details-cover">
+      <button class="close-details"></button>
+      <button class="choose-cover">Cover</button>
+    </div>
     <header class="details-header">
-      <h2>{{ card.title }}</h2>
-      <h5>in list {{ group.title }}</h5>
+      <span class="details-title"></span>
+      <div>
+        <h2>{{ card.title }}</h2>
+        <!--this is a textarea in trello -->
+        <h5>in list {{ group.title }}</h5>
+      </div>
     </header>
     <div class="details-body">
       <div v-if="card" class="left-side">
-        <h1>Left Side</h1>
+        <div class="details-top-left">
+          <div class="details-members">
+            <h3>MEMBERS</h3>
+            <member
+              :card="card"
+              v-if="card.members"
+              @removeMember="removeMember"
+            ></member>
+          </div>
+          <div class="details-labels">
+            <h3>LABELS</h3>
+            <labels :card="card" v-if="card.labelIds"></labels>
+          </div>
+          <div class="details-dates">
+            <h3>DATES</h3>
+            <date
+              :card="card"
+              v-if="card.dueDate"
+              @changeComplete="changeComplete"
+            ></date>
+          </div>
+        </div>
         <description></description>
-        <date
-          :card="card"
-          v-if="card.dueDate"
-          @changeComplete="changeComplete"
-        ></date>
-        <member
-          :card="card"
-          v-if="card.members"
-          @removeMember="removeMember"
-        ></member>
+
         <ul v-if="card.checklists">
           <li v-for="(checklist, idx) in card.checklists" :key="idx">
             <checklist :checklist="checklist" @addTodo="addTodo"></checklist>
@@ -28,7 +48,6 @@
           v-if="card.attachments"
           @removeLink="removeLink"
         ></attachment>
-        <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
@@ -49,6 +68,8 @@
           @addUser="addMember"
           @linkAdded="linkAdded"
           @addDate="addDate"
+          @createLabel="createLabel"
+          @setLabel="setLabel"
         ></component>
       </section>
       <!-- {{selectedBoard}} -->
@@ -87,19 +108,14 @@ export default {
   data() {
     return {
       openModalType: null,
-      board: null,
+      boardId: null,
     };
   },
   async created() {
     // this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
     const { cardId, groupId, boardId } = this.$route.params;
+    this.boardId=boardId
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
-    // const { board, group, card } = await boardService.getCardById(cardId,groupId,boardId);
-    // console.log("card", card)
-    // this.board = board;
-    // this.group = group;
-    // this.card = card;
-    // this.$store.commit({type:'setCard', card})
   },
   computed: {
     selectedBoard() {
@@ -107,7 +123,7 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
     card() {
-      console.log("card-getter", this.$store.getters.selectedCard);
+      // console.log("card-getter", this.$store.getters.selectedCard);
       return JSON.parse(JSON.stringify(this.$store.getters.selectedCard));
     },
     group() {
@@ -120,24 +136,54 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
-    changeComplete(isComplete) {
-      this.card.dueDate.isComplete = isComplete;
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
+    setLabel(labelId){
+    // console.log("labelId", labelId)
+    if (!this.card.labelIds) this.card.labelIds= []
+     if (this.card.labelIds.some(l => l === labelId)) {
+        this.removeLabel(labelId);
+        return;
+      }
+    this.card.labelIds.push(labelId)
+    this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
+     
+    },
+     removeLabel(labelId){
+        console.log(labelId);
+          const labelIdx = this.card.labelIds.findIndex(
+        (label) => label === labelId
+      );
+      console.log(labelIdx);
+      this.card.labelIds.splice(labelIdx, 1);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
+        card: this.card,
+      });
+      },
+    createLabel(pickedLabel){
+      this.$store.dispatch({ type: "updateLabel", boardId:this.boardId, pickedLabel });
+      console.log(pickedLabel);
+    },
+    changeComplete(isComplete) {
+      this.card.dueDate.isComplete = isComplete;
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
         card: this.card,
       });
     },
     addDate(date) {
+       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
     },
@@ -148,7 +194,6 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
@@ -158,45 +203,33 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
 
     addMember(member) {
-      const card = JSON.parse(JSON.stringify(this.card));
-      const group = JSON.parse(JSON.stringify(this.group));
-      if (!card.members) card.members = [];
-      // if(!this.card.members.length) {
-      //   this.card.members.push(member);
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
-      // return
-      // }
-      if (card.members.some((m) => m._id === member._id)) {
+      if (!this.card.members) this.card.members = [];
+      if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);
         return;
       }
-      card.members.push(member);
+      this.card.members.push(member);
       this.$store.dispatch({
         type: "updateCard",
-        group: group,
-        cardId: card.id,
-        card: card,
+        group: this.group,
+        card: this.card
       });
     },
     removeMember(memberId) {
-      const card = JSON.parse(JSON.stringify(this.card));
-      const group = JSON.parse(JSON.stringify(this.group));
-      const memberIdx = card.members.findIndex(
-        (member) => member.id === memberId
+      const memberIdx = this.card.members.findIndex(
+        (member) => member._id === memberId
       );
-      card.members.splice(memberIdx, 1);
+      this.card.members.splice(memberIdx, 1);
       this.$store.dispatch({
         type: "updateCard",
-        group: group,
-        cardId: card.id,
-        card: card,
+        group: this.group,
+        card: this.card,
       });
     },
     addTodo(checklist) {
@@ -210,7 +243,6 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
