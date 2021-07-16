@@ -1,10 +1,16 @@
 <template>
   <section v-if="board" class="board-container">
     <div class="board-header">
-      <div>Board Name</div>
-      <div>isFavorite</div>
-      <div>Members</div>
-      <button>Invite</button>
+      <div class="main-header-side">
+        <h2>Electricity~</h2>
+        <button class="favorite-board"></button>
+        <button class="board-members" v-for="member in board.members" :key="member._id">
+          <span v-if="member.imgUrl"><img :src="member.imgUrl"></span>
+          <span v-else>{{ member.fullname }}</span>
+        </button>
+        <button>Invite</button>
+      </div>
+      <button>Show menu</button>
     </div>
     <div class="board-content">
       <group

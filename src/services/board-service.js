@@ -55,7 +55,12 @@ const boardsJson = [{
         {
             "_id": "u101",
             "fullname": "Tal Tarablus",
-            "imgUrl": "https://www.google.com"
+            "imgUrl": "https://i1.sndcdn.com/avatars-IJz6w9tmDCEoQE6l-hzhpUg-t500x500.jpg"
+        },
+        {
+            "_id": "u102",
+            "fullname": "Abi Abambi",
+            "imgUrl": "https://avatars.githubusercontent.com/u/2770321?v=4"
         }
     ],
     "groups": [
