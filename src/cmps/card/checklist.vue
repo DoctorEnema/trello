@@ -2,16 +2,17 @@
   <section class="checklist">
     <h3>{{ checklist.title }}</h3>
     <ul>
-      <li v-for="(todo, idx) in checklist.todos" :key="idx">
+      <li v-for="todo in checklist.todos" :key="todo.id">
+        <!-- {{todo.id}} -->
         <!-- <div v-if="currTodo"> -->
-          <div v-if="!todo.isEdit" class="todo">
-            <input
-              type="checkbox"
-              @click="checkTodo(todo)"
-              :checked="todo.isDone"
-            />
-            <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
-          </div>
+        <div v-if="!todo.isEdit" class="todo">
+          <input
+            type="checkbox"
+            @click="checkTodo(todo)"
+            :checked="todo.isDone"
+          />
+          <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
+        </div>
         <!-- </div> -->
         <div v-if="currTodo" class="todo-edit">
           <div v-if="currTodo.id === todo.id">
@@ -48,7 +49,6 @@ export default {
   mounted() {
     this.$root.$on("checklistTextClose", () => {
       this.addMode = false;
-      console.log("gappeninng");
     });
   },
   destroyed() {
@@ -74,10 +74,8 @@ export default {
       this.addMode = false;
     },
     setCurrTodo(todo) {
-      // console.log('hi');
-      if (this.currTodo) this.currTodo.isEdit = false
+      if (this.currTodo) this.currTodo.isEdit = false;
       todo.isEdit = true;
-      console.log(todo);
       this.currTodo = todo;
     },
     // openEditarea() {
@@ -92,22 +90,23 @@ export default {
       this.checklist.todos.push({ ...this.todo });
       this.$emit("addTodo", this.checklist);
       this.todo = boardService.getEmptyTodo();
+      console.log('check added', this.checklist);
     },
     editTodo() {
-      const todo = this.currTodo
+      const todo = this.currTodo;
       if (!todo.title) return;
-      const idx = this.checklist.todos.findIndex(t => t.id === todo.id)
-      this.checklist.todos.splice(idx, 1, todo)
-      
-      this.$emit("addTodo", JSON.parse(JSON.stringify(this.checklist)));
-      // console.log('checklist', checklist);
-      this.currTodo = null
-    }
+      const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);
+      this.checklist.todos.splice(idx, 1, todo);
+      this.$emit("addTodo", this.checklist);
+    },
   },
   computed: {
     isChecklistAddOpen() {
       this.$store.getters.isTextareaOpen;
     },
+    card(){
+      return this.$store.getters.selectedCard
+    }
   },
 };
 </script>
