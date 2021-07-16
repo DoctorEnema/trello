@@ -1,10 +1,26 @@
 .group {
     min-width: 272px;
     max-width: 272px;
-    margin: 0 4px;
+    margin: 0 0 0 6px;
+    padding: 0 4px;
     height: 100%;
     background-color: #ebecf0;
     border-radius: 3px;
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #DADBE2;
+        border-radius: 20px;
+        
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #BFC4CE;
+        border-radius: 20px;
+               
+    }
 
     button {
         border-radius: 3px;
@@ -38,8 +54,10 @@
 }
 
 .group-content {
+    // padding: 6px;
     max-height: 78vh;
     overflow-y: auto;
+    
 }
 .group-footer {
     height: 38px;

@@ -4,31 +4,37 @@
       <div class="main-header-side">
         <h2>Electricity~</h2>
         <button class="favorite-board"></button>
-        <button class="board-members" v-for="member in board.members" :key="member._id">
-          <span v-if="member.imgUrl"><img :src="member.imgUrl"></span>
+        <button
+          class="board-members"
+          v-for="member in board.members"
+          :key="member._id"
+        >
+          <span v-if="member.imgUrl"><img :src="member.imgUrl" /></span>
           <span v-else>{{ member.fullname }}</span>
         </button>
         <button>Invite</button>
       </div>
-      <button class="show-board-menu"> Show menu</button>
+      <button class="show-board-menu">Show menu</button>
     </div>
     <div class="board-content">
-      <group
-        @removeCard="removeCard"
-        @removeGroup="removeGroup"
-        @addCard="addCard"
-        class="group"
-        :group="group"
-        v-for="group in board.groups"
-        :key="group.id"
-      ></group>
+      <div class="groups">
+        <group
+          @removeCard="removeCard"
+          @removeGroup="removeGroup"
+          @addCard="addCard"
+          class="group"
+          :group="group"
+          v-for="group in board.groups"
+          :key="group.id"
+        ></group>
+        <div v-if="isAdding">
+          <input v-model="emptyGroup.title" type="text" />
+          <button @click="toggleAdding">X</button>
+          <button @click="addGroup(copiedGroup)">Add</button>
+        </div>
+        <button v-else @click="toggleAdding">Add new Group</button>
+      </div>
     </div>
-    <div v-if="isAdding">
-      <input v-model="emptyGroup.title" type="text" />
-      <button @click="toggleAdding">X</button>
-      <button @click="addGroup(copiedGroup)">Add</button>
-    </div>
-    <button v-else @click="toggleAdding">Add new Group</button>
     <router-view></router-view>
   </section>
 </template>
