@@ -5,7 +5,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:#172b4d;
+    color:$clr1;
     background-color: cornflowerblue;
 }
 
@@ -25,4 +25,8 @@ img {
 ul{
     list-style: none;
     padding: 0;
+}
+
+button:hover{
+    cursor: pointer;
 }

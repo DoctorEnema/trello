@@ -1,44 +1,52 @@
 <template>
   <section class="date">
-      <h6>DUE DATE</h6>
-      <span>  
-   <input type="checkbox" v-model="checkbox" @change="changeComplete" >{{time}} <span v-if="checkbox">Complete</span>
-      </span>
+    <span>
+      <input type="checkbox" v-model="checkbox" @change="changeComplete" />
+      <button>
+        {{ time }}
+        <span class="is-complete" v-if="checkbox">COMPLETE </span>
+      </button>
+    </span>
   </section>
 </template>
 
 <script>
 export default {
   props: {
-    card: Object
+    card: Object,
   },
-  data(){
-    return{
-      checkbox:this.card.dueDate.isComplete
-    }
+  data() {
+    return {
+      checkbox: this.card.dueDate.isComplete,
+    };
   },
-created() {
-  },
+  created() {},
   computed: {
-    time(){
+    time() {
       // return new Date(this.card.dueDate.date)
-      const date =  new Date(this.card.dueDate.date) 
-      return (date.getDate()+
-          "/"+(date.getMonth()+1)+
-          "/"+date.getFullYear()+
-          " "+date.getHours()+
-          ":"+date.getMinutes()+
-          ":"+date.getSeconds());
-    }
+      const date = new Date(this.card.dueDate.date);
+      return (
+        date.getDate() +
+        "/" +
+        (date.getMonth() + 1) +
+        "/" +
+        date.getFullYear() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds()
+      );
+    },
   },
-  methods:{
-    changeComplete(){
-      this.$emit('changeComplete',this.checkbox)
-    }
-  }
-}
+  methods: {
+    changeComplete() {
+      this.$emit("changeComplete", this.checkbox);
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>
