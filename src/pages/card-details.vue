@@ -136,10 +136,34 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
-    setLabel(label){
-    console.log("label", label)
-
+    setLabel(labelId){
+    // console.log("labelId", labelId)
+    if (!this.card.labelIds) this.card.labelIds= []
+     if (this.card.labelIds.some(l => l === labelId)) {
+        this.removeLabel(labelId);
+        return;
+      }
+    this.card.labelIds.push(labelId)
+    this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
+     
     },
+     removeLabel(labelId){
+        console.log(labelId);
+          const labelIdx = this.card.labelIds.findIndex(
+        (label) => label === labelId
+      );
+      console.log(labelIdx);
+      this.card.labelIds.splice(labelIdx, 1);
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
+      },
     createLabel(pickedLabel){
       this.$store.dispatch({ type: "updateLabel", boardId:this.boardId, pickedLabel });
       console.log(pickedLabel);
@@ -185,14 +209,7 @@ export default {
     },
 
     addMember(member) {
-      // const card = JSON.parse(JSON.stringify(this.card));
-      // const group = JSON.parse(JSON.stringify(this.group));
       if (!this.card.members) this.card.members = [];
-      // if(!this.card.members.length) {
-      //   this.card.members.push(member);
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
-      // return
-      // }
       if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);
         return;
@@ -205,10 +222,8 @@ export default {
       });
     },
     removeMember(memberId) {
-      // const card = JSON.parse(JSON.stringify(this.card));
-      // const group = JSON.parse(JSON.stringify(this.group));
       const memberIdx = this.card.members.findIndex(
-        (member) => member.id === memberId
+        (member) => member._id === memberId
       );
       this.card.members.splice(memberIdx, 1);
       this.$store.dispatch({

@@ -14,7 +14,7 @@
             class="card-label"
             v-for="(label, idx) in  selectedBoard.labels"
             :key="idx"
-            @click="setLabel(label)"
+            @click="setLabel(label.id)"
           >
             <span class="label" :style="'background-color:' + label.color"
               ><span class="label-name">{{ label.name }}</span
