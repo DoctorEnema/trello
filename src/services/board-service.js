@@ -15,42 +15,42 @@ const boardsJson = [{
     "style": {},
     "labels": [
         {
-          "id": 100,
-          "name": null,
-          "color": "#61bd4f",
-          "isPicked": false
+            "id": 100,
+            "name": null,
+            "color": "#61bd4f",
+            "isPicked": false
         },
         {
-          "id": 101,
-          "name": null,
-          "color": "#ff9f1a",
-          "isPicked": false
+            "id": 101,
+            "name": null,
+            "color": "#ff9f1a",
+            "isPicked": false
         },
         {
-          "id": 102,
-          "name": null,
-          "color": "#eb5a46",
-          "isPicked": false
+            "id": 102,
+            "name": null,
+            "color": "#eb5a46",
+            "isPicked": false
         },
         {
-          "id": 103,
-          "name": null,
-          "color": "#c377e0",
-          "isPicked": false
+            "id": 103,
+            "name": null,
+            "color": "#c377e0",
+            "isPicked": false
         },
         {
-          "id": 104,
-          "name": null,
-          "color": "#0079bf",
-          "isPicked": false
+            "id": 104,
+            "name": null,
+            "color": "#0079bf",
+            "isPicked": false
         },
         {
-          "id": 105,
-          "name": null,
-          "color": "#00c2e0",
-          "isPicked": false
+            "id": 105,
+            "name": null,
+            "color": "#00c2e0",
+            "isPicked": false
         },
-      ],
+    ],
     "members": [
         {
             "_id": "u101",
@@ -94,7 +94,7 @@ const boardsJson = [{
                 {
                     "id": "c105",
                     "title": "Do that",
-                    "members":[]
+                    "members": []
                 },
                 {
                     "id": "c106",
@@ -121,13 +121,13 @@ const boardsJson = [{
                                     "id": "212jX",
                                     "title": "To Do 1",
                                     "isDone": true,
-                                    "isEdit":false
+                                    "isEdit": false
                                 },
                                 {
                                     "id": "212jy",
                                     "title": "To Do 2",
                                     "isDone": false,
-                                    "isEdit":false
+                                    "isEdit": false
                                 }
                             ]
                         },
@@ -139,7 +139,7 @@ const boardsJson = [{
                                     "id": "212jX",
                                     "title": "To Do 1",
                                     "isDone": true,
-                                    "isEdit":false
+                                    "isEdit": false
                                 }
                             ]
                         }
@@ -152,9 +152,9 @@ const boardsJson = [{
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         }
                     ],
-                    
+
                     "createdAt": 1590999730348,
-                    "dueDate": {date:16156215211,isComplete:false},
+                    "dueDate": { date: 16156215211, isComplete: false },
                     "byMember": {
                         "_id": "u101",
                         "username": "Tal",
@@ -239,7 +239,8 @@ export const boardService = {
     addCard,
     updateCard,
     getCardById,
-    getEmptyTodo
+    getEmptyTodo,
+    getEmptyList
 };
 
 
@@ -316,7 +317,7 @@ async function getCardById(cardId, groupId, boardId) {
         const board = await getById(boardId)
         const groupIdx = board.groups.findIndex(group => group.id === groupId)
         const cardIdx = board.groups[groupIdx].cards.findIndex(card => card.id === cardId)
-        return {card:board.groups[groupIdx].cards[cardIdx],group:board.groups[groupIdx],board:board}
+        return { card: board.groups[groupIdx].cards[cardIdx], group: board.groups[groupIdx], board: board }
     } catch (err) {
         console.log('cant get card', err);
     }
@@ -326,7 +327,15 @@ function getEmptyTodo() {
     return {
         id: utilService.makeId(),
         title: '',
-        isDone:false,
-        isEdit:false
+        isDone: false,
+        isEdit: false
+    }
+}
+
+function getEmptyList() {
+    return {
+        id: utilService.makeId(),
+        title: '',
+        todos: []
     }
 }

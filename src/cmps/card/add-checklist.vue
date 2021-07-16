@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     setList() {
-      // console.log('listAdded')
       this.$emit("listAdded", this.listname);
     },
     closeModal() {

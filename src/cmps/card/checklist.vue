@@ -1,33 +1,15 @@
 <template>
   <section class="checklist">
-    <h3>{{ checklist.title }}</h3>
+    <h3>{{ checklist.title }}</h3> 
+    <button @click="removeList">Delete</button>
     <ul>
       <li v-for="todo in checklist.todos" :key="todo.id">
-        <!-- {{todo.id}} -->
-        <!-- <div v-if="currTodo"> -->
-        <div v-if="!todo.isEdit" class="todo">
-          <input
-            type="checkbox"
-            @click="checkTodo(todo)"
-            :checked="todo.isDone"
-          />
-          <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
-        </div>
-        <!-- </div> -->
-        <!-- <div v-if="currTodo" class="todo-edit"> -->
-        <div v-else class="todo-edit">
-          <!-- <div v-if="currTodo.id === todo.id"> -->
-            <textarea v-model="currTodo.title"></textarea>
-            <button @click="editTodo">Save</button>
-            <button>X</button>
-          <!-- </div> -->
-        </div>
+        <todo-preview @editTodo="editTodo" :todo="todo"></todo-preview>
       </li>
-      <div>
-        <button v-if="!addMode" @click="openTextarea">Add an item</button>
-      </div>
-      <!-- <todo-preview></todo-preview> -->
     </ul>
+    <div>
+      <button v-if="!addMode" @click="openTextarea">Add an item</button>
+    </div>
     <section class="todo-add" v-if="addMode">
       <textarea v-model="todo.title" placeholder="Add an item"></textarea>
       <button class="add-btn" @click="addTodo">Add</button>
@@ -38,39 +20,30 @@
 
 <script>
 import { boardService } from "../../services/board-service.js";
-// import todoPreview from './card/todo-preview.js';
+import todoPreview from "./todo-preview";
 
 export default {
   props: {
     checklist: Object,
   },
   components: {
-    // todoPreview
+    todoPreview,
   },
   mounted() {
     this.$root.$on("checklistTextClose", () => {
       this.addMode = false;
     });
-    this.$root.$on("checklistTodoEditClose", () => {
-      this.checklist.todos.forEach(todo => todo.isEdit = false);
-    });
   },
   destroyed() {
     this.$root.$off("checklistTextClose");
-    this.$root.$off("checklistTodoEditClose");
   },
   data() {
     return {
       todo: boardService.getEmptyTodo(),
-      currTodo: null,
       addMode: false,
-      editMode: false,
     };
   },
   methods: {
-    checkTodo(todo) {
-      todo.isDone = !todo.isDone;
-    },
     openTextarea() {
       this.$root.$emit("checklistTextClose");
       this.addMode = true;
@@ -78,24 +51,6 @@ export default {
     closeTextarea() {
       this.addMode = false;
     },
-    setCurrTodo(todo) {
-      // if (this.currTodo) this.currTodo.isEdit = false;
-      // this.$root.$emit("checklistTodoEditClose");
-      console.log(
-        "file: checklist.vue ~ line 89 ~ this.checklist.todos",
-        this.checklist.todos
-      );
-      checklist.list
-      todo.isEdit = true;
-      this.currTodo = todo;
-    },
-    // openEditarea() {
-    //   this.$root.$emit("checklistTextClose");
-    //   this.addMode = true;
-    // },
-    // closeEditarea() {
-    //   this.addMode = false;
-    // },
     addTodo() {
       if (!this.todo.title) return;
       this.checklist.todos.push({ ...this.todo });
@@ -103,23 +58,14 @@ export default {
       this.todo = boardService.getEmptyTodo();
       console.log("check added", this.checklist);
     },
-    editTodo() {
-      const todo = this.currTodo;
-      if (!todo.title) return;
-      todo.isEdit = false;
+    editTodo(todo) {
       const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);
       this.checklist.todos.splice(idx, 1, todo);
       this.$emit("addTodo", this.checklist);
-      this.currTodo = null;
     },
-  },
-  computed: {
-    isChecklistAddOpen() {
-      this.$store.getters.isTextareaOpen;
-    },
-    card() {
-      return this.$store.getters.selectedCard;
-    },
+    removeList() {
+      this.$emit('removeList', this.checklist.id)
+    }
   },
 };
 </script>
