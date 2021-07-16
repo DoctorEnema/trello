@@ -82,10 +82,11 @@ export const boardStore = {
         async updateLabel(context, { boardId , pickedLabel}) {
             try {
                 const board = await boardService.getById(boardId)
+                if(!board.labels) board.labels = []
                 board.labels.push(pickedLabel)
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
-                return board
+                // return board
             } catch (err) {
                 console.log('Cannot load board', err);
             }
