@@ -1,24 +1,40 @@
 <template>
   <section @click="openCard(group.id, card.id)">
-    <button @click.stop="removeCard(card.id)" >X</button>
-    <div v-if="card.style" :style="{ backgroundColor:card.style.bgColor }"  class="card-preview-cover">
-    </div>
-    <div v-for="label in card.labelIds" :key="label">{{label}}</div>
-    <div class="card-preview-title">{{ card.title }}</div>
-    <div class="card-preview-badges">
-      <div v-if="card.dueDate" class="card-preview-date">{{ card.dueDate }}</div>
-      <div v-if="card.description" class="card-preview-desc"></div>
-      <div v-if="card.comments">{{ card.comments.length }}</div>
-      <div v-if="card.attachments" class="card-preview-attachments">
-        {{ card.attachments.length }}
+    <button
+      class="edit-card-preview"
+      @click.stop="removeCard(card.id)"
+    ></button>
+    <div
+      v-if="card.style"
+      :style="{ backgroundColor: card.style.bgColor }"
+      class="card-preview-cover"
+    ></div>
+    <div class="card-preview-content">
+      <div v-if="card.labelIds" class="card-preview-labels">
+        <div
+          v-for="(label, idx) in cardLabels"
+          :key="idx"
+          :style="{ backgroundColor: label.color }"
+        ></div>
       </div>
-      <div v-if="card.checklists" class="card-preview-checklists">
-        {{ numberOfTodos }}
+      <div class="card-preview-title">{{ card.title }}</div>
+      <div class="card-preview-badges">
+        <div v-if="card.dueDate" class="card-preview-date">
+          {{ date }}
+        </div>
+        <div v-if="card.description" class="card-preview-desc"></div>
+        <div v-if="card.comments">{{ card.comments.length }}</div>
+        <div v-if="card.attachments" class="card-preview-attachments">
+          {{ card.attachments.length }}
+        </div>
+        <div v-if="card.checklists" class="card-preview-checklists">
+          {{ numberOfTodos }}
+        </div>
       </div>
-    </div>
-    <div v-if="card.members" class="card-preview-members">
-      <div v-for="member in card.members" :key="member._id">
-        {{ member.fullname }}
+      <div v-if="card.members" class="card-preview-members">
+        <div v-for="member in card.members" :key="member._id">
+          {{ member.fullname }}
+        </div>
       </div>
     </div>
   </section>
@@ -28,15 +44,15 @@
 export default {
   props: {
     card: Object,
-    group: Object
+    group: Object,
   },
-  methods:{
-    removeCard(cardId){
-      this.$emit('removeCard', cardId)
+  methods: {
+    removeCard(cardId) {
+      this.$emit("removeCard", cardId);
     },
     openCard(groupId, cardId) {
-      this.$router.push(`/board/b101/${groupId}/${cardId}`)
-    }
+      this.$router.push(`/board/b101/${groupId}/${cardId}`);
+    },
   },
   computed: {
     numberOfTodos() {
@@ -46,11 +62,40 @@ export default {
       );
       return sum;
     },
-    date(){
-      let time = new Date(this.card.dueDate)
-      let month = time.getMonth()
-      let day = time.getDay()
-      return `${month} ${day}`
+    date() {
+      let time = new Date(this.card.dueDate.date);
+      let month = time.getMonth();
+      // let formattedMonth
+      // if(month === 0) formattedMonth =
+      Date.shortMonths = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      Date.shortMonths[time.getMonth()];
+      let day = time.getDay();
+      return `${month} ${day}`;
+    },
+    boardLabels() {
+      const board = this.$store.getters.selectedBoard;
+      return board.labels;
+    },
+    cardLabels() {
+      const cardLabels = [];
+      this.card.labelIds.forEach((label) => {
+        const currLabel = this.boardLabels.filter((l) => l.id === label);
+        cardLabels.push(currLabel[0]);
+      });
+      return cardLabels;
     },
   },
 };
