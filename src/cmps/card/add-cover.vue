@@ -1,11 +1,12 @@
 <template>
    <div class="add-to-card">
      <div class="create-cover">
+          <button @click="closeModal">X</button>
          <h4>size</h4>
          <button>Header inside the cover</button>
          <button>Header outside the cover</button>
 
-         <button>Remove Cover</button>
+         <button v-if="isRemoved" @click="removeCover">Remove Cover</button>
         <form @submit.prevent="setCoverColor()">
           <label for="name">colors</label>
           <ul>
@@ -14,7 +15,7 @@
               v-for="(label, idx) in editCovers"
               :key="idx"
               :style="'background-color:' + label"
-            @click="pickedCover.color = label">
+            @click="setCoverColor(label)">
               <span class="icon"></span>
             </li>
           </ul>
@@ -25,7 +26,7 @@
         <h4>attachments</h4>
         
         <h4>Unsplash</h4>
-        <button v-for="(cover,idx) in boardCovers" :key="idx" @click="setCover(cover.id)">
+        <button v-for="(cover,idx) in boardCovers" :key="idx" @click="setCover(cover)">
         <img class="cover-img" :src="cover.imgUrl" alt="">
        </button>
       </div>
@@ -50,10 +51,9 @@ editCovers: [
       ],
       pickedCover: {
         id:null,
-        name: null,
         color: "#344563",
-        isPicked: true
       },
+      isRemoved:true
     }
 },
 computed:{
@@ -63,11 +63,21 @@ computed:{
     },  
 },
 methods:{
-    setCover(coverId){
-        console.log(coverId);
+    setCover(cover){
+        this.isRemoved=true
+     this.$emit('setCover' , cover)
     },
-    setCoverColor(){
-        console.log('kkkk');
+    setCoverColor(color){
+         this.isRemoved=true
+        this.pickedCover.color =color
+        this.$emit('setCover' , this.pickedCover)
+    },
+     closeModal() {
+      this.$emit("closeModal");
+    },
+    removeCover(){
+       this.isRemoved=false
+         this.$emit("removeCover");
     }
 }
 }
