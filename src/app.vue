@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import mainHeader from './cmps/main-header.vue'
+import mainHeader from "./cmps/main-header.vue";
 
 export default {
-  components:{
-    mainHeader
-  }
-}
+  components: {
+    mainHeader,
+  },
+};
 </script>
 

@@ -12,8 +12,11 @@ const boardsJson = [{
         "fullname": "Abi Abambi",
         "imgUrl": "http://some-img"
     },
-    "style": {},
-    "covers": [{id:"c101",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg"},{id:"c102",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1625997005/samples/landscapes/nature-mountains.jpg"},{id:"c103",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1625997001/samples/landscapes/architecture-signs.jpg"},{id:"c104",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1625996999/samples/landscapes/girl-urban-view.jpg"},{id:"c105",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-3_o4vbyr.jpg"},{id:"c106",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-4_enj2yk.jpg"}],
+    "style": {
+        "backgroundColor":"cornflowerblue",
+        "backgroundImg":"https://img2.storyblok.com/f/84907/2560x1291/aa8c4a2444/vrynna-the-marauder.jpg"
+    },
+    "covers": [{ id: "c101", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg" }, { id: "c102", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997005/samples/landscapes/nature-mountains.jpg" }, { id: "c103", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997001/samples/landscapes/architecture-signs.jpg" }, { id: "c104", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625996999/samples/landscapes/girl-urban-view.jpg" }, { id: "c105", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-3_o4vbyr.jpg" }, { id: "c106", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-4_enj2yk.jpg" }],
     "labels": [
         {
             "id": 100,
@@ -72,12 +75,12 @@ const boardsJson = [{
                 {
                     "id": "c101",
                     "title": "Replace logo",
-                    "cover":{id:"c101",color:"#ff9f1a",imgUrl:"https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg"}
+                    "cover": { id: "c101", color: "#ff9f1a", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg" }
                 },
                 {
                     "id": "c102",
                     "title": "Add Samples",
-                    "cover":{id:"c101",color:"#ff9f1a"}
+                    "cover": { id: "c101", color: "#ff9f1a" }
                 },
                 {
                     "id": "c103",

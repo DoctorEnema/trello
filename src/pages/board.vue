@@ -1,5 +1,6 @@
 <template>
   <section v-if="board" class="board-container">
+    <div class="background" :style="{'background-image':'url('+this.board.style.backgroundImg+')'}" />
     <div class="board-header">
       <div class="main-header-side">
         <h2>Electricity~</h2>
@@ -27,12 +28,20 @@
           v-for="group in board.groups"
           :key="group.id"
         ></group>
-        <div v-if="isAdding">
-          <input v-model="emptyGroup.title" type="text" />
-          <button @click="toggleAdding">X</button>
-          <button @click="addGroup(copiedGroup)">Add</button>
+        <div class="adding-group" v-if="isAdding">
+          <input
+            v-model="emptyGroup.title"
+            type="text"
+            placeholder="Enter group title..."
+          />
+          <div class="add-group-controls">
+            <button @click="addGroup(copiedGroup)">Add group</button>
+            <button @click="toggleAdding"></button>
+          </div>
         </div>
-        <button v-else @click="toggleAdding">Add new Group</button>
+        <button class="add-group" v-else @click="toggleAdding">
+          Add another group
+        </button>
       </div>
     </div>
     <router-view></router-view>
@@ -74,6 +83,7 @@ export default {
     addGroup(group) {
       this.$store.dispatch({ type: "addGroup", group });
       this.emptyGroup.title = "";
+      this.isAdding = false;
     },
     removeCard(group, cardId) {
       this.$store.dispatch({ type: "removeCard", group, cardId });
