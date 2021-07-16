@@ -25,7 +25,7 @@
           </div>
           <div class="details-labels">
             <h3>LABELS</h3>
-            <labels :card="card" v-if="card.labelIds" @setModalType="setModalType"></labels>
+            <labels :card="card" v-if="card.labelIds"></labels>
           </div>
           <div class="details-dates">
             <h3>DATES</h3>

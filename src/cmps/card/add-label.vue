@@ -21,7 +21,7 @@
               ><span class="icon"></span
             ></span>
             <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
-            <button @click=openEditor></button>
+            <!-- <button @click=openEditor></button> -->
             <a href="#" >edit icon</a>
           </li>
         </ul>

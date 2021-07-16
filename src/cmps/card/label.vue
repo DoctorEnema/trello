@@ -1,12 +1,12 @@
 <template>
   <section v-if="card.labelIds" class="label-cmp">
  
-       <button  v-for="(label,idx) in cardLabels" :key="idx" :style="{backgroundColor:label.color}" @click="setModalType">
+       <button v-for="(label,idx) in cardLabels" :key="idx" :style="{backgroundColor:label.color}">
         
          <!-- {{card.labelIds.name}} -->
-         <span class="add-label" >{{label.name}}</span>
+         <span class="card-label"  >{{label.name}}</span>
        </button>
-     <button class="add-new-label add-label" @click="setModalType"></button>
+     <button class="add-new-label"></button>
   </section>
 </template>
 
@@ -29,13 +29,6 @@ props: {
       return cardLabels
     }
 
-},
-methods:{
-  setModalType(ev){
-  console.log("ev", ev.target.className)
-  this.$emit('setModalType',ev)
-    
-  }
 }
 }
 </script>
