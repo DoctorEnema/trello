@@ -5,19 +5,19 @@
             overflow-wrap: break-word;
             resize: none;
             height: 56px;
-            background: rgba(9,30,66,.04);
-            border-color: rgba(9,30,66,.13);
+            background: rgba(9, 30, 66, 0.04);
+            border-color: rgba(9, 30, 66, 0.13);
             box-shadow: inset 0 0 0 1px rgb(9, 30, 66 / 13%);
             margin-bottom: 4px;
             outline: none;
             border: none;
-            width:100%;
+            width: 100%;
             border-radius: 3px;
             // display: block;
             line-height: 20px;
             // margin-bottom: 12px;
             padding: 8px 12px;
-            transition-property: background-color,border-color,box-shadow;
+            transition-property: background-color, border-color, box-shadow;
             transition-duration: 85ms;
             transition-timing-function: ease;
         }
@@ -45,16 +45,30 @@
         background-color: #0079bf;
         color: #fff;
     }
+    .progress-bar {
+        position: relative;
+        width: 100%;
+        height: 18px;
+        border-radius: 10px;
+        background-color: rgb(189, 174, 174);
+        overflow:hidden;
+
+        .bar {
+            transition: width .5s;
+            height: 100%;
+            background-color: rgb(108, 177, 108);
+            border-radius: 10px;
+            width: 0px;
+            display: flex;
+            align-items:center;
+        }
+        .precentage {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
 }
-
-
-// .progress-bar {
-//     position: relative;
-//     width: 100px;
-//     height: 18px;
-//     border-radius: 10px;
-//     background-color: rgb(189, 174, 174);
-// }
 
 // .progress-bar .bar {
 //     /* position: relative; */
