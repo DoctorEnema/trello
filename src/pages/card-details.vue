@@ -1,6 +1,7 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
-    <div class="details-cover">
+    <div v-if="card.cover" class="details-cover" :style="{backgroundColor:card.cover.color}">
+      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="">
       <button class="close-details"></button>
       <button class="choose-cover">Cover</button>
     </div>
@@ -60,6 +61,7 @@
         <button class="add-attachment" @click.stop="setModalType">
           Attachment
         </button>
+        <button class="add-cover" @click.stop="setModalType">Cover</button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
         <component
@@ -84,6 +86,7 @@ import addChecklist from "../cmps/card/add-checklist.vue";
 import addDate from "../cmps/card/add-date.vue";
 import addMember from "../cmps/card/add-member.vue";
 import addAttachment from "../cmps/card/add-attachment.vue";
+import addCover from "../cmps/card/add-cover.vue";
 import labels from "../cmps/card/label.vue";
 import checklist from "../cmps/card/checklist.vue";
 import date from "../cmps/card/date.vue";
@@ -99,6 +102,7 @@ export default {
     addDate,
     addMember,
     addAttachment,
+    addCover,
     labels,
     checklist,
     date,

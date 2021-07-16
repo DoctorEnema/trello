@@ -1,28 +1,87 @@
 .card-preview{
-    // position: absolute;
+    position: relative;
     background-color: #ffffff;
     margin: 0 8px 8px;
     border-radius: 3px;
-    .card-preview-cover{
-        height: 3rem;
-        border-radius: 3px 3px 0 0
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    &:hover{
+        cursor: pointer;
     }
+
     .card-preview-title{
-        font-weight: 600;
+        font-weight: 400;
+        margin-bottom: 4px;
+        margin-left: 2px;
     }
     .card-preview-badges{
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
     }
+    &:hover{
+        background-color: #f7f7f7;
+        >.edit-card-preview{
+            opacity: 1;
+            background-color: rgba($color: #f7f7f7, $alpha: 0.4);
+        }
+    }
+    .edit-card-preview{
+        position: absolute;
+        border-radius: 3px;
+        margin: 2px 2px 0 0;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        width: 28px;
+        height: 28px;
+        &:hover{
+            background-color:$clr3 
+        }
+        &::before{
+            font-family: fontAwesome, sans serif;
+            content:'\f304'
+        }
+    }
+}
 
+.card-preview-cover{
+    height: 32px;
+    border-radius: 3px 3px 0 0
+}
+
+.card-preview-content{
+    min-height: 20px;
+    padding: 8px 6px 2px;
+}
+
+.card-preview-labels{
+    display: flex;
+    &:hover{
+        filter: brightness(90%);
+    }
+    >*{
+        margin: 0 2px;
+        min-height: 8px;
+        min-width: 40px;
+        border-radius: 50px;
+
+    }
+}
+
+.card-preview-date{
     
+    &::before{
+        font-family: fontAwesome, sans serif;
+        content:'\f017'
+    }
 }
 
-.card-preview-date::before{
-    font-family: fontAwesome, sans serif;
-    content:'\f017';
-}
+
+
+// .card-preview-date::before{
+//     font-family: fontAwesome, sans serif;
+//     content:'\f017';
+// }
 
 .card-preview-desc::before{
     font-family: fontAwesome, sans serif;
