@@ -5,6 +5,7 @@
       <button @click="removeGroup(group.id)"></button>
     </div>
     <card-preview
+      @changeComplete="changeComplete"
       @removeCard="removeCard"
       class="card-preview"
       :group="group"
@@ -13,14 +14,17 @@
       :key="card.id"
     ></card-preview>
     <section class="add-card-area" v-if="isAdding">
-      <textarea placeholder="Enter a title for this card..." v-model="emptyCard.title" />
+      <textarea
+        placeholder="Enter a title for this card..."
+        v-model="emptyCard.title"
+      />
       <div class="add-card-controls">
         <button @click="addCard(group.id, copiedEmptyCard)">Add card</button>
-        <button class="close-adding" @click="isAdding=false"></button>
+        <button class="close-adding" @click="isAdding = false"></button>
       </div>
     </section>
     <div v-else class="group-footer">
-      <button @click="isAdding = true"> Add a card</button>
+      <button @click="isAdding = true">Add a card</button>
     </div>
   </section>
 </template>
@@ -61,6 +65,9 @@ export default {
       this.emptyCard.title = "";
       this.isAdding = false;
     },
+    changeComplete(isComplete){
+      this.$emit('changeComplete', isComplete)
+    }
   },
 };
 </script>
