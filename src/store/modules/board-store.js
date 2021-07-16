@@ -79,11 +79,41 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
-        async updateLabel(context, { boardId , pickedLabel}) {
+        async updateLabel(context, { boardId , pickedLabel, action}) {
             try {
                 const board = await boardService.getById(boardId)
                 if(!board.labels) board.labels = []
-                board.labels.push(pickedLabel)
+                if (action === 'add') {
+                    board.labels.push(pickedLabel)
+                } else if (action === 'remove'){
+                    const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
+                    console.log('labelIdx',labelIdx);
+                    board.labels.splice(labelIdx, 1, pickedLabel)
+                    board.groups.forEach(group=> {
+                        group.cards.forEach(card => {
+                            console.log(card);
+                            if (!card.labelIds) {
+                            } else {
+                                const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
+                                if (idIdx !== -1) group.card.labelIds.splice(idIdx, 1)
+                                console.log(idIdx);
+
+                            }
+                        })
+                    })
+                }
+                // else if(action === 'edit') {
+                //     const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
+                //     board.labels.splice(labelIdx, 1, pickedLabel)
+                //     board.groups.forEach(group=> {
+                //         group.cards.forEach(card => {
+                //             if (card.labelIds) {
+                //                 const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
+                //                 if (idIdx !== -1) card.labelIds.splice(idIdx, 1, pickedLabel.id)
+                //             }
+                //         })
+                //     })
+                // }
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
                 // return board

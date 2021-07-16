@@ -65,7 +65,7 @@
           </ul>
           <div v-if="isEdit">
             <button @click.prevent="saveEditedLabel">Save</button>
-            <button @click.prevent>Delete</button>
+            <button @click.prevent="removeLabel">Delete</button>
           </div>
           <div v-else>
             <button>Create</button>
@@ -151,6 +151,10 @@ export default {
         this.$refs.nameEdit.focus();
         this.$refs.nameEdit.select();
       });
+    },
+
+    removeLabel() {
+    this.$emit("createLabel", this.labelToEdit, 'remove');
     },
     saveEditedLabel() {
       const label = this.labelToEdit;

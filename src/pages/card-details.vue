@@ -171,6 +171,7 @@ export default {
     },
     setLabel(labelId) {
       // console.log("labelId", labelId)
+      console.log('happening');
       if (!this.card.labelIds) this.card.labelIds = [];
       if (this.card.labelIds.some((l) => l === labelId)) {
         this.removeLabel(labelId);
@@ -195,13 +196,17 @@ export default {
         card: this.card,
       });
     },
-    async createLabel(pickedLabel) {
+    async createLabel(pickedLabel, action = 'add') {
       await this.$store.dispatch({
         type: "updateLabel",
         boardId: this.boardId,
         pickedLabel,
+        action
       });
-      this.setLabel(pickedLabel.id);
+      console.log(action);
+      if (action === 'add') {
+        this.setLabel(pickedLabel.id);
+      }
     },
     changeComplete(isComplete) {
       this.card.dueDate.isComplete = isComplete;
