@@ -1,11 +1,10 @@
 <template>
   <section v-if="card.labelIds" class="label-cmp">
- 
-       <button  data-cmp="add-label"  v-for="(label,idx) in cardLabels" :key="idx" :style="{backgroundColor:label.color}" @click.stop="setModalType">
-        
-         <!-- {{card.labelIds.name}} -->
+    <div v-for="(label,idx) in cardLabels" :key="idx" >
+       <button v-if="label" data-cmp="add-label" :style="{backgroundColor:label.color}" @click.stop="setModalType">
          <span class="card-label"  >{{label.name}}</span>
        </button>
+    </div>
      <button class="add-new-label" data-cmp="add-label" @click.stop="setModalType"></button>
   </section>
 </template>
@@ -21,6 +20,7 @@ props: {
       return board.labels;
     },
     cardLabels(){
+      // console.log(this.boardLabels);
        const cardLabels = []
       this.card.labelIds.forEach(label=> {
         const currLabel = this.boardLabels.filter(l=>l.id === label )

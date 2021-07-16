@@ -1,6 +1,7 @@
 <template>
   <div class="add-to-card">
     <span class="demonstration">Date: </span>
+    <button @click="closeModal">X</button>
     <el-date-picker @change="addDate"
       ref="dateInput"
       v-model="date"

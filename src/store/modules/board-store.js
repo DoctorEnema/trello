@@ -80,6 +80,7 @@ export const boardStore = {
             }
         },
         async updateLabel(context, { boardId , pickedLabel, action}) {
+            // console.log("pickedLabel", pickedLabel)
             try {
                 const board = await boardService.getById(boardId)
                 if(!board.labels) board.labels = []
@@ -87,16 +88,19 @@ export const boardStore = {
                     board.labels.push(pickedLabel)
                 } else if (action === 'remove'){
                     const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
-                    console.log('labelIdx',labelIdx);
-                    board.labels.splice(labelIdx, 1, pickedLabel)
+                    // console.log('labelIdx',labelIdx);
+                    board.labels.splice(labelIdx, 1)
                     board.groups.forEach(group=> {
                         group.cards.forEach(card => {
-                            console.log(card);
-                            if (!card.labelIds) {
-                            } else {
+                            if (!card.labelIds){
+                                console.log("not have labels")
+                            } 
+                             else {
                                 const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
-                                if (idIdx !== -1) group.card.labelIds.splice(idIdx, 1)
-                                console.log(idIdx);
+                                if (idIdx !== -1) {  
+                                    card.labelIds.splice(idIdx, 1)
+                                    console.log('asdas;daslkjdklsajda',idIdx);
+                            }
 
                             }
                         })

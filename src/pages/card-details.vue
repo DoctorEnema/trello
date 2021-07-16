@@ -203,7 +203,6 @@ export default {
         pickedLabel,
         action
       });
-      console.log(action);
       if (action === 'add') {
         this.setLabel(pickedLabel.id);
       }
@@ -310,7 +309,6 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
-      console.log(ev);
       // var value = ev.target.className;
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
