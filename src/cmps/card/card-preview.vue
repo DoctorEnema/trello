@@ -20,7 +20,7 @@
       <div class="card-preview-title">{{ card.title }}</div>
       <div class="card-preview-badges">
         <div
-        @click.stop="toggleDate()"
+          @click.stop="changeComplete()"
           v-if="card.dueDate"
           :class="{ 'date-done': card.dueDate.isComplete }"
           class="card-preview-date"
@@ -58,21 +58,32 @@ export default {
     openCard(groupId, cardId) {
       this.$router.push(`/board/b101/${groupId}/${cardId}`);
     },
-    toggleDate(){
-      var isComplete = JSON.parse(JSON.stringify(this.card.dueDate.isComplete))
-      isComplete = !isComplete
-    }
+    toggleDate() {
+      this.currentCard.dueDate.isComplete =
+        !this.currentCard.dueDate.isComplete;
+      console.log(this.currentCard.dueDate.isComplete);
+    },
+    changeComplete() {
+      this.currentCard.dueDate.isComplete =
+        !this.currentCard.dueDate.isComplete;
+      this.$store.dispatch({
+        type: "updateCard",
+        group: this.currentGroup,
+        card: this.currentCard,
+      });
+    },
   },
   computed: {
-    currentBoard(){
-      return this.$store.getters.selectedBoard
+    currentGroup() {
+      const idx = this.$store.getters.selectedBoard.groups.findIndex(
+        (g) => this.group.id === g.id
+      );
+      return JSON.parse(
+        JSON.stringify(this.$store.getters.selectedBoard.groups[idx])
+      );
     },
-    currentGroup(){
-      const idx = this.$store.getters.selectedBoard.groups.findIndex(g => this.group.id === g.id)
-      return this.$store.getters.selectedBoard.groups[idx]
-    },
-    currentCard(){
-
+    currentCard() {
+      return JSON.parse(JSON.stringify(this.card));
     },
     numberOfTodos() {
       let sum = 0;
