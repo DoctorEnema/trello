@@ -1,17 +1,32 @@
 <template>
   <section class="checklist">
-    <h3>{{ checklist.title }}</h3> 
+    <h3>{{ checklist.title }}</h3>
     <button @click="removeList">Delete</button>
+    <div>
+      <div class="progress-bar">
+        <div class="bar" :style="'width:' + complete">
+          <div class="precentage">{{ complete }}</div>
+        </div>
+      </div>
+    </div>
     <ul>
       <li v-for="todo in checklist.todos" :key="todo.id">
-        <todo-preview @editTodo="editTodo" :todo="todo"></todo-preview>
+        <todo-preview @editTodo="editTodo" :todo="todo">
+          <template v-slot:edit>
+            <button>...</button>
+          </template>
+        </todo-preview>
       </li>
     </ul>
     <div>
       <button v-if="!addMode" @click="openTextarea">Add an item</button>
     </div>
     <section class="todo-add" v-if="addMode">
-      <textarea v-model="todo.title" placeholder="Add an item"></textarea>
+      <textarea
+        ref="textarea"
+        v-model="todo.title"
+        placeholder="Add an item"
+      ></textarea>
       <button class="add-btn" @click="addTodo">Add</button>
       <button @click="closeTextarea">X</button>
     </section>
@@ -47,6 +62,10 @@ export default {
     openTextarea() {
       this.$root.$emit("checklistTextClose");
       this.addMode = true;
+      this.$nextTick(() => {
+        this.$refs.textarea.focus();
+        this.$refs.textarea.select();
+      });
     },
     closeTextarea() {
       this.addMode = false;
@@ -64,8 +83,16 @@ export default {
       this.$emit("addTodo", this.checklist);
     },
     removeList() {
-      this.$emit('removeList', this.checklist.id)
-    }
+      this.$emit("removeList", this.checklist.id);
+    },
+  },
+  computed: {
+    complete() {
+      var todosLength = this.checklist.todos.length;
+      var complete = this.checklist.todos.filter((todo) => todo.isDone);
+      if (!complete.length) return "0%";
+      return parseInt((complete.length / todosLength) * 100) + "%";
+    },
   },
 };
 </script>

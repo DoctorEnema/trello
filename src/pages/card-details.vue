@@ -1,10 +1,15 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
-    <div v-if="card.cover" class="details-cover" :style="{backgroundColor:card.cover.color}">
-      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="">
+    <div
+      v-if="card.cover"
+      class="details-cover"
+      :style="{ backgroundColor: card.cover.color }"
+    >
+      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
       <button class="close-details"></button>
       <button class="choose-cover" data-cmp="add-cover" @click.stop="setModalType">Cover</button>
     </div>
+    <button class="close-details" @click="closeCard"></button>
     <header class="details-header">
       <span class="details-title"></span>
       <div>
@@ -41,7 +46,11 @@
 
         <ul v-if="card.checklists">
           <li v-for="(checklist, idx) in card.checklists" :key="idx">
-            <checklist :checklist="checklist" @addTodo="addTodo" @removeList="removeList"></checklist>
+            <checklist
+              :checklist="checklist"
+              @addTodo="addTodo"
+              @removeList="removeList"
+            ></checklist>
           </li>
         </ul>
         <attachment
@@ -270,6 +279,7 @@ export default {
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     addList(title) {
+      if(!this.card.checklists) this.card.checklists = []
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
@@ -300,6 +310,9 @@ export default {
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },
+    closeCard() {
+      this.$router.push(`/board/${this.selectedBoard._id}`);
+    }
   },
 };
 </script>

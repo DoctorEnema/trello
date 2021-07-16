@@ -19,7 +19,12 @@
       </div>
       <div class="card-preview-title">{{ card.title }}</div>
       <div class="card-preview-badges">
-        <div v-if="card.dueDate" class="card-preview-date">
+        <div
+        @click.stop="toggleDate()"
+          v-if="card.dueDate"
+          :class="{ 'date-done': card.dueDate.isComplete }"
+          class="card-preview-date"
+        >
           {{ date }}
         </div>
         <div v-if="card.description" class="card-preview-desc"></div>
@@ -53,8 +58,22 @@ export default {
     openCard(groupId, cardId) {
       this.$router.push(`/board/b101/${groupId}/${cardId}`);
     },
+    toggleDate(){
+      var isComplete = JSON.parse(JSON.stringify(this.card.dueDate.isComplete))
+      isComplete = !isComplete
+    }
   },
   computed: {
+    currentBoard(){
+      return this.$store.getters.selectedBoard
+    },
+    currentGroup(){
+      const idx = this.$store.getters.selectedBoard.groups.findIndex(g => this.group.id === g.id)
+      return this.$store.getters.selectedBoard.groups[idx]
+    },
+    currentCard(){
+
+    },
     numberOfTodos() {
       let sum = 0;
       this.card.checklists.forEach(
@@ -64,10 +83,7 @@ export default {
     },
     date() {
       let time = new Date(this.card.dueDate.date);
-      let month = time.getMonth();
-      // let formattedMonth
-      // if(month === 0) formattedMonth =
-      Date.shortMonths = [
+      let shortMonths = [
         "Jan",
         "Feb",
         "Mar",
@@ -81,9 +97,8 @@ export default {
         "Nov",
         "Dec",
       ];
-      Date.shortMonths[time.getMonth()];
       let day = time.getDay();
-      return `${month} ${day}`;
+      return `${shortMonths[time.getMonth()]} ${day}`;
     },
     boardLabels() {
       const board = this.$store.getters.selectedBoard;
