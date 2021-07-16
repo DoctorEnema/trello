@@ -1,0 +1,28 @@
+.label-cmp{
+    display: flex;
+    align-items: center;
+    .card-label{
+        width: 30px;
+    }
+    button{
+        background-color: $clr4;
+        border: none;
+        border-radius: 3px;
+        margin: 0 4px 4px 0;
+        height: 32px;
+        &:hover{
+            filter: brightness(101.5%);
+        }
+    }
+}
+.label-container{
+    display: flex;
+}
+
+.add-new-label{
+    width: 32px;
+    &::before{
+        font-family: fontAwesome, sans serif;
+        content:'\f067'
+    }
+}

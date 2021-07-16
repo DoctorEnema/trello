@@ -1,12 +1,10 @@
 <template>
   <section v-if="card.labelIds" class="label-cmp">
-     <h1>Label</h1>
-     <ul class="label-container">
-       <li  v-for="(label,idx) in card.labelIds" :key="idx">
+       <button  v-for="(label,idx) in card.labelIds" :key="idx">
          {{card.labelIds}}
-         <span class="card-lable" :style="'background-color:' +  card.labelIds.color"  >a</span>
-       </li>
-     </ul>
+         <span class="card-label" :style="'background-color:'+card.labelIds.color"></span>
+       </button>
+     <button class="add-new-label"></button>
   </section>
 </template>
 

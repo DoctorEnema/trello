@@ -1,23 +1,43 @@
 <template>
   <section v-if="card" class="card-details" @click="closeModal">
+    <div class="details-cover">
+      <button class="close-details"></button>
+      <button class="choose-cover">Cover</button>
+    </div>
     <header class="details-header">
-      <h2>{{ card.title }}</h2>
-      <h5>in list {{ group.title }}</h5>
+      <span class="details-title"></span>
+      <div>
+        <h2>{{ card.title }}</h2>
+        <!--this is a textarea in trello -->
+        <h5>in list {{ group.title }}</h5>
+      </div>
     </header>
     <div class="details-body">
       <div v-if="card" class="left-side">
-        <h1>Left Side</h1>
+        <div class="details-top-left">
+          <div class="details-members">
+            <h3>MEMBERS</h3>
+            <member
+              :card="card"
+              v-if="card.members"
+              @removeMember="removeMember"
+            ></member>
+          </div>
+          <div class="details-labels">
+            <h3>LABELS</h3>
+            <labels :card="card" v-if="card.labelIds"></labels>
+          </div>
+          <div class="details-dates">
+            <h3>DATES</h3>
+            <date
+              :card="card"
+              v-if="card.dueDate"
+              @changeComplete="changeComplete"
+            ></date>
+          </div>
+        </div>
         <description></description>
-        <date
-          :card="card"
-          v-if="card.dueDate"
-          @changeComplete="changeComplete"
-        ></date>
-        <member
-          :card="card"
-          v-if="card.members"
-          @removeMember="removeMember"
-        ></member>
+
         <ul v-if="card.checklists">
           <li v-for="(checklist, idx) in card.checklists" :key="idx">
             <checklist :checklist="checklist" @addTodo="addTodo"></checklist>
@@ -28,7 +48,6 @@
           v-if="card.attachments"
           @removeLink="removeLink"
         ></attachment>
-        <labels :card="card" v-if="card.labelIds"></labels>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
