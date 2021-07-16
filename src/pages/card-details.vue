@@ -6,7 +6,7 @@
       :style="{ backgroundColor: card.cover.color }"
     >
       <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
-      <button class="close-details"></button>
+      <!-- <button class="close-details"></button> -->
       <button class="choose-cover" data-cmp="add-cover" @click.stop="setModalType">Cover</button>
     </div>
     <button class="close-details" @click="closeCard"></button>
