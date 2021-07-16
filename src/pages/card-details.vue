@@ -25,7 +25,7 @@
           </div>
           <div class="details-labels">
             <h3>LABELS</h3>
-            <labels :card="card" v-if="card.labelIds"></labels>
+            <labels :card="card" v-if="card.labelIds" @setModalType="setModalType"></labels>
           </div>
           <div class="details-dates">
             <h3>DATES</h3>
@@ -138,11 +138,12 @@ export default {
     },
     setLabel(labelId){
     // console.log("labelId", labelId)
-    if (!this.card.labelIds) this.card.labelIds= []
+    if (!this.card.labelIds) this.card.labelIds= [] 
      if (this.card.labelIds.some(l => l === labelId)) {
         this.removeLabel(labelId);
         return;
       }
+       if(labelId===null)return
     this.card.labelIds.push(labelId)
     this.$store.dispatch({
         type: "updateCard",
@@ -152,11 +153,9 @@ export default {
      
     },
      removeLabel(labelId){
-        console.log(labelId);
           const labelIdx = this.card.labelIds.findIndex(
         (label) => label === labelId
       );
-      console.log(labelIdx);
       this.card.labelIds.splice(labelIdx, 1);
       this.$store.dispatch({
         type: "updateCard",
@@ -164,9 +163,9 @@ export default {
         card: this.card,
       });
       },
-    createLabel(pickedLabel){
-      this.$store.dispatch({ type: "updateLabel", boardId:this.boardId, pickedLabel });
-      console.log(pickedLabel);
+    async createLabel(pickedLabel){
+      await this.$store.dispatch({ type: "updateLabel", boardId:this.boardId, pickedLabel });
+      this.setLabel(pickedLabel.id)
     },
     changeComplete(isComplete) {
       this.card.dueDate.isComplete = isComplete;
