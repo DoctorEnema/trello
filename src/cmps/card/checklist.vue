@@ -14,12 +14,13 @@
           <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
         </div>
         <!-- </div> -->
-        <div v-if="currTodo" class="todo-edit">
-          <div v-if="currTodo.id === todo.id">
+        <!-- <div v-if="currTodo" class="todo-edit"> -->
+        <div v-else class="todo-edit">
+          <!-- <div v-if="currTodo.id === todo.id"> -->
             <textarea v-model="currTodo.title"></textarea>
             <button @click="editTodo">Save</button>
             <button>X</button>
-          </div>
+          <!-- </div> -->
         </div>
       </li>
       <div>
@@ -50,9 +51,13 @@ export default {
     this.$root.$on("checklistTextClose", () => {
       this.addMode = false;
     });
+    this.$root.$on("checklistTodoEditClose", () => {
+      this.checklist.todos.forEach(todo => todo.isEdit = false);
+    });
   },
   destroyed() {
     this.$root.$off("checklistTextClose");
+    this.$root.$off("checklistTodoEditClose");
   },
   data() {
     return {
@@ -74,7 +79,13 @@ export default {
       this.addMode = false;
     },
     setCurrTodo(todo) {
-      if (this.currTodo) this.currTodo.isEdit = false;
+      // if (this.currTodo) this.currTodo.isEdit = false;
+      // this.$root.$emit("checklistTodoEditClose");
+      console.log(
+        "file: checklist.vue ~ line 89 ~ this.checklist.todos",
+        this.checklist.todos
+      );
+      checklist.list
       todo.isEdit = true;
       this.currTodo = todo;
     },
@@ -90,23 +101,25 @@ export default {
       this.checklist.todos.push({ ...this.todo });
       this.$emit("addTodo", this.checklist);
       this.todo = boardService.getEmptyTodo();
-      console.log('check added', this.checklist);
+      console.log("check added", this.checklist);
     },
     editTodo() {
       const todo = this.currTodo;
       if (!todo.title) return;
+      todo.isEdit = false;
       const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);
       this.checklist.todos.splice(idx, 1, todo);
       this.$emit("addTodo", this.checklist);
+      this.currTodo = null;
     },
   },
   computed: {
     isChecklistAddOpen() {
       this.$store.getters.isTextareaOpen;
     },
-    card(){
-      return this.$store.getters.selectedCard
-    }
+    card() {
+      return this.$store.getters.selectedCard;
+    },
   },
 };
 </script>
