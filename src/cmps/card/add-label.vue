@@ -12,9 +12,9 @@
         <ul>
           <li
             class="card-label"
-            v-for="(label, idx) in labels"
+            v-for="(label, idx) in  selectedBoard.labels"
             :key="idx"
-            @click="setLabel(label.color)"
+            @click="setLabel(label)"
           >
             <span class="label" :style="'background-color:' + label.color"
               ><span class="label-name">{{ label.name }}</span
@@ -118,18 +118,25 @@ export default {
       },
     };
   },
+  computed:{
+selectedBoard() {
+      // return this.$store.getters.selectedBoard;
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
+    },
+  },
   methods: {
     closeModal() {
       this.$emit("closeModal");
     },
     setLabel(label) {
-      this.$emit("labelClicked", label);
+      this.$emit("setLabel", label);
     },
     createLabel() {
       if (this.isCreate) {
-        var id = this.labels[this.labels.length-1].id
+        var id = this.selectedBoard.labels[this.selectedBoard.labels.length-1].id
         this.pickedLabel.id = ++id
-        this.labels.push({...this.pickedLabel});
+        this.$emit("createLabel", this.pickedLabel);
+        // this.labels.push({...this.pickedLabel});
         // return
       }
         this.isCreate = !this.isCreate;

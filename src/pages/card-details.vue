@@ -68,6 +68,8 @@
           @addUser="addMember"
           @linkAdded="linkAdded"
           @addDate="addDate"
+          @createLabel="createLabel"
+          @setLabel="setLabel"
         ></component>
       </section>
       <!-- {{selectedBoard}} -->
@@ -106,19 +108,14 @@ export default {
   data() {
     return {
       openModalType: null,
-      board: null,
+      boardId: null,
     };
   },
   async created() {
     // this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
     const { cardId, groupId, boardId } = this.$route.params;
+    this.boardId=boardId
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
-    // const { board, group, card } = await boardService.getCardById(cardId,groupId,boardId);
-    // console.log("card", card)
-    // this.board = board;
-    // this.group = group;
-    // this.card = card;
-    // this.$store.commit({type:'setCard', card})
   },
   computed: {
     selectedBoard() {
@@ -126,7 +123,7 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
     card() {
-      console.log("card-getter", this.$store.getters.selectedCard);
+      // console.log("card-getter", this.$store.getters.selectedCard);
       return JSON.parse(JSON.stringify(this.$store.getters.selectedCard));
     },
     group() {
@@ -139,13 +136,19 @@ export default {
     stop(event) {
       // event.stopPropagation
     },
+    setLabel(label){
+    console.log("label", label)
+
+    },
+    createLabel(pickedLabel){
+      this.$store.dispatch({ type: "updateLabel", boardId:this.boardId, pickedLabel });
+      console.log(pickedLabel);
+    },
     changeComplete(isComplete) {
       this.card.dueDate.isComplete = isComplete;
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
     },
@@ -157,7 +160,6 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
     },
@@ -168,7 +170,6 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
@@ -178,45 +179,42 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
 
     addMember(member) {
-      const card = JSON.parse(JSON.stringify(this.card));
-      const group = JSON.parse(JSON.stringify(this.group));
-      if (!card.members) card.members = [];
+      // const card = JSON.parse(JSON.stringify(this.card));
+      // const group = JSON.parse(JSON.stringify(this.group));
+      if (!this.card.members) this.card.members = [];
       // if(!this.card.members.length) {
       //   this.card.members.push(member);
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
       // return
       // }
-      if (card.members.some((m) => m._id === member._id)) {
+      if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member._id);
         return;
       }
-      card.members.push(member);
+      this.card.members.push(member);
       this.$store.dispatch({
         type: "updateCard",
-        group: group,
-        cardId: card.id,
-        card: card,
+        group: this.group,
+        card: this.card
       });
     },
     removeMember(memberId) {
-      const card = JSON.parse(JSON.stringify(this.card));
-      const group = JSON.parse(JSON.stringify(this.group));
-      const memberIdx = card.members.findIndex(
+      // const card = JSON.parse(JSON.stringify(this.card));
+      // const group = JSON.parse(JSON.stringify(this.group));
+      const memberIdx = this.card.members.findIndex(
         (member) => member.id === memberId
       );
-      card.members.splice(memberIdx, 1);
+      this.card.members.splice(memberIdx, 1);
       this.$store.dispatch({
         type: "updateCard",
-        group: group,
-        cardId: card.id,
-        card: card,
+        group: this.group,
+        card: this.card,
       });
     },
     addTodo(checklist) {
@@ -228,7 +226,6 @@ export default {
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
-        cardId: this.card.id,
         card: this.card,
       });
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
