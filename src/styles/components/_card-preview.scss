@@ -18,9 +18,9 @@
         >*:not(:first-child){
             color: $clr2;
             padding: 0 2px;
-            margin: 0 4px;
+            margin: 5px 5px 0px;
             height: 20px;
-            font-size: 14px;
+            font-size: 13px;
         }
     }
     &:hover{
@@ -47,6 +47,35 @@
             content:'\f304'
         }
     }
+
+    .card-preview-members{
+        display: grid;
+        justify-content: flex-end;
+    }
+
+    .card-preview-member {
+        position: relative;
+        overflow: hidden;
+        margin: 6px 0;
+        width: 32px;
+        height: 32px;
+        color: transparent;
+        border-radius: 50%;
+        img {
+            right: 0px;
+            top: 0;
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        &::first-letter {
+            color: black;
+        }
+        &:hover {
+            filter: brightness(120%);
+        }
+    }
 }
 
 .card-preview-cover{
@@ -59,8 +88,7 @@
     padding: 8px 6px 2px;
 }
 
-.card-preview-labels{
-    
+.card-preview-labels{ 
     display: flex;
     &:hover{
         filter: brightness(90%);
@@ -70,15 +98,14 @@
         min-height: 8px;
         min-width: 40px;
         border-radius: 50px;
-
     }
-    
 }
 
 .card-preview-date{
     font-weight: 400;
     border-radius: 3px;
     padding: 2px 6px;
+    margin-right: 6px;
     &:hover{
         background-color: $clr3;
         &::before{
@@ -109,6 +136,8 @@
         }
     }
 }
+
+
 
 
 

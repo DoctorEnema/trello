@@ -4,11 +4,13 @@
       class="edit-card-preview"
       @click.stop="removeCard(card.id)"
     ></button>
-    <div
-      v-if="card.style"
-      :style="{ backgroundColor: card.style.bgColor }"
-      class="card-preview-cover"
-    ></div>
+    <div v-if="card.cover">
+      <div
+        v-if="card.cover.color"
+        :style="{ backgroundColor: card.cover.color }"
+        class="card-preview-cover"
+      ></div>
+    </div>
     <div class="card-preview-content">
       <div v-if="card.labelIds" class="card-preview-labels">
         <div
@@ -31,17 +33,22 @@
         <div v-if="card.comments" class="card-preview-comments">
           {{ card.comments.length }}
         </div>
-        <div v-if="card.attachments" class="card-preview-attachments">
+        <div v-if="isAttachments" class="card-preview-attachments">
           {{ card.attachments.length }}
         </div>
         <div v-if="card.checklists" class="card-preview-checklists">
-          {{completedTodos}}/{{ numberOfTodos }}
+          {{ completedTodos }}/{{ numberOfTodos }}
         </div>
       </div>
-      <div v-if="card.members" class="card-preview-members">
-        <div v-for="member in card.members" :key="member._id">
-          {{ member.fullname }}
-        </div>
+      <div class="card-preview-members">
+        <button
+          class="card-preview-member"
+          v-for="member in card.members"
+          :key="member._id"
+        >
+          <img v-if="member.imgUrl" :src="member.imgUrl" />
+          <span v-else>{{ member.fullname }}</span>
+        </button>
       </div>
     </div>
   </section>
@@ -102,6 +109,9 @@ export default {
         })
       );
       return sum;
+    },
+    isAttachments() {
+      if (!this.card.attachments || !this.card.attachments.length) return false;
     },
     date() {
       let time = new Date(this.card.dueDate.date);
