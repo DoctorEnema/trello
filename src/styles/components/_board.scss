@@ -9,6 +9,9 @@
 }
 
 .board-header{
+    img{
+        object-fit: cover;
+    }
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
