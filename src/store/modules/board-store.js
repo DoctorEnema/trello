@@ -30,7 +30,6 @@ export const boardStore = {
             state.selectedGroup = group
         },
         setCard(state, { card }) {
-            console.log("card", card)
             state.selectedCard = card
         },
         removeGroup(state, { groupId }) {
@@ -49,7 +48,6 @@ export const boardStore = {
             state.selectedBoard.groups[idx].cards.push(card)
         },
         updateCard(state,{groupCopy, cardId, cardCopy}){
-            console.log("state", state)
             const cardIdx = groupCopy.cards.findIndex(card => cardId === card.id)
             groupCopy.cards.splice(cardIdx, 1, cardCopy)
             const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === groupCopy.id)

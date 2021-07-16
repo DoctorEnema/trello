@@ -131,6 +131,7 @@ export default {
       });
     },
     addDate(date) {
+       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
       // boardService.updateCard(this.board, this.group, this.card.id, this.card);
