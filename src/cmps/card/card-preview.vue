@@ -28,12 +28,14 @@
           {{ date }}
         </div>
         <div v-if="card.description" class="card-preview-desc"></div>
-        <div v-if="card.comments">{{ card.comments.length }}</div>
+        <div v-if="card.comments" class="card-preview-comments">
+          {{ card.comments.length }}
+        </div>
         <div v-if="card.attachments" class="card-preview-attachments">
           {{ card.attachments.length }}
         </div>
         <div v-if="card.checklists" class="card-preview-checklists">
-          {{ numberOfTodos }}
+          {{completedTodos}}/{{ numberOfTodos }}
         </div>
       </div>
       <div v-if="card.members" class="card-preview-members">
@@ -89,6 +91,15 @@ export default {
       let sum = 0;
       this.card.checklists.forEach(
         (checklist) => (sum += checklist.todos.length)
+      );
+      return sum;
+    },
+    completedTodos() {
+      let sum = 0;
+      this.card.checklists.forEach((checklist) =>
+        checklist.todos.forEach((todo) => {
+          if (todo.isDone) sum++;
+        })
       );
       return sum;
     },

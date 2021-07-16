@@ -15,7 +15,13 @@
     .card-preview-badges{
         display: flex;
         flex-wrap: wrap;
-        gap: 0.4rem;
+        >*:not(:first-child){
+            color: $clr2;
+            padding: 0 2px;
+            margin: 0 4px;
+            height: 20px;
+            font-size: 14px;
+        }
     }
     &:hover{
         background-color: #f7f7f7;
@@ -118,7 +124,7 @@
 
 .card-preview-comments::before{
     font-family: fontAwesome, sans serif;
-    content:'\f14a';
+    content:'\f075';
 }
 
 .card-preview-attachments::before{
@@ -127,11 +133,6 @@
 }
 
 .card-preview-checklists::before{
-    font-family: fontAwesome, sans serif;
-    content:'\f14a';
-}
-
-.card-preview-members::before{
     font-family: fontAwesome, sans serif;
     content:'\f14a';
 }
