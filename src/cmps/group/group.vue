@@ -21,7 +21,7 @@
         v-model="emptyCard.title"
       />
       <div class="add-card-controls">
-        <button @click="addCard(group.id, copiedEmptyCard)">Add card</button>
+        <button @click="addCard(group.id)">Add card</button>
         <button class="close-adding" @click="isAdding = false"></button>
       </div>
     </section>
@@ -70,9 +70,9 @@ export default {
     removeCard(cardId) {
       this.$emit("removeCard", this.copiedGroup, cardId);
     },
-    addCard(groupId, card) {
+    addCard(groupId) {
       if (!this.emptyCard.title) return;
-      this.$emit("addCard", groupId, card);
+      this.$emit("addCard", groupId, this.copiedEmptyCard);
       this.emptyCard.title = "";
       this.isAdding = false;
     },

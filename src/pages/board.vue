@@ -117,10 +117,11 @@ export default {
       this.isAdding = false;
     },
     removeCard(group, cardId) {
-      this.$store.dispatch({ type: "removeCard", group, cardId });
+      this.$store.dispatch({ type: "removeCard", board: this.board, group, cardId });
     },
     addCard(groupId, card) {
-      this.$store.dispatch({ type: "addCard", groupId, card });
+      console.log('addCard - board');
+      this.$store.dispatch({ type: "addCard", board: this.board, groupId, card });
     },
     toggleAdding() {
       this.isAdding = !this.isAdding;

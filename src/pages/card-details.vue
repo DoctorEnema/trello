@@ -234,12 +234,14 @@ export default {
         }
   },
   methods: {
-    stop(event) {
-      // event.stopPropagation
+    stop() {
+      // Dont Delete!!
+      // no one knows what this deos but it works
     },
     updateCard() {
       this.$store.dispatch({
         type: "updateCard",
+        board:this.selectedBoard,
         group: this.group,
         card: this.card,
       });

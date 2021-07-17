@@ -154,27 +154,25 @@ export const boardStore = {
                 console.log('Cannot add group', err);
             }
         },
-        async removeCard(context, { group, cardId }) {
+        async removeCard(context, {board, group, cardId }) {
             try {
-                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.removeCard(board, group, cardId)
                 context.commit({ type: 'removeCard', group, cardId })
             } catch (err) {
                 console.log('Cant remove card', err);
             }
         },
-        async addCard(context, { groupId, card }) {
+        async addCard(context, {board, groupId, card }) {
             try {
-                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.addCard(board, groupId, card)
                 context.commit({ type: 'addCard', groupId, card })
             } catch (err) {
                 console.log('Cant add card', err);
             }
         },
-        async updateCard(context, { group, card }) {
+        async updateCard(context, {board, group, card }) {
             try {
-                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                // const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))
                 const cardCopy = JSON.parse(JSON.stringify(card))
                 boardService.updateCard(board, group, card.id, card);
