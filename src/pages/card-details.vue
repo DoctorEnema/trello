@@ -261,15 +261,15 @@ export default {
       this.card.description = desc;
       this.updateCard();
     },
-    setCover(cover) {
+    async setCover(cover) {
       this.card.cover = {};
       this.card.cover = cover;
-      this.setActivity(`Added Cover to ${this.card.title}`)
+      await this.setActivity(`Added Cover to ${this.card.title}`)
       this.updateCard();
     },
-    removeCover() {
+    async removeCover() {
       this.card.cover = null;
-      this.setActivity(`Remove Cover from ${this.card.title}`)
+      await this.setActivity(`Remove Cover from ${this.card.title}`)
       this.updateCard();
     },
     setLabel(labelId) {
@@ -305,15 +305,15 @@ export default {
       this.card.dueDate.isComplete = isComplete;
       this.updateCard();
     },
-    addDate(date) {
+    async addDate(date) {
       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
-            this.setActivity(`Added Date from ${this.card.title}`)
+           await this.setActivity(`Added Date from ${this.card.title}`)
 
       this.updateCard();
     },
-    linkAdded(link) {
+    async linkAdded(link) {
       const newLink = {
         name: "Image",
         imgUrl: link,
@@ -322,30 +322,30 @@ export default {
       };
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(newLink);
-      this.setActivity(`Add attach ${newLink.name} to ${this.card.title}`)
+     await this.setActivity(`Add attach ${newLink.name} to ${this.card.title}`)
       this.updateCard();
     },
-    removeLink(idx,attachment) {
+    async removeLink(idx,attachment) {
       this.card.attachments.splice(idx, 1);
-      this.setActivity(`Remove attach ${attachment.name} from ${this.card.title}`)
+     await this.setActivity(`Remove attach ${attachment.name} from ${this.card.title}`)
       this.updateCard();
     },
-    addMember(member) {
+    async addMember(member) {
       if (!this.card.members) this.card.members = [];
       if (this.card.members.some((m) => m._id === member._id)) {
         this.removeMember(member);
         return;
       }
       this.card.members.push(member);
-      this.setActivity(`Added ${member.fullname} to ${this.card.title}`)
+     await this.setActivity(`Added ${member.fullname} to ${this.card.title}`)
       this.updateCard();
     },
-    removeMember(member) {
+    async removeMember(member) {
       const memberIdx = this.card.members.findIndex(
         (mem) => mem._id === member.id
       );
       this.card.members.splice(memberIdx, 1);
-      this.setActivity(`Removed ${member.fullname} from ${this.card.title}`)
+     await this.setActivity(`Removed ${member.fullname} from ${this.card.title}`)
       this.updateCard();
     },
     addTodo(checklist) {
@@ -355,20 +355,20 @@ export default {
       this.card.checklists.splice(checklistIdx, 1, checklist);
       this.updateCard();
     },
-    addList(title) {
+    async addList(title) {
       if (!this.card.checklists) this.card.checklists = [];
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
-        this.setActivity(`Added Checklist to ${this.card.title}`)
+       await this.setActivity(`Added Checklist to ${this.card.title}`)
       this.updateCard();
     },
-    removeList(listId) {
+    async removeList(listId) {
       const listIdx = this.card.checklists.findIndex(
         (list) => list._id === listId
       );
       this.card.checklists.splice(listIdx, 1);
-      this.setActivity(`Remove Checklist from ${this.card.title}`)
+     await this.setActivity(`Remove Checklist from ${this.card.title}`)
       this.updateCard();
     },
     closeModal() {
