@@ -10,6 +10,7 @@ body {
     color: $clr1;
     // background-color: cornflowerblue;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 h1,
@@ -48,3 +49,7 @@ textarea{
     sans-serif;
     border: none;
 }
+
+// .omni-container{
+//     height: 80vh;
+// }
