@@ -13,7 +13,6 @@
             <button @click="editTodo">Save</button>
             <button @click="closeEdit">X</button>
         </div>
-            <slot name="edit"></slot>
   </section>
 </template>
 
