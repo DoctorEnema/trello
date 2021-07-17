@@ -172,7 +172,7 @@ export const boardStore = {
         },
         async updateCard(context, {board, group, card }) {
             try {
-                // const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))
                 const cardCopy = JSON.parse(JSON.stringify(card))
                 boardService.updateCard(board, group, card.id, card);

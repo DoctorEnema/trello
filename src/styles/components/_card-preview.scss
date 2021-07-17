@@ -105,12 +105,13 @@
 
 .card-preview-labels{ 
     display: flex;
+    flex-wrap: wrap;
     &:hover{
         filter: brightness(90%);
     }
     >*{
         div{
-            margin: 0 2px;
+            margin: 2px 2px;
             min-height: 8px;
             min-width: 40px;
             border-radius: 50px;
