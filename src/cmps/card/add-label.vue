@@ -7,7 +7,6 @@
         <button @click="closeModal"></button>
       </header>
       <hr />
-      <div class="actions-container"></div>
       <div v-if="!isCreate" class="choose-label">
         <input ref="searchInput" type="text" placeholder="Search labels..." />
         <h5>LABELS</h5>
