@@ -89,7 +89,6 @@ export const boardStore = {
             }
         },
         async updateActivities(context, {activity}) {
-            console.log('before');
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 if(!board.activities) board.activities = []

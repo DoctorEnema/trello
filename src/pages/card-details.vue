@@ -85,7 +85,8 @@
               <activities @setActivity="setActivity"></activities>
               <div v-for="activity in selectedBoard.activities" :key="activity.id">
                 <section v-if="activity.card.id === card.id">
-                  <p><span>{{activity.byMember.fullname}} </span>{{activity.txt}}</p>
+                  <p><span>{{activity.byMember.fullname}} </span>{{activity.txt}} </p>
+                  <show-time :time="activity.creatAt"></show-time>
                 </section>
               </div>
             </div>
@@ -171,6 +172,7 @@ import member from "../cmps/card/member.vue";
 import attachment from "../cmps/card/attachment.vue";
 import activities from "../cmps/card/activities.vue";
 import description from "../cmps/card/description.vue";
+import showTime from "../cmps/card/show-time.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
 import { utilService } from '../services/util-service';
@@ -189,7 +191,8 @@ export default {
     member,
     attachment,
     description,
-    activities
+    activities,
+    showTime
   },
   data() {
     return {
@@ -219,6 +222,16 @@ export default {
       if (!this.card.attachments || !this.card.attachments.length) return false;
       return true;
     },
+    showTime() {
+            var actionLogged = this.act.at
+            var now = Date.now()
+            var time = now - actionLogged 
+            console.log(time);
+            if (time < 60000) return ' Just now'
+            if (time < 3600000) return new Date(time).getMinutes() + ' Minutes ago'
+            if (time > 3600000 && time < 86400000) return new Date(time).getHours() + ' Hours ago'
+            else return 'A while ago'
+        }
   },
   methods: {
     stop(event) {
@@ -243,7 +256,6 @@ export default {
         type: "updateActivities",
         activity:fullActivity
       });
-        console.log(fullActivity);
     },
     setDesc(desc) {
       this.card.description = desc;
@@ -329,7 +341,6 @@ export default {
       this.updateCard();
     },
     removeMember(member) {
-      console.log("member", member)
       const memberIdx = this.card.members.findIndex(
         (mem) => mem._id === member.id
       );

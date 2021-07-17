@@ -13,6 +13,7 @@
           <button @click="addUser(user)">
             <img :src="user.imgUrl" />
             {{ user.fullname }}({{ user.username }})
+             <span v-if="isMemberPicked(user)" class="icon">✔</span>
           </button>
         </li>
       </ul>
@@ -24,6 +25,9 @@
 export default {
   data() {
     return {};
+  },
+  props: {
+    card: Object
   },
   created() {
     this.$store.dispatch({ type: "loadUsers" });
@@ -38,6 +42,10 @@ export default {
     addUser(user) {
       this.$emit("addUser", user);
     },
+    isMemberPicked(member){
+      if(!this.card.members) return
+      return this.card.members.some(m=>m._id === member._id)
+    }
   },
   computed: {
     users() {

@@ -111,6 +111,7 @@ export default {
       this.$store.dispatch({ type: "removeGroup", groupId });
     },
     addGroup(group) {
+      if(!group.title) return
       this.$store.dispatch({ type: "addGroup", group });
       this.emptyGroup.title = "";
       this.isAdding = false;
