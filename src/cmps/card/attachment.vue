@@ -13,7 +13,7 @@
           <span>-</span>
           <a href="#">Comment</a>
           <span>-</span>
-          <a href="#" @click="removeAttachment(idx)">Delete</a>
+          <a href="#" @click="removeAttachment(idx,attachment)">Delete</a>
           <span>-</span>
           <a href="#">Edit</a>
         </div>
@@ -46,8 +46,8 @@ export default {
     isCovered(imgUrl) {
       return (this.card.cover?.imgUrl=== imgUrl)
     },  
-    removeAttachment(attachmentIdx) {
-      this.$emit("removeLink", attachmentIdx);
+    removeAttachment(idx,attachment) {
+      this.$emit("removeLink", idx,attachment);
     },
     setCover(cover) {
       const newCover = { id: utilService.makeId(), imgUrl: cover };

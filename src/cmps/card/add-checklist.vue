@@ -1,9 +1,9 @@
 <template>
   <section class="add-to-card">
     <section class="add-checklist">
-      <header class="add-label-header">
+      <header class="add-card-header">
         <span class="add-label-title">Add checklist</span>
-        <button @click="closeModal">X</button>
+        <button @click="closeModal"></button>
       </header>
       <hr />
       <div>

@@ -88,6 +88,19 @@ export const boardStore = {
                 console.log('cannot update board', err);
             }
         },
+        async updateActivities(context, {activity}) {
+            console.log('before');
+            try {
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                if(!board.activities) board.activities = []
+                board.activities.unshift(activity)
+                await boardService.saveBoard(board)
+                context.commit({ type: 'setBoard', board: board })
+                return board
+            } catch (err) {
+                console.log('cannot update board', err);
+            }
+        },
         async updateLabel(context, { boardId, pickedLabel, action }) {
             // console.log("pickedLabel", pickedLabel)
             try {
