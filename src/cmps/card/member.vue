@@ -1,7 +1,7 @@
 <template>
   <section class="member" v-if="card.members">
     <div v-for="member in card.members" :key="member.id">
-      <button @click="removeMember(member.id)">
+      <button @click="removeMember(member)">
         <img :src="member.imgUrl" />
       </button>
     </div>
@@ -19,8 +19,9 @@ export default {
     return {};
   },
   methods: {
-    removeMember(memberId) {
-      this.$emit("removeMember", memberId);
+    removeMember(member) {
+      console.log("member", member)
+      this.$emit("removeMember", member);
     },
   },
   computed: {},

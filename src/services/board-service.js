@@ -209,7 +209,7 @@ const boardsJson = [{
                 "fullname": "Abi Abambi",
                 "imgUrl": "http://some-img"
             },
-            "task": {
+            "card": {
                 "id": "c101",
                 "title": "Replace Logo"
             }

@@ -82,6 +82,12 @@
             </div>
             <div class="details-activity">
               <span class="details-activity-icon"></span>
+              <activities @setActivity="setActivity"></activities>
+              <div v-for="activity in selectedBoard.activities" :key="activity.id">
+                <section v-if="activity.card.id === card.id">
+                  <p><span>{{activity.byMember.fullname}} </span>{{activity.txt}}</p>
+                </section>
+              </div>
             </div>
           </div>
         </div>
@@ -167,6 +173,7 @@ import activities from "../cmps/card/activities.vue";
 import description from "../cmps/card/description.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
+import { utilService } from '../services/util-service';
 
 export default {
   components: {
@@ -224,6 +231,20 @@ export default {
         card: this.card,
       });
     },
+    async setActivity(activity){
+      const fullActivity= {
+        byMember:this.loggedinUser,
+        creatAt:Date.now(),
+        id: utilService.makeId(),
+        card:this.card,
+        txt:activity
+      }
+       await this.$store.dispatch({
+        type: "updateActivities",
+        activity:fullActivity
+      });
+        console.log(fullActivity);
+    },
     setDesc(desc) {
       this.card.description = desc;
       this.updateCard();
@@ -231,10 +252,12 @@ export default {
     setCover(cover) {
       this.card.cover = {};
       this.card.cover = cover;
+      this.setActivity(`Added Cover to ${this.card.title}`)
       this.updateCard();
     },
     removeCover() {
       this.card.cover = null;
+      this.setActivity(`Remove Cover from ${this.card.title}`)
       this.updateCard();
     },
     setLabel(labelId) {
@@ -274,6 +297,8 @@ export default {
       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
+            this.setActivity(`Added Date from ${this.card.title}`)
+
       this.updateCard();
     },
     linkAdded(link) {
@@ -285,26 +310,31 @@ export default {
       };
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(newLink);
+      this.setActivity(`Add attach ${newLink.name} to ${this.card.title}`)
       this.updateCard();
     },
-    removeLink(linkIdx) {
-      this.card.attachments.splice(linkIdx, 1);
+    removeLink(idx,attachment) {
+      this.card.attachments.splice(idx, 1);
+      this.setActivity(`Remove attach ${attachment.name} from ${this.card.title}`)
       this.updateCard();
     },
     addMember(member) {
       if (!this.card.members) this.card.members = [];
       if (this.card.members.some((m) => m._id === member._id)) {
-        this.removeMember(member._id);
+        this.removeMember(member);
         return;
       }
       this.card.members.push(member);
+      this.setActivity(`Added ${member.fullname} to ${this.card.title}`)
       this.updateCard();
     },
-    removeMember(memberId) {
+    removeMember(member) {
+      console.log("member", member)
       const memberIdx = this.card.members.findIndex(
-        (member) => member._id === memberId
+        (mem) => mem._id === member.id
       );
       this.card.members.splice(memberIdx, 1);
+      this.setActivity(`Removed ${member.fullname} from ${this.card.title}`)
       this.updateCard();
     },
     addTodo(checklist) {
@@ -319,6 +349,7 @@ export default {
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
+        this.setActivity(`Added Checklist to ${this.card.title}`)
       this.updateCard();
     },
     removeList(listId) {
@@ -326,6 +357,7 @@ export default {
         (list) => list._id === listId
       );
       this.card.checklists.splice(listIdx, 1);
+      this.setActivity(`Remove Checklist from ${this.card.title}`)
       this.updateCard();
     },
     closeModal() {
