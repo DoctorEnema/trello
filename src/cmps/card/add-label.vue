@@ -18,14 +18,14 @@
             :style="'background-color:' + label.color"
             @click="setLabel(label.id)"
           >
-            <div class="label-name">{{ label.name }}</div>
-            <div v-if="isLabelPicked(label)" class="icon">✔</div>
-            <a href="#" @click="editLabel(label)">Edit label</a>
+            <div class="label-colors">
+              <div class="label-name">{{ label.name }}</div>
+              <div v-if="isLabelPicked(label)" class="icon">✔</div>
+            </div>
+            <a href="#" @click="editLabel(label)"></a>
           </div>
         </div>
-        <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
-        <!-- <button @click="openEditor"></button> -->
-        <button class="button" @click.stop="createLabel" type="button">
+        <button class="create-label" @click.stop="createLabel" type="button">
           Create new label
         </button>
       </div>
