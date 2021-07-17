@@ -1,33 +1,31 @@
 <template>
   <section ref="page" tabindex="0" class="add-to-card">
     <section class="add-label">
-      <header class="add-label-header">
-        <button v-if="isCreate" @click="onClickBack">Back</button>
+      <button class="labels-back" v-if="isCreate" @click="onClickBack"></button>
+      <header class="add-card-header">
         <span class="add-label-title">Labels</span>
-        <button @click="closeModal">X</button>
+        <button @click="closeModal"></button>
       </header>
+      <hr />
       <div class="actions-container"></div>
       <div v-if="!isCreate" class="choose-label">
         <input ref="searchInput" type="text" placeholder="Search labels..." />
-        <h4>LABELS</h4>
-        <ul>
-          <li
+        <h5>LABELS</h5>
+        <div class="label-picker">
+          <div
             class="card-label"
             v-for="(label, idx) in selectedBoard.labels"
             :key="idx"
+            :style="'background-color:' + label.color"
+            @click="setLabel(label.id)"
           >
-            <span
-              class="label"
-              :style="'background-color:' + label.color"
-              @click="setLabel(label.id)"
-              ><span class="label-name">{{ label.name }}</span
-              ><span v-if="isLabelPicked(label)" class="icon">✔</span
-            ></span>
-            <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
-            <!-- <button @click="openEditor"></button> -->
+            <div class="label-name">{{ label.name }}</div>
+            <div v-if="isLabelPicked(label)" class="icon">✔</div>
             <a href="#" @click="editLabel(label)">Edit label</a>
-          </li>
-        </ul>
+          </div>
+        </div>
+        <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
+        <!-- <button @click="openEditor"></button> -->
         <button class="button" @click.stop="createLabel" type="button">
           Create new label
         </button>
@@ -44,7 +42,7 @@
             />
           </div>
           <div v-else>
-            <label for="name">Name</label>
+            <label for="name"></label>
             <input
               id="name"
               ref="nameEdit"
@@ -63,7 +61,7 @@
               <span v-if="pickEditedLabel(label)" class="icon">✔</span>
             </li>
           </ul>
-          <div v-if="isEdit">
+          <div class="add-label-btns" v-if="isEdit">
             <button @click.prevent="saveEditedLabel">Save</button>
             <button @click.prevent="removeLabel">Delete</button>
           </div>
@@ -83,7 +81,7 @@ export default {
     utilService,
   },
   props: {
-    card: Object
+    card: Object,
   },
   created() {},
   mounted() {
@@ -120,29 +118,29 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
     // isLabelPicked(label) {
-      // return pickedLabels = this.card.labelIds.filter(id=> id === selectedBoard.labels.id)
-      // console.log('this.card.labelIds', this.card.labelIds);
-      // console.log('this.selectedBoard.labels',this.selectedBoard.labels);
-      // const pickedLabels = this.card.labelIds.some(id=> id === this.selectedBoard.labels.forEach(label => id === label.id))
-      // const pickedLabels = this.selectedBoard.labels.forEach(label=> this.card.labelIds.some(id => id === label.id))
-      // console.log(pickedLabels);
-      // return pickedLabels
-      // console.log(label.id);
+    // return pickedLabels = this.card.labelIds.filter(id=> id === selectedBoard.labels.id)
+    // console.log('this.card.labelIds', this.card.labelIds);
+    // console.log('this.selectedBoard.labels',this.selectedBoard.labels);
+    // const pickedLabels = this.card.labelIds.some(id=> id === this.selectedBoard.labels.forEach(label => id === label.id))
+    // const pickedLabels = this.selectedBoard.labels.forEach(label=> this.card.labelIds.some(id => id === label.id))
+    // console.log(pickedLabels);
+    // return pickedLabels
+    // console.log(label.id);
     //   return
     // },
   },
   methods: {
     isLabelPicked(label) {
-      if (!this.card.labelIds) return 
+      if (!this.card.labelIds) return;
       // if (this.isEdit){
-      return this.card.labelIds.some(id=> id === label.id)
+      return this.card.labelIds.some((id) => id === label.id);
     },
     pickEditedLabel(color) {
       // if (!this.labelToEdit) return
-      if (this.isEdit){
-      if (color === this.labelToEdit.color) return true
+      if (this.isEdit) {
+        if (color === this.labelToEdit.color) return true;
       } else {
-        return color === this.pickedLabel.color
+        return color === this.pickedLabel.color;
       }
       // else return false
     },
@@ -197,20 +195,22 @@ export default {
       // });
     },
     setPickedLabelEmpty() {
-      this.pickedLabel ={
+      this.pickedLabel = {
         id: null,
         name: null,
         color: "#344563",
-        isPicked: true
-      }
+        isPicked: true,
+      };
     },
     onClickBack() {
       this.isCreate = false;
       this.isEdit = false;
     },
     setChosenLabel(color) {
-      (this.isEdit) ? this.labelToEdit.color = color : this.pickedLabel.color = color
-    }
+      this.isEdit
+        ? (this.labelToEdit.color = color)
+        : (this.pickedLabel.color = color);
+    },
   },
 };
 </script>

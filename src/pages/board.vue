@@ -24,7 +24,7 @@
       <side-menu v-if="isSideMenu" @toggleMenu="toggleMenu"></side-menu>
     </div>
     <div class="board-content">
-      <div>
+      <div class="groups-and-add">
         <draggable
           class="groups"
           :list="board.groups"
