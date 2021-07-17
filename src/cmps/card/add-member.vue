@@ -2,19 +2,20 @@
   <section class="add-to-card">
     <section class="add-member">
       <header class="header-add-member">
-    <h4>Members</h4>
-    <button @click="closeModal">X</button>
+        <h4>Members</h4>
+        <button @click="closeModal"></button>
       </header>
-    <input ref="searchInput"  type="text" placeholder="Search members">
-    <ul>
-      <h4>BOARD MEMBERS</h4>
-      <li class="user-member" v-for="user in users" :key="user._id">
-        <button @click="addUser(user)">
-        <img :src="user.imgUrl">
-        {{user.fullname}}({{user.username}})
-        </button>
-      </li>
-    </ul>
+      <hr />
+      <input ref="searchInput" type="text" placeholder="Search members" />
+      <ul>
+        <h4>BOARD MEMBERS</h4>
+        <li class="user-member" v-for="user in users" :key="user._id">
+          <button @click="addUser(user)">
+            <img :src="user.imgUrl" />
+            {{ user.fullname }}({{ user.username }})
+          </button>
+        </li>
+      </ul>
     </section>
   </section>
 </template>
@@ -34,9 +35,9 @@ export default {
     closeModal() {
       this.$emit("closeModal");
     },
-    addUser(user){
-      this.$emit("addUser", user)
-    }
+    addUser(user) {
+      this.$emit("addUser", user);
+    },
   },
   computed: {
     users() {

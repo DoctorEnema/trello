@@ -1,13 +1,35 @@
-.add-member{
-
-.header-add-member{
-    display: flex;
-}
-    img{
+.add-member {
+    img {
         width: 35px;
     }
-    button{
+    button {
         background-color: unset;
         border: 0;
+    }
+    hr{
+        margin: 0 auto 12px;
+        // color: white;
+        filter: brightness(250%);
+        width: 95%;
+    }
+}
+
+.header-add-member {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    button {
+        padding: 10px 12px 10px 8px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $clr2;
+        &:hover {
+            color: $clr1;
+        }
+        &::before {
+            font-family: fontAwesome, sans-serif;
+            content: "\f00d";
+        }
     }
 }

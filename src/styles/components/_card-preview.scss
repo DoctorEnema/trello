@@ -100,10 +100,12 @@
         filter: brightness(90%);
     }
     >*{
-        margin: 0 2px;
-        min-height: 8px;
-        min-width: 40px;
-        border-radius: 50px;
+        div{
+            margin: 0 2px;
+            min-height: 8px;
+            min-width: 40px;
+            border-radius: 50px;
+        }
     }
 }
 
