@@ -166,6 +166,7 @@ import attachment from "../cmps/card/attachment.vue";
 import activities from "../cmps/card/activities.vue";
 import description from "../cmps/card/description.vue";
 import { boardService } from "../services/board-service";
+import { userService } from "../services/user-service";
 
 export default {
   components: {
@@ -204,6 +205,9 @@ export default {
     group() {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedGroup));
     },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
     isAttachments() {
       if (!this.card.attachments || !this.card.attachments.length) return false;
       return true;
@@ -234,6 +238,7 @@ export default {
       this.updateCard();
     },
     setLabel(labelId) {
+      console.log(this.loggedinUser);
       if (!this.card.labelIds) this.card.labelIds = [];
       if (this.card.labelIds.some((lId) => lId === labelId)) {
         this.removeLabel(labelId);

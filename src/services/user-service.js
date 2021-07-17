@@ -1,4 +1,4 @@
-import { utilService } from '../services/util-service';
+import { utilService } from '../services/util-service.js';
 import { storageService } from '../services/async-storage-service.js';
 
 
@@ -55,6 +55,23 @@ export const userService = {
 // userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 100, isAdmin: true})
 // userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 100})
 
+async function login(userCred) {
+    const users = await storageService.query('user')
+    const user = users.find(user => user.username === userCred.username)
+    return _saveLocalUser(user)
+
+    // const user = await httpService.post('auth/login', userCred)
+    // if (user) return _saveLocalUser(user)
+}
+async function signup(userCred) {
+    const user = await storageService.post('user', userCred)
+    // const user = await httpService.post('auth/signup', userCred)
+    // return _saveLocalUser(user)
+}
+async function logout() {
+    sessionStorage.clear()
+    // return await httpService.post('auth/logout')
+}
 function _createUsers() {
     let users = utilService.loadFromStorage(USER_KEY);
     if (!users || !users.length) {
@@ -87,23 +104,6 @@ async function update(user) {
 }
 
 
-async function login(userCred) {
-    const users = await storageService.query('user')
-    const user = users.find(user => user.username === userCred.username)
-    return _saveLocalUser(user)
-
-    // const user = await httpService.post('auth/login', userCred)
-    // if (user) return _saveLocalUser(user)
-}
-async function signup(userCred) {
-    const user = await storageService.post('user', userCred)
-    // const user = await httpService.post('auth/signup', userCred)
-    // return _saveLocalUser(user)
-}
-async function logout() {
-    sessionStorage.clear()
-    // return await httpService.post('auth/logout')
-}
 function _saveLocalUser(user) {
     sessionStorage.setItem('loggedinUser', JSON.stringify(user))
     return user
