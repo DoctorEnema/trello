@@ -4,7 +4,9 @@
 
 body {
     margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+        sans-serif;
+        font-size: 14px;
     color: $clr1;
     // background-color: cornflowerblue;
     overflow-x: hidden;
@@ -36,4 +38,3 @@ ul {
 button:hover {
     cursor: pointer;
 }
-
