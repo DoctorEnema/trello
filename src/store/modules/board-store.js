@@ -108,18 +108,6 @@ export const boardStore = {
                     const labelIdx = board.labels.findIndex(label => label.id === pickedLabel.id)
                     if (labelIdx !== -1) board.labels.splice(labelIdx, 1, pickedLabel)
                 }
-                // else if(action === 'edit') {
-                //     const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
-                //     board.labels.splice(labelIdx, 1, pickedLabel)
-                //     board.groups.forEach(group=> {
-                //         group.cards.forEach(card => {
-                //             if (card.labelIds) {
-                //                 const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
-                //                 if (idIdx !== -1) card.labelIds.splice(idIdx, 1, pickedLabel.id)
-                //             }
-                //         })
-                //     })
-                // }
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
                 // return board
