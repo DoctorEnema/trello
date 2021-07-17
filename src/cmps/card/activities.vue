@@ -30,6 +30,7 @@ export default {
       this.isActive=false
       const newActivity = 'comment a '+this.activity
       this.$emit('setActivity' , newActivity)
+      this.activity = ''
     }
   }
 };
