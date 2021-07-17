@@ -65,6 +65,7 @@
               v-if="card.attachments"
               @removeLink="removeLink"
               @setCover="setCover"
+              @removeCover="removeCover"
             ></attachment>
           </div>
           <div class="details-checklist">
