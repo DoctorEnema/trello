@@ -1,8 +1,8 @@
 <template>
   <section class="add-to-card">
-    <header class="add-label-header">
+    <header class="add-card-header">
       <span class="add-label-title">Add attachment</span>
-      <button @click="closeModal">X</button>
+      <button @click="closeModal"></button>
     </header>
     <hr />
     <form @submit.prevent="setLink(), closeModal()">
