@@ -1,6 +1,7 @@
 .board-container {
     .board-content {
         height: 90vh;
+        overflow-y: hidden;
     }
 
     .groups {
