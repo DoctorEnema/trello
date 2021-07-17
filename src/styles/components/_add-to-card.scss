@@ -7,6 +7,25 @@
     background-color: #ffffff;
     box-shadow: 0 8px 16px -4px rgb(9, 30, 66 / 25%), 0 0 0 1px rgb(9, 30, 66 / 8%);
     border-radius: 3px;
-    .add-label {
+}
+
+.add-card-header {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    button {
+        background-color: unset;
+        padding: 10px 12px 10px 8px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $clr2;
+        &:hover {
+            color: $clr1;
+        }
+        &::before {
+            font-family: fontAwesome, sans-serif;
+            content: "\f00d";
+        }
     }
 }
