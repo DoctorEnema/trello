@@ -1,13 +1,13 @@
 <template>
   <section class="checklist">
-    <h3>{{ checklist.title }}</h3>
-    <button @click="removeList">Delete</button>
-    <div>
+    <div class="checklist-top">
+      <h4>{{ checklist.title }}</h4>
+      <button @click="removeList">Delete</button>
+    </div>
       <div class="progress-bar">
         <div class="bar" :style="'width:' + complete">
           <div class="precentage">{{ complete }}</div>
         </div>
-      </div>
     </div>
     <ul>
       <li v-for="todo in checklist.todos" :key="todo.id">
@@ -16,7 +16,6 @@
             <button>...</button>
           </template>
         </todo-preview>
-        
       </li>
     </ul>
     <div>
