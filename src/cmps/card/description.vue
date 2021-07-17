@@ -3,11 +3,10 @@
     <textarea
       v-model="desc"
       @focus="isActive = true"
-      @blur="isActive = false"
       placeholder="Add a more detailed description..."
     ></textarea>
     <div v-if="this.isActive" class="description-controls">
-      <button>Save</button>
+      <button @click.stop="setDesc">Save</button>
       <button></button>
     </div>
   </section>
@@ -21,6 +20,12 @@ export default {
       desc: "",
     };
   },
+  methods:{
+    setDesc(){
+      this.isActive=false
+      this.$emit('setDesc' , this.desc)
+    }
+  }
 };
 </script>
 

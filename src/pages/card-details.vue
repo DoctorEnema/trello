@@ -55,7 +55,7 @@
           <div class="details-desc">
             <span class="details-desc-icon"></span>
             <h4>Description</h4>
-            <description></description>
+            <description @setDesc="setDesc"></description>
           </div>
           <div v-if="isAttachments" class="details-attachment">
             <h4>Attachments</h4>
@@ -202,6 +202,9 @@ export default {
   methods: {
     stop(event) {
       // event.stopPropagation
+    },
+    setDesc(desc){
+      console.log(desc);
     },
     setCover(cover) {
       this.card.cover = {};
