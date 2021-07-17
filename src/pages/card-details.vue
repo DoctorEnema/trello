@@ -69,7 +69,6 @@
             ></attachment>
           </div>
           <div class="details-checklist">
-            <span class="details-checklist-icon"></span>
             <ul v-if="card.checklists">
               <li v-for="(checklist, idx) in card.checklists" :key="idx">
                 <checklist
@@ -197,34 +196,34 @@ export default {
     group() {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedGroup));
     },
-    isAttachments(){
-      if(!this.card.attachments || !this.card.attachments.length ) return false
-      return true
-    }
+    isAttachments() {
+      if (!this.card.attachments || !this.card.attachments.length) return false;
+      return true;
+    },
   },
   methods: {
     stop(event) {
       // event.stopPropagation
     },
-    updateCard(){
-       this.$store.dispatch({
+    updateCard() {
+      this.$store.dispatch({
         type: "updateCard",
         group: this.group,
         card: this.card,
       });
     },
-    setDesc(desc){
-      this.card.description = desc
-      this.updateCard()
+    setDesc(desc) {
+      this.card.description = desc;
+      this.updateCard();
     },
     setCover(cover) {
       this.card.cover = {};
       this.card.cover = cover;
-      this.updateCard()
+      this.updateCard();
     },
     removeCover() {
       this.card.cover = null;
-     this.updateCard()
+      this.updateCard();
     },
     setLabel(labelId) {
       if (!this.card.labelIds) this.card.labelIds = [];
@@ -234,21 +233,21 @@ export default {
       }
       if (labelId === null) return;
       this.card.labelIds.push(labelId);
-     this.updateCard()
+      this.updateCard();
     },
     removeLabel(labelId) {
       const labelIdx = this.card.labelIds.findIndex(
         (label) => label === labelId
       );
       this.card.labelIds.splice(labelIdx, 1);
-     this.updateCard()
+      this.updateCard();
     },
     async createLabel(pickedLabel, action = "add") {
       await this.$store.dispatch({
         type: "updateLabel",
         boardId: this.boardId,
-        pickedLabel: {...pickedLabel},
-        action
+        pickedLabel: { ...pickedLabel },
+        action,
       });
       if (action === "add") {
         this.setLabel(pickedLabel.id);
@@ -256,23 +255,28 @@ export default {
     },
     changeComplete(isComplete) {
       this.card.dueDate.isComplete = isComplete;
-     this.updateCard()
+      this.updateCard();
     },
     addDate(date) {
       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
-     this.updateCard()
+      this.updateCard();
     },
     linkAdded(link) {
-      const newLink = {name:'Image',imgUrl:link,comment:'',time:Date.now()}
+      const newLink = {
+        name: "Image",
+        imgUrl: link,
+        comment: "",
+        time: Date.now(),
+      };
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(newLink);
-     this.updateCard()
+      this.updateCard();
     },
     removeLink(linkIdx) {
       this.card.attachments.splice(linkIdx, 1);
-     this.updateCard()
+      this.updateCard();
     },
     addMember(member) {
       if (!this.card.members) this.card.members = [];
@@ -281,35 +285,35 @@ export default {
         return;
       }
       this.card.members.push(member);
-     this.updateCard()
+      this.updateCard();
     },
     removeMember(memberId) {
       const memberIdx = this.card.members.findIndex(
         (member) => member._id === memberId
       );
       this.card.members.splice(memberIdx, 1);
-     this.updateCard()
+      this.updateCard();
     },
     addTodo(checklist) {
       const checklistIdx = this.card.checklists.findIndex(
         (c) => c.id === checklist.id
       );
       this.card.checklists.splice(checklistIdx, 1, checklist);
-     this.updateCard()
+      this.updateCard();
     },
     addList(title) {
       if (!this.card.checklists) this.card.checklists = [];
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
-     this.updateCard()
+      this.updateCard();
     },
     removeList(listId) {
       const listIdx = this.card.checklists.findIndex(
         (list) => list._id === listId
       );
       this.card.checklists.splice(listIdx, 1);
-     this.updateCard()
+      this.updateCard();
     },
     closeModal() {
       if (!this.openModalType) return;
