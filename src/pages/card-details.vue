@@ -1,6 +1,6 @@
 <template>
-  <div  class="card-details-container">
-    <section v-if="card" class="card-details" @click="closeModal">
+  <div @click="closeCard" class="card-details-container">
+    <section v-if="card" class="card-details" @click.stop="closeModal">
       <div
         v-if="card.cover"
         class="details-cover"

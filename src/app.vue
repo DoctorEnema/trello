@@ -1,5 +1,5 @@
 <template>
-    <section class="omni-container">
+    <section>
       <main-header />
     <router-view />
   </section>
