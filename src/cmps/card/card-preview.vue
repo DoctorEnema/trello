@@ -10,15 +10,13 @@
         :style="{ backgroundColor: card.cover.color }"
         class="card-preview-cover"
       ></div>
-      <img class="card-preview-cover-img" v-else :src="card.cover.imgUrl">
+      <img class="card-preview-cover-img" v-else :src="card.cover.imgUrl" />
     </div>
     <div class="card-preview-content">
-      <div v-if="card.labelIds" class="card-preview-labels">
-        <div
-          v-for="(label, idx) in cardLabels"
-          :key="idx"
-          :style="{ backgroundColor: label.color }"
-        ></div>
+      <div v-if="isLabels" class="card-preview-labels">
+        <div v-for="(label, idx) in cardLabels" :key="idx">
+          <div v-if="label" :style="{ backgroundColor: label.color }"></div>
+        </div>
       </div>
       <div class="card-preview-title">{{ card.title }}</div>
       <div class="card-preview-badges">
@@ -37,7 +35,7 @@
         <div v-if="isAttachments" class="card-preview-attachments">
           {{ card.attachments.length }}
         </div>
-        <div v-if="card.checklists" class="card-preview-checklists">
+        <div v-if="isChecklists" class="card-preview-checklists">
           {{ completedTodos }}/{{ numberOfTodos }}
         </div>
       </div>
@@ -112,8 +110,25 @@ export default {
       return sum;
     },
     isAttachments() {
-      if (!this.card.attachments || !this.card.attachments.length) return false
-      else return true
+      if (!this.card.attachments || !this.card.attachments.length) return false;
+      else return true;
+    },
+    isLabels() {
+      if (!this.card.labelIds || !this.card.labelIds.length) return false;
+      else return true;
+    },
+    isChecklists() {
+      if (
+        !this.card.checklists ||
+        !this.card.checklists.length ||
+        !this.card.checklists[0].todos ||
+        !this.card.checklists[0].todos.length
+      )
+        return false;
+      else return true;
+    },
+    isChecklistDone(){
+      if(this.numberOfTodos === this.completedTodos) return true
     },
     date() {
       let time = new Date(this.card.dueDate.date);

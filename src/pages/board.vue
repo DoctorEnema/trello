@@ -1,6 +1,11 @@
 <template>
   <section v-if="board" class="board-container">
-    <div class="background" :style="{'background-image':'url('+this.board.style.backgroundImg+')'}" />
+    <div
+      class="background"
+      :style="{
+        'background-image': 'url(' + this.board.style.backgroundImg + ')',
+      }"
+    />
     <div class="board-header">
       <div class="main-header-side">
         <h2>Electricity~</h2>
@@ -19,16 +24,24 @@
       <side-menu v-if="isSideMenu" @toggleMenu="toggleMenu"></side-menu>
     </div>
     <div class="board-content">
-      <div class="groups">
-        <group
-          @removeCard="removeCard"
-          @removeGroup="removeGroup"
-          @addCard="addCard"
-          class="group"
-          :group="group"
-          v-for="group in board.groups"
-          :key="group.id"
-        ></group>
+      <div>
+        <draggable
+          class="groups"
+          :list="board.groups"
+          @start="onDragStart"
+          @end="onDragEnd"
+        >
+          <group
+            @removeCard="removeCard"
+            @removeGroup="removeGroup"
+            @addCard="addCard"
+            class="group"
+            :group="group"
+            v-for="group in board.groups"
+            :key="group.id"
+            @onDragEnd="onDragEnd"
+          ></group>
+        </draggable>
         <div class="adding-group" v-if="isAdding">
           <input
             v-model="emptyGroup.title"
@@ -52,13 +65,15 @@
 <script>
 import { boardService } from "../services/board-service.js";
 import group from "../cmps/group/group.vue";
+import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/card/side-menu.vue";
 export default {
   components: {
     group,
     activities,
-    sideMenu
+    sideMenu,
+    draggable,
   },
   data() {
     return {
@@ -68,12 +83,12 @@ export default {
         title: "",
         style: {},
       },
-      isSideMenu:false
+      isSideMenu: false,
     };
   },
   computed: {
     board() {
-      return this.$store.getters.selectedBoard;
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
     boardId() {
       return this.$route.params.boardId;
@@ -83,6 +98,15 @@ export default {
     },
   },
   methods: {
+    onDragStart() {
+      console.log(this.board.groups);
+    },
+    onDragEnd() {
+      console.log("dragEnd");
+      const board = this.board;
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
+
     removeGroup(groupId) {
       this.$store.dispatch({ type: "removeGroup", groupId });
     },
@@ -100,9 +124,9 @@ export default {
     toggleAdding() {
       this.isAdding = !this.isAdding;
     },
-    toggleMenu(){
-      this.isSideMenu = !this.isSideMenu
-    }
+    toggleMenu() {
+      this.isSideMenu = !this.isSideMenu;
+    },
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
