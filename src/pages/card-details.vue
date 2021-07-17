@@ -64,6 +64,7 @@
               :card="card"
               v-if="card.attachments"
               @removeLink="removeLink"
+              @setCover="setCover"
             ></attachment>
           </div>
           <div class="details-checklist">
@@ -284,8 +285,9 @@ export default {
       });
     },
     linkAdded(link) {
+      const newLink = {name:'Image',imgUrl:link,comment:'',time:Date.now()}
       if (!this.card.attachments) this.card.attachments = [];
-      this.card.attachments.push(link);
+      this.card.attachments.push(newLink);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
