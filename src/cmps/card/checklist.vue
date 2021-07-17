@@ -1,7 +1,9 @@
 <template>
   <section class="checklist">
-    <h4>{{ checklist.title }}</h4>
-    <button @click="removeList">Delete</button>
+    <div class="checklist-header">
+      <h4>{{ checklist.title }}</h4>
+      <button @click="removeList">Delete</button>
+    </div>
     <div>
       <div class="progress-bar">
         <div class="bar" :style="'width:' + complete">
@@ -11,9 +13,8 @@
     </div>
     <ul>
       <li v-for="todo in checklist.todos" :key="todo.id">
-            <button @click="removeTodo(todo)">delete todo</button>
-        <todo-preview @editTodo="editTodo" :todo="todo">
-        </todo-preview>
+        <button @click="removeTodo(todo)">delete todo</button>
+        <todo-preview @editTodo="editTodo" :todo="todo"> </todo-preview>
       </li>
     </ul>
     <div>
@@ -81,7 +82,7 @@ export default {
       this.$emit("addTodo", this.checklist);
     },
     removeTodo(todo) {
-       const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);
+      const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);
       this.checklist.todos.splice(idx, 1);
       this.$emit("addTodo", this.checklist);
     },
