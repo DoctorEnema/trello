@@ -19,9 +19,7 @@
         </todo-preview>
       </li>
     </ul>
-    <div>
-      <button v-if="!addMode" @click="openTextarea">Add an item</button>
-    </div>
+    <button class="add-todo-btn" v-if="!addMode" @click="openTextarea">Add an item</button>
     <section class="todo-add" v-if="addMode">
       <textarea
         ref="textarea"
