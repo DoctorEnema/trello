@@ -2,19 +2,21 @@
   <section class="checklist">
     <div class="checklist-header">
       <h4>{{ checklist.title }}</h4>
+      <button>Hide checked items</button>
       <button @click="removeList">Delete</button>
     </div>
-    <div>
-      <div class="progress-bar">
-        <div class="bar" :style="'width:' + complete">
-          <div class="precentage">{{ complete }}</div>
-        </div>
+    <div class="progress-bar">
+      <div class="bar" :style="'width:' + complete">
+        <div class="precentage">{{ complete }}</div>
       </div>
     </div>
     <ul>
       <li v-for="todo in checklist.todos" :key="todo.id">
-        <button @click="removeTodo(todo)">delete todo</button>
-        <todo-preview @editTodo="editTodo" :todo="todo"> </todo-preview>
+        <todo-preview @editTodo="editTodo" :todo="todo">
+          <template v-slot:removeTodo>
+            <button @click="removeTodo(todo)"></button>
+          </template>
+        </todo-preview>
       </li>
     </ul>
     <div>
@@ -26,8 +28,10 @@
         v-model="todo.title"
         placeholder="Add an item"
       ></textarea>
-      <button class="add-btn" @click="addTodo">Add</button>
-      <button @click="closeTextarea">X</button>
+      <div class="todo-add-controls">
+        <button class="add-btn" @click="addTodo">Add</button>
+        <button @click="closeTextarea"></button>
+      </div>
     </section>
   </section>
 </template>
