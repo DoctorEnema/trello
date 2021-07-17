@@ -134,11 +134,17 @@ export default {
   methods: {
     isLabelPicked(label) {
       if (!this.card.labelIds) return 
+      // if (this.isEdit){
       return this.card.labelIds.some(id=> id === label.id)
     },
     pickEditedLabel(color) {
+      // if (!this.labelToEdit) return
+      if (this.isEdit){
       if (color === this.labelToEdit.color) return true
-      else return false
+      } else {
+        return color === this.pickedLabel.color
+      }
+      // else return false
     },
     closeModal() {
       this.$emit("closeModal");
