@@ -4,8 +4,7 @@
       <p>{{ group.title }}</p>
       <button @click="removeGroup(group.id)"></button>
     </div>
-    <!-- <div class="group-content"> -->
-      <draggable class="group-content"  :list="group.cards" @start="onDragStart" @end="onDragEnd">
+      <draggable class="group-content"  :list="group.cards" group="cardGroup" @start="onDragStart" @end="onDragEnd">
       <card-preview
         @changeComplete="changeComplete"
         @removeCard="removeCard"
@@ -16,7 +15,6 @@
         :key="card.id"
       ></card-preview>
       </draggable>
-    <!-- </div> -->
     <section class="add-card-area" v-if="isAdding">
       <textarea
         placeholder="Enter a title for this card..."
@@ -59,11 +57,11 @@ export default {
     },
   },
   methods: {
-    onDragStart() {
-      console.log('dragStart');
+    onDragStart(ev) {
+      ev.item.classList.add('dragging')
     },
-    onDragEnd() {
-      console.log('dragEnd');
+    onDragEnd(ev) {
+      ev.item.classList.remove('dragging')
       this.$emit('onDragEnd')
     },
     removeGroup(groupId) {

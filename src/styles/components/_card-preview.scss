@@ -7,7 +7,6 @@
     &:hover{
         cursor: pointer;
     }
-
     .card-preview-title{
         margin-bottom: 4px;
         margin-left: 2px;
@@ -28,6 +27,14 @@
         >.edit-card-preview{
             opacity: 1;
             background-color: rgba($color: #f7f7f7, $alpha: 0.4);
+        }
+    }
+    &.dragging > *  {
+        background-color: rgba(236, 231, 231, 0.479);
+        border-radius: 3px;
+        box-shadow:unset;
+        &> * {
+            visibility:hidden;
         }
     }
     .edit-card-preview{
