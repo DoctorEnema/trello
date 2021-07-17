@@ -79,6 +79,15 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
+        async updateBoard(context, { board }) {
+            try {
+                const savedBoard = await boardService.saveBoard(board)
+                context.commit({ type: 'setBoard', board: savedBoard })
+                return board
+            } catch (err) {
+                console.log('cannot update board', err);
+            }
+        },
         async updateLabel(context, { boardId, pickedLabel, action }) {
             // console.log("pickedLabel", pickedLabel)
             try {

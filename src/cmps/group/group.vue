@@ -4,7 +4,8 @@
       <p>{{ group.title }}</p>
       <button @click="removeGroup(group.id)"></button>
     </div>
-    <div class="group-content">
+    <!-- <div class="group-content"> -->
+      <draggable class="group-content"  :list="group.cards" @start="onDragStart" @end="onDragEnd">
       <card-preview
         @changeComplete="changeComplete"
         @removeCard="removeCard"
@@ -14,7 +15,8 @@
         v-for="card in group.cards"
         :key="card.id"
       ></card-preview>
-    </div>
+      </draggable>
+    <!-- </div> -->
     <section class="add-card-area" v-if="isAdding">
       <textarea
         placeholder="Enter a title for this card..."
@@ -33,10 +35,12 @@
 
 <script>
 import cardPreview from "../card/card-preview.vue";
+import draggable from 'vuedraggable'
 export default {
   props: { group: Object },
   components: {
-    cardPreview,
+    cardPreview, 
+    draggable
   },
   data() {
     return {
@@ -55,6 +59,13 @@ export default {
     },
   },
   methods: {
+    onDragStart() {
+      console.log('dragStart');
+    },
+    onDragEnd() {
+      console.log('dragEnd');
+      this.$emit('onDragEnd')
+    },
     removeGroup(groupId) {
       this.$emit("removeGroup", groupId);
     },
