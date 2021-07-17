@@ -14,7 +14,7 @@ const boardsJson = [{
     },
     "style": {
         "backgroundColor":"cornflowerblue",
-        "backgroundImg":"https://img2.storyblok.com/f/84907/2560x1280/e18f2eeb15/diana-level-1.jpg"
+        "backgroundImg":"https://img2.storyblok.com/f/84907/7000x5000/47178d02e2/homescreen-bilgewater.jpg"
     },
     "covers": [{ id: "c101", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg" }, { id: "c102", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997005/samples/landscapes/nature-mountains.jpg" }, { id: "c103", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625997001/samples/landscapes/architecture-signs.jpg" }, { id: "c104", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1625996999/samples/landscapes/girl-urban-view.jpg" }, { id: "c105", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-3_o4vbyr.jpg" }, { id: "c106", imgUrl: "https://res.cloudinary.com/davidyan7/image/upload/v1626442129/download-4_enj2yk.jpg" }],
     "labels": [

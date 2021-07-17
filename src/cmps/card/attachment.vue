@@ -17,8 +17,10 @@
           <span>-</span>
           <a href="#">Edit</a>
         </div>
-        <span class="make-cover-attachment"></span>
-        <a href="#">Make cover</a>
+        <div class="make-cover-attachment">
+          <span></span>
+          <a href="#">Make cover</a>
+        </div>
       </div>
     </div>
   </section>
