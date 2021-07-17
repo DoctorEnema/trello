@@ -1,10 +1,18 @@
 <template>
   <section>
     <div class="group-header">
-      <p>{{ group.title }}</p>
+      <form @submit="saveTitle">
+        <textarea>{{ group.title }}</textarea>
+      </form>
       <button @click="removeGroup(group.id)"></button>
     </div>
-      <draggable class="group-content"  :list="group.cards" group="cardGroup" @start="onDragStart" @end="onDragEnd">
+    <draggable
+      class="group-content"
+      :list="group.cards"
+      group="cardGroup"
+      @start="onDragStart"
+      @end="onDragEnd"
+    >
       <card-preview
         @changeComplete="changeComplete"
         @removeCard="removeCard"
@@ -14,7 +22,7 @@
         v-for="card in group.cards"
         :key="card.id"
       ></card-preview>
-      </draggable>
+    </draggable>
     <section class="add-card-area" v-if="isAdding">
       <textarea
         placeholder="Enter a title for this card..."
@@ -26,19 +34,19 @@
       </div>
     </section>
     <div v-else class="group-footer">
-      <button @click="isAdding = true"> Add a card</button>
+      <button @click="isAdding = true">Add a card</button>
     </div>
   </section>
 </template>
 
 <script>
 import cardPreview from "../card/card-preview.vue";
-import draggable from 'vuedraggable'
+import draggable from "vuedraggable";
 export default {
   props: { group: Object },
   components: {
-    cardPreview, 
-    draggable
+    cardPreview,
+    draggable,
   },
   data() {
     return {
@@ -57,12 +65,15 @@ export default {
     },
   },
   methods: {
+    saveTitle() {
+
+    },
     onDragStart(ev) {
-      ev.item.classList.add('dragging')
+      ev.item.classList.add("dragging");
     },
     onDragEnd(ev) {
-      ev.item.classList.remove('dragging')
-      this.$emit('onDragEnd')
+      ev.item.classList.remove("dragging");
+      this.$emit("onDragEnd");
     },
     removeGroup(groupId) {
       this.$emit("removeGroup", groupId);
