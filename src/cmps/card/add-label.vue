@@ -60,7 +60,7 @@
               :style="'background-color:' + label"
               @click="setChosenLabel(label)"
             >
-              <span class="icon"></span>
+              <span v-if="pickEditedLabel" class="icon"></span>
             </li>
           </ul>
           <div v-if="isEdit">
@@ -133,6 +133,8 @@ export default {
   },
   methods: {
     isLabelPicked(label) {
+      if (!this.card.labelIds) return 
+
       return this.card.labelIds.some(id=> id === label.id)
     },
     closeModal() {
