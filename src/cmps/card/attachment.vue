@@ -19,8 +19,8 @@
         </div>
         <div class="make-cover-attachment">
           <span></span>
-          <a href="#" v-if="!card.cover.imgUrl" @click="setCover(attachment.imgUrl)">Make cover</a>
-          <a href="#" v-if="card.cover.imgUrl" @click="removeCover" >Remove cover</a>
+          <a href="#"  @click="setCover(attachment.imgUrl)">Make cover</a>
+          <!-- <a href="#" @click="removeCover" >Remove cover</a> -->
         </div>
       </div>
     </div>
