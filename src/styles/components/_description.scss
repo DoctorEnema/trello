@@ -1,17 +1,17 @@
-.description{
+.description {
     margin-top: 16px;
-    textarea{
+    textarea {
         min-width: 100%;
-        max-width:100%;
+        max-width: 100%;
         resize: none;
         border-radius: 3px;
         background-color: $clr3;
         border: none;
         padding: 10px 8px;
         max-height: 56px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
-        &:focus{
+        &:focus {
             max-height: 108px;
             background-color: white;
         }
@@ -44,20 +44,20 @@
                 font-family: fontAwesome, sans serif;
                 content: "\f00d";
             }
-            &:hover{
+            &:hover {
                 color: black;
-                background-color:transparent
+                background-color: transparent;
             }
         }
-    }
-    button:first-of-type {
-        background-color: #0079bf;
-        padding: 6px 12px;
-        color: white;
-        line-height: 20px;
-        margin: 0 6px 0 0;
-        &:hover {
-            background-color: #056ba7;
+        &:first-of-type {
+            background-color: #0079bf;
+            padding: 6px 12px;
+            color: white;
+            line-height: 20px;
+            margin: 0 6px 0 0;
+            &:hover {
+                background-color: #056ba7;
+            }
         }
     }
 }
