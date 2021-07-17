@@ -82,7 +82,7 @@
             </div>
             <div class="details-activity">
               <span class="details-activity-icon"></span>
-              <activities @setActivity="setActivity"></activities>
+              <activities @setActivity="setActivity" ></activities>
               <div v-for="activity in selectedBoard.activities" :key="activity.id">
                 <section v-if="activity.card.id === card.id">
                   <p><span>{{activity.byMember.fullname}} </span>{{activity.txt}} </p>
@@ -244,14 +244,27 @@ export default {
         card: this.card,
       });
     },
-    async setActivity(activity){
+    setComment(comment){
+      const fullComment= {
+        byMember:this.loggedinUser,
+        creatAt:Date.now(),
+        id: utilService.makeId(),
+        card:JSON.parse(JSON.stringify(this.card)) ,
+        txt:comment
+      }
+      if(!this.card.comments) this.card.comments=[]
+      this.card.comments.push(fullComment)
+      this.updateCard() 
+    },
+    async setActivity(activity,comment){
       const fullActivity= {
         byMember:this.loggedinUser,
         creatAt:Date.now(),
         id: utilService.makeId(),
-        card:this.card,
+        card:JSON.parse(JSON.stringify(this.card)),
         txt:activity
       }
+       this.setComment(comment)
        await this.$store.dispatch({
         type: "updateActivities",
         activity:fullActivity

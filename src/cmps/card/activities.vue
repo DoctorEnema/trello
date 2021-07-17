@@ -4,7 +4,7 @@
     <textarea
       v-model="activity"
       @focus="isActive = true"
-      placeholder="Add a activity..."
+      placeholder="Add a Comment..."
     ></textarea>
     <div v-if="this.isActive" class="activitie-controls">
       <button @click.stop="setActivity">Save</button>
@@ -29,7 +29,7 @@ export default {
     setActivity(){
       this.isActive=false
       const newActivity = 'comment a '+this.activity
-      this.$emit('setActivity' , newActivity)
+      this.$emit('setActivity' , newActivity, this.activity)
       this.activity = ''
     }
   }
