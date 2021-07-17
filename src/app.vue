@@ -7,12 +7,12 @@
 
 <script>
 import mainHeader from "./cmps/main-header.vue";
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 
 export default {
   components: {
     mainHeader,
-    draggable
+    // draggable
   },
 };
 </script>
