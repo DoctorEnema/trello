@@ -146,7 +146,6 @@ export default {
       this.isCreate = !this.isCreate;
       this.isEdit = !this.isEdit;
       this.labelToEdit = label;
-      console.log(this.labelToEdit);
       this.$nextTick(() => {
         this.$refs.nameEdit.focus();
         this.$refs.nameEdit.select();
@@ -154,17 +153,28 @@ export default {
     },
 
     removeLabel() {
-    this.$emit("createLabel", this.labelToEdit, 'remove');
+      this.$emit("createLabel", this.labelToEdit, "remove");
+      this.isCreate = false;
+      this.isEdit = false;
+      // this.$nextTick(() => {
+      //   this.$refs.name.focus();
+      // });
     },
     saveEditedLabel() {
-      const label = this.labelToEdit;
-      console.log(label);
+      this.$emit("createLabel", this.labelToEdit, "update");
+      this.isCreate = false;
+      this.isEdit = false;
+      // this.$nextTick(() => {
+      //   this.$refs.name.focus();
+      // });
     },
     setPickedLabelEmpty() {
-      (this.pickedLabel.id = null),
-        (this.pickedLabel.name = null),
-        (this.pickedLabel.color = "#344563"),
-        (this.pickedLabel.isPicked = true);
+      this.pickedLabel ={
+        id: null,
+        name: null,
+        color: "#344563",
+        isPicked: true
+      }
     },
     onClickBack() {
       this.isCreate = false;
