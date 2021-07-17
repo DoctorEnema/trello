@@ -7,10 +7,10 @@ import { storageService } from '../services/async-storage-service.js';
 const usersJson = [
     {
     "_id": "u105",
-    "fullname": "Abi Abambi",
+    "fullname": "Liran Barzilay",
     "username": "abi@ababmi.com",
     "password": "aBambi123",
-    "imgUrl": "https://robohash.org/5f6a2528973d861c5d7?set=set4",
+    "imgUrl": "https://ca.slack-edge.com/T01RYA29LLB-U01SE0KL7RQ-c4725a6539f2-72",
     "mentions": [{
         "id": "m101",
         "userId": "m101",
@@ -19,10 +19,22 @@ const usersJson = [
 },
     {
     "_id": "u106",
-    "fullname": "Mosh mosh",
+    "fullname": "Meidan Yona",
     "username": "Mosh@Mosh.com",
     "password": "mosh123",
-    "imgUrl": "https://robohash.org/5f6a2528973d861c5d78c355?set=set4",
+    "imgUrl": "https://trello-members.s3.amazonaws.com/60e75346a139822337c8c5ad/da3326afdf656a4aed9ae1f46db124b3/original.png",
+    "mentions": [{
+        "id": "m102",
+        "userId": "m102",
+        "taskId": "t102"
+    }]
+},
+    {
+    "_id": "u107",
+    "fullname": "Sahar Davidyan",
+    "username": "Mosh@Mosh.com",
+    "password": "mosh123",
+    "imgUrl": "https://trello-members.s3.amazonaws.com/5e5ad6ca4e7adc4a3b8cf9db/1480e469745bf6bac3f0b7ab6013f318/original.png",
     "mentions": [{
         "id": "m102",
         "userId": "m102",
