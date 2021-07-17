@@ -1,13 +1,17 @@
 <template>
   <section class="checklist">
+    <span class="details-checklist-icon"></span>
     <div class="checklist-header">
       <h4>{{ checklist.title }}</h4>
       <button>Hide checked items</button>
       <button @click="removeList">Delete</button>
     </div>
-    <div class="progress-bar">
-      <div class="bar" :style="'width:' + complete">
-        <div class="precentage">{{ complete }}</div>
+    <div class="completion">
+      <span class="completion-percent">{{ complete }}</span>
+      <div class="progress-bar">
+        <div class="bar" :style="'width:' + complete">
+          <div class="precentage"></div>
+        </div>
       </div>
     </div>
     <ul>
@@ -19,7 +23,9 @@
         </todo-preview>
       </li>
     </ul>
-    <button class="add-todo-btn" v-if="!addMode" @click="openTextarea">Add an item</button>
+    <button class="add-todo-btn" v-if="!addMode" @click="openTextarea">
+      Add an item
+    </button>
     <section class="todo-add" v-if="addMode">
       <textarea
         ref="textarea"

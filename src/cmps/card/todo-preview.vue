@@ -1,10 +1,11 @@
 <template>
   <section>
     <div v-if="!editMode" @click="setCurrTodo(todo)" class="todo-controls">
-      <div>
+      <div class="checkmark">
         <input
+        class="todo-checkbox"
           type="checkbox"
-          @click="checkTodo(todo)"
+          @click.stop="checkTodo(todo)"
           :checked="todo.isDone"
         />
         <span >{{ todo.title }}</span>
