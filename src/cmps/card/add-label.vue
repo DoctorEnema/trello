@@ -21,7 +21,7 @@
               :style="'background-color:' + label.color"
               @click="setLabel(label.id)"
               ><span class="label-name">{{ label.name }}</span
-              ><span class="icon"></span
+              ><span v-if="isLabelPicked(label)" class="icon">✔</span
             ></span>
             <!-- <button tabIndex="0" @click="setLabel(label)">edit icon</button> -->
             <!-- <button @click="openEditor"></button> -->
@@ -58,7 +58,7 @@
               v-for="(label, idx) in editLabels"
               :key="idx"
               :style="'background-color:' + label"
-              @click="pickedLabel.color = label"
+              @click="setChosenLabel(label)"
             >
               <span class="icon"></span>
             </li>
@@ -81,6 +81,9 @@ import { utilService } from "../../services/util-service";
 export default {
   components: {
     utilService,
+  },
+  props: {
+    card: Object
   },
   created() {},
   mounted() {
@@ -114,11 +117,24 @@ export default {
   },
   computed: {
     selectedBoard() {
-      // return this.$store.getters.selectedBoard;
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
+    // isLabelPicked(label) {
+      // return pickedLabels = this.card.labelIds.filter(id=> id === selectedBoard.labels.id)
+      // console.log('this.card.labelIds', this.card.labelIds);
+      // console.log('this.selectedBoard.labels',this.selectedBoard.labels);
+      // const pickedLabels = this.card.labelIds.some(id=> id === this.selectedBoard.labels.forEach(label => id === label.id))
+      // const pickedLabels = this.selectedBoard.labels.forEach(label=> this.card.labelIds.some(id => id === label.id))
+      // console.log(pickedLabels);
+      // return pickedLabels
+      // console.log(label.id);
+    //   return
+    // },
   },
   methods: {
+    isLabelPicked(label) {
+      return this.card.labelIds.some(id=> id === label.id)
+    },
     closeModal() {
       this.$emit("closeModal");
     },
@@ -180,6 +196,9 @@ export default {
       this.isCreate = false;
       this.isEdit = false;
     },
+    setChosenLabel(color) {
+      (this.isEdit) ? this.labelToEdit.color = color : this.pickedLabel.color = color
+    }
   },
 };
 </script>

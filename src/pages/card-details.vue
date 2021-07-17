@@ -138,6 +138,7 @@
           @listAdded="addList"
           @setCover="setCover"
           @removeCover="removeCover"
+          :card="card"
         ></component>
       </section>
     </div>
