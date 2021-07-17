@@ -15,7 +15,8 @@
         </button>
         <button>Invite</button>
       </div>
-      <button class="show-board-menu">Show menu</button>
+      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
+      <side-menu v-if="isSideMenu" @toggleMenu="toggleMenu"></side-menu>
     </div>
     <div class="board-content">
       <div class="groups">
@@ -51,9 +52,13 @@
 <script>
 import { boardService } from "../services/board-service.js";
 import group from "../cmps/group/group.vue";
+import activities from "../cmps/card/activities.vue";
+import sideMenu from "../cmps/card/side-menu.vue";
 export default {
   components: {
     group,
+    activities,
+    sideMenu
   },
   data() {
     return {
@@ -63,6 +68,7 @@ export default {
         title: "",
         style: {},
       },
+      isSideMenu:false
     };
   },
   computed: {
@@ -94,6 +100,9 @@ export default {
     toggleAdding() {
       this.isAdding = !this.isAdding;
     },
+    toggleMenu(){
+      this.isSideMenu = !this.isSideMenu
+    }
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });

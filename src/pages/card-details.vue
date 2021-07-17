@@ -163,6 +163,7 @@ import checklist from "../cmps/card/checklist.vue";
 import date from "../cmps/card/date.vue";
 import member from "../cmps/card/member.vue";
 import attachment from "../cmps/card/attachment.vue";
+import activities from "../cmps/card/activities.vue";
 import description from "../cmps/card/description.vue";
 import { boardService } from "../services/board-service";
 
@@ -180,6 +181,7 @@ export default {
     member,
     attachment,
     description,
+    activities
   },
   data() {
     return {
