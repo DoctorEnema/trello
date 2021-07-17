@@ -7,9 +7,9 @@
     >
       <img :src="attachment.imgUrl" />
       <div class="attachment-info">
-        <h3>{{attachment.name}}</h3>
+        <h3>{{ attachment.name }}</h3>
         <div class="attachment-controls">
-          <p>Added {{attachment.time}}</p>
+          <p>Added {{ attachment.time }}</p>
           <span>-</span>
           <a href="#">Comment</a>
           <span>-</span>
@@ -19,7 +19,8 @@
         </div>
         <div class="make-cover-attachment">
           <span></span>
-          <a href="#" @click="setCover(attachment.imgUrl)">Make cover</a>
+          <a href="#" v-if="isRemoved" @click="setCover(attachment.imgUrl)">Make cover</a>
+          <a href="#" v-if="!isRemoved" @click="removeCover" >Remove cover</a>
         </div>
       </div>
     </div>
@@ -27,18 +28,28 @@
 </template>
 
 <script>
-import { utilService } from '../../services/util-service';
+import { utilService } from "../../services/util-service";
 export default {
   props: {
     card: Object,
+  },
+  data() {
+    return {
+      isRemoved: true,
+    };
   },
   methods: {
     removeAttachment(attachmentIdx) {
       this.$emit("removeLink", attachmentIdx);
     },
-    setCover(cover){
-     const newCover = {id:utilService.makeId(), imgUrl:cover}
-     this.$emit('setCover' , newCover)
+    setCover(cover) {
+      this.isRemoved = false;
+      const newCover = { id: utilService.makeId(), imgUrl: cover };
+      this.$emit("setCover", newCover);
+    },
+    removeCover() {
+      this.isRemoved = true;
+      this.$emit("removeCover");
     },
   },
 };
