@@ -1,21 +1,22 @@
-.attachment{
+.attachment {
     margin-top: 16px;
     display: flex;
     color: $clr2;
-    span{
+    span {
         padding: 0 4px;
     }
-    a{
+    a {
         color: $clr2;
-        &:hover{
+        &:hover {
             color: $clr1;
         }
     }
-    h3{
+    h3 {
+        padding-top: 4px;
         color: black;
         font-weight: 600;
     }
-    img{
+    img {
         border-radius: 3px;
         background-color: black;
         object-fit: contain;
@@ -25,11 +26,14 @@
     }
 }
 
-.make-cover-attachment::before{
-    font-family: fontAwesome, sans serif;
-    content:'\f03e'
+.make-cover-attachment {
+    padding-top: 8px;
+    &::before {
+        font-family: fontAwesome, sans serif;
+        content: "\f03e";
+    }
 }
 
-.attachment-controls{
-    display:flex
+.attachment-controls {
+    display: flex;
 }
