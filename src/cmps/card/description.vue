@@ -1,5 +1,6 @@
 <template>
   <section class="description">
+    <button v-if="card.description" >Edit</button>
     <textarea
       v-model="desc"
       @focus="isActive = true"
@@ -7,17 +8,20 @@
     ></textarea>
     <div v-if="this.isActive" class="description-controls">
       <button @click.stop="setDesc">Save</button>
-      <button></button>
+      <button @focus="isActive = false"></button>
     </div>
   </section>
 </template>
 
 <script>
 export default {
+  props: {
+    card: Object
+  },
   data() {
     return {
       isActive: false,
-      desc: "",
+      desc: this.card.description || '',
     };
   },
   methods:{

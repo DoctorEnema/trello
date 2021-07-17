@@ -55,7 +55,7 @@
           <div class="details-desc">
             <span class="details-desc-icon"></span>
             <h4>Description</h4>
-            <description @setDesc="setDesc"></description>
+            <description :card="card" @setDesc="setDesc"></description>
           </div>
           <div v-if="isAttachments" class="details-attachment">
             <h4>Attachments</h4>
@@ -205,6 +205,12 @@ export default {
     },
     setDesc(desc){
       console.log(desc);
+      this.card.description = desc
+       this.$store.dispatch({
+        type: "updateCard",
+        group: this.group,
+        card: this.card,
+      });
     },
     setCover(cover) {
       this.card.cover = {};
