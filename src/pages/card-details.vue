@@ -6,8 +6,13 @@
       :style="{ backgroundColor: card.cover.color }"
     >
       <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
-      <!-- <button class="close-details"></button> -->
-      <button class="choose-cover" data-cmp="add-cover" @click.stop="setModalType">Cover</button>
+      <button
+        class="choose-cover"
+        data-cmp="add-cover"
+        @click.stop="setModalType"
+      >
+        Cover
+      </button>
     </div>
     <button class="close-details" @click="closeCard"></button>
     <header class="details-header">
@@ -31,7 +36,11 @@
           </div>
           <div class="details-labels">
             <h3>LABELS</h3>
-            <labels :card="card" v-if="card.labelIds" @setModalType="setModalType"></labels>
+            <labels
+              :card="card"
+              v-if="card.labelIds"
+              @setModalType="setModalType"
+            ></labels>
           </div>
           <div class="details-dates">
             <h3>DATES</h3>
@@ -42,35 +51,79 @@
             ></date>
           </div>
         </div>
-        <description></description>
-
-        <ul v-if="card.checklists">
-          <li v-for="(checklist, idx) in card.checklists" :key="idx">
-            <checklist
-              :checklist="checklist"
-              @addTodo="addTodo"
-              @removeList="removeList"
-            ></checklist>
-          </li>
-        </ul>
-        <attachment
-          :card="card"
-          v-if="card.attachments"
-          @removeLink="removeLink"
-        ></attachment>
+        <div class="details-bottom-left">
+          <div class="details-desc">
+            <span class="details-desc-icon"></span>
+            <h4>Description</h4>
+            <description></description>
+          </div>
+          <div v-if="isAttachments" class="details-attachment">
+            <h4>Attachments</h4>
+            <span class="details-attachment-icon"></span>
+            <attachment
+              :card="card"
+              v-if="card.attachments"
+              @removeLink="removeLink"
+            ></attachment>
+          </div>
+          <div class="details-checklist">
+            <span class="details-checklist-icon"></span>
+            <ul v-if="card.checklists">
+              <li v-for="(checklist, idx) in card.checklists" :key="idx">
+                <checklist
+                  :checklist="checklist"
+                  @addTodo="addTodo"
+                  @removeList="removeList"
+                ></checklist>
+              </li>
+            </ul>
+          </div>
+          <div class="details-activity">
+            <span class="details-activity-icon"></span>
+          </div>
+        </div>
       </div>
       <div class="right-side">
         <h3>Add to Card</h3>
-        <button class="add-member" data-cmp="add-member"  @click.stop="setModalType">Members</button>
-        <button class="add-label" data-cmp="add-label"  @click.stop="setModalType">Labels</button>
-        <button class="add-checklist" data-cmp="add-checklist" @click.stop="setModalType">
+        <button
+          class="add-member"
+          data-cmp="add-member"
+          @click.stop="setModalType"
+        >
+          Members
+        </button>
+        <button
+          class="add-label"
+          data-cmp="add-label"
+          @click.stop="setModalType"
+        >
+          Labels
+        </button>
+        <button
+          class="add-checklist"
+          data-cmp="add-checklist"
+          @click.stop="setModalType"
+        >
           Checklist
         </button>
-        <button class="add-date" data-cmp="add-date"  @click.stop="setModalType">Dates</button>
-        <button class="add-attachment" data-cmp="add-attachment"  @click.stop="setModalType">
+        <button class="add-date" data-cmp="add-date" @click.stop="setModalType">
+          Dates
+        </button>
+        <button
+          class="add-attachment"
+          data-cmp="add-attachment"
+          @click.stop="setModalType"
+        >
           Attachment
         </button>
-        <button v-if="!card.cover" class="add-cover" data-cmp="add-cover"  @click.stop="setModalType">Cover</button>
+        <button
+          v-if="!card.cover"
+          class="add-cover"
+          data-cmp="add-cover"
+          @click.stop="setModalType"
+        >
+          Cover
+        </button>
       </div>
       <section class="modal" v-if="openModalType" @click.stop="stop">
         <component
@@ -86,7 +139,6 @@
           @removeCover="removeCover"
         ></component>
       </section>
-      <!-- {{selectedBoard}} -->
     </div>
   </section>
 </template>
@@ -128,32 +180,31 @@ export default {
     };
   },
   async created() {
-    // this.$store.dispatch({ type: "loadBoard", boardId: "b101" });
     const { cardId, groupId, boardId } = this.$route.params;
     this.boardId = boardId;
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
   },
   computed: {
     selectedBoard() {
-      // return this.$store.getters.selectedBoard;
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
     card() {
-      // console.log("card-getter", this.$store.getters.selectedCard);
       return JSON.parse(JSON.stringify(this.$store.getters.selectedCard));
     },
     group() {
-      // console.log('110',this.$store.getters.selectedGroup);
       return JSON.parse(JSON.stringify(this.$store.getters.selectedGroup));
-      return this.$store.getters.selectedGroup;
     },
+    isAttachments(){
+      if(!this.card.attachments || !this.card.attachments.length ) return false
+      return true
+    }
   },
   methods: {
     stop(event) {
       // event.stopPropagation
     },
-    setCover(cover){
-      this.card.cover = {}
+    setCover(cover) {
+      this.card.cover = {};
       this.card.cover = cover;
       this.$store.dispatch({
         type: "updateCard",
@@ -161,8 +212,8 @@ export default {
         card: this.card,
       });
     },
-    removeCover(){
-      this.card.cover=null
+    removeCover() {
+      this.card.cover = null;
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
@@ -170,8 +221,6 @@ export default {
       });
     },
     setLabel(labelId) {
-      // console.log("labelId", labelId)
-      console.log('happening');
       if (!this.card.labelIds) this.card.labelIds = [];
       if (this.card.labelIds.some((l) => l === labelId)) {
         this.removeLabel(labelId);
@@ -196,14 +245,14 @@ export default {
         card: this.card,
       });
     },
-    async createLabel(pickedLabel, action = 'add') {
+    async createLabel(pickedLabel, action = "add") {
       await this.$store.dispatch({
         type: "updateLabel",
         boardId: this.boardId,
         pickedLabel,
-        action
+        action,
       });
-      if (action === 'add') {
+      if (action === "add") {
         this.setLabel(pickedLabel.id);
       }
     },
@@ -219,7 +268,6 @@ export default {
       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
       this.$store.dispatch({
         type: "updateCard",
         group: this.group,
@@ -227,7 +275,6 @@ export default {
       });
     },
     linkAdded(link) {
-      console.log(link);
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(link);
       this.$store.dispatch({
@@ -235,7 +282,6 @@ export default {
         group: this.group,
         card: this.card,
       });
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     removeLink(linkIdx) {
       this.card.attachments.splice(linkIdx, 1);
@@ -244,7 +290,6 @@ export default {
         group: this.group,
         card: this.card,
       });
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     addMember(member) {
       if (!this.card.members) this.card.members = [];
@@ -280,10 +325,9 @@ export default {
         group: this.group,
         card: this.card,
       });
-      // boardService.updateCard(this.board, this.group, this.card.id, this.card);
     },
     addList(title) {
-      if(!this.card.checklists) this.card.checklists = []
+      if (!this.card.checklists) this.card.checklists = [];
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
@@ -309,13 +353,12 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
-      // var value = ev.target.className;
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },
     closeCard() {
       this.$router.push(`/board/${this.selectedBoard._id}`);
-    }
+    },
   },
 };
 </script>

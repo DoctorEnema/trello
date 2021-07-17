@@ -1,7 +1,7 @@
 <template>
   <section v-if="card.labelIds" class="label-cmp">
     <div v-for="(label,idx) in cardLabels" :key="idx" >
-       <button v-if="label" data-cmp="add-label" :style="{backgroundColor:label.color}" @click.stop="setModalType">
+       <button class="details-label" v-if="label" data-cmp="add-label" :style="{backgroundColor:label.color}" @click.stop="setModalType">
          <span class="card-label"  >{{label.name}}</span>
        </button>
     </div>
