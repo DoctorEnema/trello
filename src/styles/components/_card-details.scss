@@ -1,3 +1,13 @@
+.card-details-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    overflow-y: auto;
+}
+
 .card-details {
     background: #f4f5f7;
     position: absolute;
@@ -9,6 +19,7 @@
     overflow-y: auto;
     margin: 0 auto;
     border-radius: 3px;
+    overflow-y: hidden;
 
     h4{
         font-weight: 600;

@@ -1,148 +1,154 @@
 <template>
-  <section v-if="card" class="card-details" @click="closeModal">
-    <div
-      v-if="card.cover"
-      class="details-cover"
-      :style="{ backgroundColor: card.cover.color }"
-    >
-      <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
-      <button
-        class="choose-cover"
-        data-cmp="add-cover"
-        @click.stop="setModalType"
+  <div  class="card-details-container">
+    <section v-if="card" class="card-details" @click="closeModal">
+      <div
+        v-if="card.cover"
+        class="details-cover"
+        :style="{ backgroundColor: card.cover.color }"
       >
-        Cover
-      </button>
-    </div>
-    <button class="close-details" @click="closeCard"></button>
-    <header class="details-header">
-      <span class="details-title"></span>
-      <div>
-        <h2>{{ card.title }}</h2>
-        <!--this is a textarea in trello -->
-        <h5>in list {{ group.title }}</h5>
-      </div>
-    </header>
-    <div class="details-body">
-      <div v-if="card" class="left-side">
-        <div class="details-top-left">
-          <div class="details-members">
-            <h3>MEMBERS</h3>
-            <member
-              :card="card"
-              v-if="card.members"
-              @removeMember="removeMember"
-            ></member>
-          </div>
-          <div class="details-labels">
-            <h3>LABELS</h3>
-            <labels
-              :card="card"
-              v-if="card.labelIds"
-              @setModalType="setModalType"
-            ></labels>
-          </div>
-          <div class="details-dates">
-            <h3>DATES</h3>
-            <date
-              :card="card"
-              v-if="card.dueDate"
-              @changeComplete="changeComplete"
-            ></date>
-          </div>
-        </div>
-        <div class="details-bottom-left">
-          <div class="details-desc">
-            <span class="details-desc-icon"></span>
-            <h4>Description</h4>
-            <description :card="card" @setDesc="setDesc"></description>
-          </div>
-          <div v-if="isAttachments" class="details-attachment">
-            <h4>Attachments</h4>
-            <span class="details-attachment-icon"></span>
-            <attachment
-              :card="card"
-              v-if="card.attachments"
-              @removeLink="removeLink"
-              @setCover="setCover"
-              @removeCover="removeCover"
-            ></attachment>
-          </div>
-          <div class="details-checklist">
-            <ul v-if="card.checklists">
-              <li v-for="(checklist, idx) in card.checklists" :key="idx">
-                <checklist
-                  :checklist="checklist"
-                  @addTodo="addTodo"
-                  @removeList="removeList"
-                ></checklist>
-              </li>
-            </ul>
-          </div>
-          <div class="details-activity">
-            <span class="details-activity-icon"></span>
-          </div>
-        </div>
-      </div>
-      <div class="right-side">
-        <h3>Add to Card</h3>
+        <img v-if="card.cover.imgUrl" :src="card.cover.imgUrl" alt="" />
         <button
-          class="add-member"
-          data-cmp="add-member"
-          @click.stop="setModalType"
-        >
-          Members
-        </button>
-        <button
-          class="add-label"
-          data-cmp="add-label"
-          @click.stop="setModalType"
-        >
-          Labels
-        </button>
-        <button
-          class="add-checklist"
-          data-cmp="add-checklist"
-          @click.stop="setModalType"
-        >
-          Checklist
-        </button>
-        <button class="add-date" data-cmp="add-date" @click.stop="setModalType">
-          Dates
-        </button>
-        <button
-          class="add-attachment"
-          data-cmp="add-attachment"
-          @click.stop="setModalType"
-        >
-          Attachment
-        </button>
-        <button
-          v-if="!card.cover"
-          class="add-cover"
+          class="choose-cover"
           data-cmp="add-cover"
           @click.stop="setModalType"
         >
           Cover
         </button>
       </div>
-      <section class="modal" v-if="openModalType" @click.stop="stop">
-        <component
-          :is="openModalType"
-          @closeModal="closeModal"
-          @addUser="addMember"
-          @linkAdded="linkAdded"
-          @addDate="addDate"
-          @createLabel="createLabel"
-          @setLabel="setLabel"
-          @listAdded="addList"
-          @setCover="setCover"
-          @removeCover="removeCover"
-          :card="card"
-        ></component>
-      </section>
-    </div>
-  </section>
+      <button class="close-details" @click="closeCard"></button>
+      <header class="details-header">
+        <span class="details-title"></span>
+        <div>
+          <h2>{{ card.title }}</h2>
+          <!--this is a textarea in trello -->
+          <h5>in list {{ group.title }}</h5>
+        </div>
+      </header>
+      <div class="details-body">
+        <div v-if="card" class="left-side">
+          <div class="details-top-left">
+            <div class="details-members">
+              <h3>MEMBERS</h3>
+              <member
+                :card="card"
+                v-if="card.members"
+                @removeMember="removeMember"
+              ></member>
+            </div>
+            <div class="details-labels">
+              <h3>LABELS</h3>
+              <labels
+                :card="card"
+                v-if="card.labelIds"
+                @setModalType="setModalType"
+              ></labels>
+            </div>
+            <div class="details-dates">
+              <h3>DATES</h3>
+              <date
+                :card="card"
+                v-if="card.dueDate"
+                @changeComplete="changeComplete"
+              ></date>
+            </div>
+          </div>
+          <div class="details-bottom-left">
+            <div class="details-desc">
+              <span class="details-desc-icon"></span>
+              <h4>Description</h4>
+              <description :card="card" @setDesc="setDesc"></description>
+            </div>
+            <div v-if="isAttachments" class="details-attachment">
+              <h4>Attachments</h4>
+              <span class="details-attachment-icon"></span>
+              <attachment
+                :card="card"
+                v-if="card.attachments"
+                @removeLink="removeLink"
+                @setCover="setCover"
+                @removeCover="removeCover"
+              ></attachment>
+            </div>
+            <div class="details-checklist">
+              <ul v-if="card.checklists">
+                <li v-for="(checklist, idx) in card.checklists" :key="idx">
+                  <checklist
+                    :checklist="checklist"
+                    @addTodo="addTodo"
+                    @removeList="removeList"
+                  ></checklist>
+                </li>
+              </ul>
+            </div>
+            <div class="details-activity">
+              <span class="details-activity-icon"></span>
+            </div>
+          </div>
+        </div>
+        <div class="right-side">
+          <h3>Add to Card</h3>
+          <button
+            class="add-member"
+            data-cmp="add-member"
+            @click.stop="setModalType"
+          >
+            Members
+          </button>
+          <button
+            class="add-label"
+            data-cmp="add-label"
+            @click.stop="setModalType"
+          >
+            Labels
+          </button>
+          <button
+            class="add-checklist"
+            data-cmp="add-checklist"
+            @click.stop="setModalType"
+          >
+            Checklist
+          </button>
+          <button
+            class="add-date"
+            data-cmp="add-date"
+            @click.stop="setModalType"
+          >
+            Dates
+          </button>
+          <button
+            class="add-attachment"
+            data-cmp="add-attachment"
+            @click.stop="setModalType"
+          >
+            Attachment
+          </button>
+          <button
+            v-if="!card.cover"
+            class="add-cover"
+            data-cmp="add-cover"
+            @click.stop="setModalType"
+          >
+            Cover
+          </button>
+        </div>
+        <section class="modal" v-if="openModalType" @click.stop="stop">
+          <component
+            :is="openModalType"
+            @closeModal="closeModal"
+            @addUser="addMember"
+            @linkAdded="linkAdded"
+            @addDate="addDate"
+            @createLabel="createLabel"
+            @setLabel="setLabel"
+            @listAdded="addList"
+            @setCover="setCover"
+            @removeCover="removeCover"
+            :card="card"
+          ></component>
+        </section>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
