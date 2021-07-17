@@ -3,8 +3,8 @@ import { boardService } from "../../services/board-service"
 export const boardStore = {
     state: {
         selectedBoard: null,
-        selectedGroup:null,
-        selectedCard:null,
+        selectedGroup: null,
+        selectedCard: null,
         card: null,
         textareaOpen: false
     },
@@ -47,7 +47,7 @@ export const boardStore = {
             if (!state.selectedBoard.groups[idx].cards) state.selectedBoard.groups[idx].cards = []
             state.selectedBoard.groups[idx].cards.push(card)
         },
-        updateCard(state,{groupCopy, cardCopy}){
+        updateCard(state, { groupCopy, cardCopy }) {
             const cardIdx = groupCopy.cards.findIndex(card => cardCopy.id === card.id)
             groupCopy.cards.splice(cardIdx, 1, cardCopy)
             const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === groupCopy.id)
@@ -60,9 +60,9 @@ export const boardStore = {
         }
     },
     actions: {
-        async loadCard(context, { cardId,groupId,boardId }) {
+        async loadCard(context, { cardId, groupId, boardId }) {
             try {
-                const { card,group } =  await boardService.getCardById(cardId,groupId,boardId)
+                const { card, group } = await boardService.getCardById(cardId, groupId, boardId)
                 context.commit({ type: 'setCard', card })
                 context.commit({ type: 'setGroup', group })
                 return card
@@ -79,32 +79,34 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
-        async updateLabel(context, { boardId , pickedLabel, action}) {
+        async updateLabel(context, { boardId, pickedLabel, action }) {
             // console.log("pickedLabel", pickedLabel)
             try {
                 const board = await boardService.getById(boardId)
-                if(!board.labels) board.labels = []
+                if (!board.labels) board.labels = []
                 if (action === 'add') {
                     board.labels.push(pickedLabel)
-                } else if (action === 'remove'){
-                    const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
+                } else if (action === 'remove') {
+                    const labelIdx = board.labels.findIndex(label => label.id === pickedLabel.id)
                     // console.log('labelIdx',labelIdx);
                     board.labels.splice(labelIdx, 1)
-                    board.groups.forEach(group=> {
+                    board.groups.forEach(group => {
                         group.cards.forEach(card => {
-                            if (!card.labelIds){
+                            if (!card.labelIds) {
                                 console.log("not have labels")
-                            } 
-                             else {
-                                const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
-                                if (idIdx !== -1) {  
-                                    card.labelIds.splice(idIdx, 1)
-                                    console.log('asdas;daslkjdklsajda',idIdx);
                             }
-
+                            else {
+                                const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
+                                if (idIdx !== -1) {
+                                    card.labelIds.splice(idIdx, 1)
+                                    console.log('asdas;daslkjdklsajda', idIdx);
+                                }
                             }
                         })
                     })
+                } else if (action === 'update') {
+                    const labelIdx = board.labels.findIndex(label => label.id === pickedLabel.id)
+                    if (labelIdx !== -1) board.labels.splice(labelIdx, 1, pickedLabel)
                 }
                 // else if(action === 'edit') {
                 //     const labelIdx = board.labels.findIndex(label=> label.id === pickedLabel.id)
@@ -168,7 +170,7 @@ export const boardStore = {
                 const cardCopy = JSON.parse(JSON.stringify(card))
                 boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
-                context.commit({ type: 'setCard', card:cardCopy })
+                context.commit({ type: 'setCard', card: cardCopy })
 
             } catch (err) {
                 console.log('Cant add card', err);

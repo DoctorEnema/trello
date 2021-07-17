@@ -222,7 +222,7 @@ export default {
     },
     setLabel(labelId) {
       if (!this.card.labelIds) this.card.labelIds = [];
-      if (this.card.labelIds.some((l) => l === labelId)) {
+      if (this.card.labelIds.some((lId) => lId === labelId)) {
         this.removeLabel(labelId);
         return;
       }
@@ -249,8 +249,8 @@ export default {
       await this.$store.dispatch({
         type: "updateLabel",
         boardId: this.boardId,
-        pickedLabel,
-        action,
+        pickedLabel: {...pickedLabel},
+        action
       });
       if (action === "add") {
         this.setLabel(pickedLabel.id);
