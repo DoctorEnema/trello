@@ -1,13 +1,13 @@
 <template>
-  <section class="todo-preview-cmp">
-    <div v-if="!editMode" class="todo-controls">
+  <section>
+    <div v-if="!editMode" @click="setCurrTodo(todo)" class="todo-controls">
       <div>
         <input
           type="checkbox"
           @click="checkTodo(todo)"
           :checked="todo.isDone"
         />
-        <span @click="setCurrTodo(todo)">{{ todo.title }}</span>
+        <span >{{ todo.title }}</span>
       </div>
       <slot name="removeTodo"></slot>
     </div>

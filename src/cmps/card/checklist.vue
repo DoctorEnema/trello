@@ -14,7 +14,7 @@
       <li v-for="todo in checklist.todos" :key="todo.id">
         <todo-preview @editTodo="editTodo" :todo="todo">
           <template v-slot:removeTodo>
-            <button @click="removeTodo(todo)"></button>
+            <button @click.stop="removeTodo(todo)"></button>
           </template>
         </todo-preview>
       </li>
