@@ -19,8 +19,8 @@
         </div>
         <div class="make-cover-attachment">
           <span></span>
-          <a href="#" v-if="isRemoved" @click="setCover(attachment.imgUrl)">Make cover</a>
-          <a href="#" v-if="!isRemoved" @click="removeCover" >Remove cover</a>
+          <a href="#" v-if="!card.cover.imgUrl" @click="setCover(attachment.imgUrl)">Make cover</a>
+          <a href="#" v-if="card.cover.imgUrl" @click="removeCover" >Remove cover</a>
         </div>
       </div>
     </div>
@@ -43,12 +43,10 @@ export default {
       this.$emit("removeLink", attachmentIdx);
     },
     setCover(cover) {
-      this.isRemoved = false;
       const newCover = { id: utilService.makeId(), imgUrl: cover };
       this.$emit("setCover", newCover);
     },
     removeCover() {
-      this.isRemoved = true;
       this.$emit("removeCover");
     },
   },
