@@ -1,9 +1,17 @@
 <template>
   <section v-if="board" class="board-container">
     <div
+      v-if="this.board.style.backgroundImg"
       class="background"
       :style="{
         'background-image': 'url(' + this.board.style.backgroundImg + ')',
+      }"
+    />
+    <div
+      v-if="this.board.style.backgroundColor"
+      class="background"
+      :style="{
+        'background-color': this.board.style.backgroundColor,
       }"
     />
     <div class="board-header">
@@ -21,7 +29,12 @@
         <button>Invite</button>
       </div>
       <button class="show-board-menu" @click="toggleMenu">Show menu</button>
-      <side-menu v-if="isSideMenu" @toggleMenu="toggleMenu"></side-menu>
+      <side-menu
+        @boardCoverColor="boardCoverColor"
+        @boardCoverImage="boardCoverImage"
+        v-if="isSideMenu"
+        @toggleMenu="toggleMenu"
+      ></side-menu>
     </div>
     <div class="board-content">
       <div class="groups-and-add">
@@ -115,23 +128,45 @@ export default {
       this.$store.dispatch({ type: "removeGroup", groupId });
     },
     addGroup(group) {
-      if(!group.title) return
+      if (!group.title) return;
       this.$store.dispatch({ type: "addGroup", group });
       this.emptyGroup.title = "";
       this.isAdding = false;
     },
     removeCard(group, cardId) {
-      this.$store.dispatch({ type: "removeCard", board: this.board, group, cardId });
+      this.$store.dispatch({
+        type: "removeCard",
+        board: this.board,
+        group,
+        cardId,
+      });
     },
     addCard(groupId, card) {
-      console.log('addCard - board');
-      this.$store.dispatch({ type: "addCard", board: this.board, groupId, card });
+      console.log("addCard - board");
+      this.$store.dispatch({
+        type: "addCard",
+        board: this.board,
+        groupId,
+        card,
+      });
     },
     toggleAdding() {
       this.isAdding = !this.isAdding;
     },
     toggleMenu() {
       this.isSideMenu = !this.isSideMenu;
+    },
+    boardCoverImage(img) {
+      const board = this.board;
+      board.style.backgroundImg = img.imgUrl;
+      board.style.backgroundColor = null;
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
+    boardCoverColor(cover) {
+      const board = this.board;
+      board.style.backgroundColor = cover.color;
+      board.style.backgroundImg = null;
+      this.$store.dispatch({ type: "updateBoard", board });
     },
   },
   created() {

@@ -12,7 +12,7 @@ const newBoard=[{
       "imgUrl": "http://some-img"
     },
     "style": {
-      "backgroundColor": "cornflowerblue",
+      // "backgroundColor": "cornflowerblue",
       "backgroundImg": "https://img2.storyblok.com/f/84907/7000x5000/47178d02e2/homescreen-bilgewater.jpg"
     },
     "covers": [
@@ -203,7 +203,7 @@ const newBoard=[{
             ],
             "cover": {
               "id": "u85GP",
-              "imgUrl": "https://trello-attachments.s3.amazonaws.com/60ed706c2dbaaa2ba5dbc661/60edb5193b49725c6f7b8d23/630a31f040bc61d25ce67dc0dc03ad98/tahm-kench-level-01.jpg"
+              // "imgUrl": "https://trello-attachments.s3.amazonaws.com/60ed706c2dbaaa2ba5dbc661/60edb5193b49725c6f7b8d23/630a31f040bc61d25ce67dc0dc03ad98/tahm-kench-level-01.jpg"
             },
             "dueDate": {
               "date": 1626685200000,
