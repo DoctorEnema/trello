@@ -12,7 +12,7 @@
             opacity: 1;
             background-color: rgba($color: #f7f7f7, $alpha: 0.4);
             &:hover{
-                background-color: black;
+                background-color: $clr4
             }
         }
     }

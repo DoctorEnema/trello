@@ -1,48 +1,57 @@
 <template>
-  <div class="add-to-card">
-    <span class="demonstration">Date: </span>
-    <button @click="closeModal">X</button>
-    <el-date-picker @change="addDate"
+  <section class="add-to-card">
+    <div class="add-card-header">
+      <button @click="closeModal"></button>
+      <h3>Dates</h3>
+    </div>
+    <hr />
+    <el-date-picker
+      @blur="addDate"
       ref="dateInput"
       v-model="date"
       type="datetime"
       placeholder="Select date and time"
       value-format="timestamp"
-      default-time="12:00:00">
+      default-time="12:00:00"
+    >
     </el-date-picker>
-  </div>
+  </section>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        pickerOptions: {
-          shortcuts: [{
-            text: 'Today',
+export default {
+  data() {
+    return {
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "Today",
             onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: 'Yesterday',
+              picker.$emit("pick", new Date());
+            },
+          },
+          {
+            text: "Yesterday",
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: 'A week ago',
+              picker.$emit("pick", date);
+            },
+          },
+          {
+            text: "A week ago",
             onClick(picker) {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        date: ''
-      };
-    },
-  
+              picker.$emit("pick", date);
+            },
+          },
+        ],
+      },
+      date: "",
+    };
+  },
+
   mounted() {
     this.$refs.dateInput.focus();
   },
@@ -50,9 +59,9 @@
     closeModal() {
       this.$emit("closeModal");
     },
-    addDate(){
-      this.$emit("addDate",this.date);
-    }
+    addDate() {
+      this.$emit("addDate", this.date);
+    },
   },
 };
 </script>
