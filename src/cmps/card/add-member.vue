@@ -6,7 +6,7 @@
         <button @click="closeModal"></button>
       </header>
       <hr />
-      <input ref="searchInput" type="text" placeholder="Search members" />
+      <input v-model="searchBy" ref="searchInput" type="text" @input="search" placeholder="Search members" />
       <ul>
         <h5>BOARD MEMBERS</h5>
         <li class="user-member" v-for="user in users" :key="user._id">
@@ -24,10 +24,13 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      searchBy: ''
+    };
   },
   props: {
-    card: Object
+    card: Object,
+    users:Array
   },
   created() {
     this.$store.dispatch({ type: "loadUsers" });
@@ -37,6 +40,8 @@ export default {
   },
   methods: {
     closeModal() {
+      this.searchBy = ''
+      this.search()
       this.$emit("closeModal");
     },
     addUser(user) {
@@ -45,12 +50,15 @@ export default {
     isMemberPicked(member){
       if(!this.card.members) return
       return this.card.members.some(m=>m._id === member._id)
-    }
+    },
+    search() {
+            this.$emit('search',  {type: 'user' ,searchBy:this.searchBy});
+        }
   },
   computed: {
-    users() {
-      return this.$store.getters.users;
-    },
+    // users() {
+    //   return this.$store.getters.users;
+    // },
   },
 };
 </script>

@@ -8,12 +8,12 @@
       </header>
       <hr />
       <div v-if="!isCreate" class="choose-label">
-        <input ref="searchInput" type="text" placeholder="Search labels..." />
+        <input v-model="searchBy" ref="searchInput" type="text" @input="search" placeholder="Search labels..." />
         <h5>LABELS</h5>
         <div class="label-picker">
           <div
             class="card-label"
-            v-for="(label, idx) in selectedBoard.labels"
+            v-for="(label, idx) in labels"
             :key="idx"
             :style="'background-color:' + label.color"
             @click="setLabel(label.id)"
@@ -81,6 +81,7 @@ export default {
   },
   props: {
     card: Object,
+    labels:Array
   },
   created() {},
   mounted() {
@@ -110,6 +111,7 @@ export default {
         isPicked: true,
       },
       labelToEdit: null,
+      searchBy: ''
     };
   },
   computed: {
@@ -144,6 +146,8 @@ export default {
       // else return false
     },
     closeModal() {
+      this.searchBy = ''
+      this.search()
       this.$emit("closeModal");
     },
     setLabel(label) {
@@ -210,6 +214,9 @@ export default {
         ? (this.labelToEdit.color = color)
         : (this.pickedLabel.color = color);
     },
+    search() {
+            this.$emit('search',  {type: 'label' ,searchBy:this.searchBy});
+        }
   },
 };
 </script>

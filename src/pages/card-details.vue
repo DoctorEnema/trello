@@ -101,9 +101,9 @@
         </div>
         <div class="right-side">
           <h5>ADD TO CARD</h5>
-          <button class="member-join" @click="joinMember" v-if="isMemberIn"
-            > Join</button
-          >
+          <button class="member-join" @click="joinMember" v-if="isMemberIn">
+            Join
+          </button>
           <button
             class="add-member"
             data-cmp="add-member"
@@ -161,6 +161,9 @@
             @setCover="setCover"
             @removeCover="removeCover"
             :card="card"
+            @search="setSearch"
+            :labels="labelsToShow"
+            :users="usersToShow"
           ></component>
         </section>
       </div>
@@ -208,6 +211,8 @@ export default {
     return {
       openModalType: null,
       boardId: null,
+      searchBy: '',
+      searchType:''
     };
   },
   async created() {
@@ -248,6 +253,15 @@ export default {
         })
       )
         return !this.card.members.some((m) => m.id === this.loggedinUser.id);
+    },
+    labelsToShow() {
+      return this.labelToShow() 
+    },
+    usersToShow() {
+      return this.userToShow() 
+    },
+    users() {
+      return this.$store.getters.users;
     },
 
     showTime() {
@@ -439,6 +453,32 @@ export default {
     },
     closeCard() {
       this.$router.push(`/board/${this.selectedBoard._id}`);
+    },
+    setSearch(search) {
+      this.searchBy = search.searchBy;
+      this.searchType= search.type
+    },
+    labelToShow() {
+      if (!this.searchBy) return this.selectedBoard.labels;
+      if(this.searchType !== 'label') return this.selectedBoard.labels
+      if (this.searchBy) {
+        const searchStr = this.searchBy.toLowerCase();
+        const labelToShow = this.selectedBoard.labels.filter((lable) => {
+          return lable.name?.toLowerCase().includes(searchStr);
+        });
+        return(labelToShow);
+      }
+    },
+    userToShow() {
+      if (!this.searchBy) return this.users;
+      if(this.searchType !== 'user') return this.users
+      if (this.searchBy) {
+        const searchStr = this.searchBy.toLowerCase();
+        const userToShow = this.users.filter((user) => {
+          return user.fullname?.toLowerCase().includes(searchStr);
+        });
+        return(userToShow);
+      }
     },
   },
 };
