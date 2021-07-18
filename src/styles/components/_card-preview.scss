@@ -26,16 +26,7 @@
             background-color: rgba($color: #f7f7f7, $alpha: 0.4);
         }
     }
-    &.dragging > * {
-        background-color: #ebecf0;
-        border-radius: 3px;
-        &:hover {
-            visibility: none;
-        }
-        & > * {
-            visibility: hidden;
-        }
-    }
+
     .edit-card-preview {
         position: absolute;
         border-radius: 3px;
@@ -51,6 +42,13 @@
         &::before {
             font-family: fontAwesome, sans serif;
             content: "\f304";
+        }
+    }
+    &.dragging > * {
+        background-color: #2b3766;
+        border-radius: 3px;
+        & > * {
+            visibility: hidden;
         }
     }
 
@@ -168,4 +166,16 @@
 .card-preview-checklists::before {
     font-family: fontAwesome, sans serif;
     content: "\f14a";
+}
+
+.moving-card {
+    // background-color: black;
+    // filter:brightness(110%);
+    box-shadow: unset;
+    // opacity: 0;
+    // &:hover {
+    //     .edit-card-preview {
+    //         opacity: 0;
+    //     }
+    // }
 }

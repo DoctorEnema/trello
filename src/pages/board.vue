@@ -30,6 +30,8 @@
           :list="board.groups"
           @start="onDragStart"
           @end="onDragEnd"
+          :animation="200"
+          ghostClass="moving-group"
         >
           <group
             @removeCard="removeCard"

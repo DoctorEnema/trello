@@ -13,6 +13,8 @@
       group="cardGroup"
       @start="onDragStart"
       @end="onDragEnd"
+      :animation="200"
+      ghostClass="moving-card"
     >
       <card-preview
         @changeComplete="changeComplete"
