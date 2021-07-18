@@ -68,6 +68,21 @@
         }
     }
 }
+.logo{
+    font-size: 22px;
+    display: flex;
+}
+
+.yuumi-header{
+    padding: 0 2rem;
+    background-image: url(../assets/img/yuumi-head3.png);
+    background-size: 55px;
+    background-repeat: no-repeat;
+    background-position: center -.8rem;
+    &:hover{
+        background-image: url(../assets/img/yuumi-head-tilt.png);
+    }
+}
 
 .to-home::before {
     font-family: fontAwesome, sans serif;
