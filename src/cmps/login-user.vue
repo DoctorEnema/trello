@@ -33,8 +33,8 @@ export default {
   data() {
         return {
             credentials: { 
-              username: 'Mosho@ababmi.com',
-               password: 'Mosho123',
+              username: 'Mosh@Mosh.com',
+               password: 'mosh123',
                fullname: 'Mosho mosho',
                imgUrl:'',
                mentions:[{}]
@@ -42,6 +42,10 @@ export default {
                 },
             // loggedInUser: this.$store.getters.loggedinUser
         }
+    },
+    created(){
+      this.$store.dispatch({type:"login", userCred:this.credentials})
+  
     },
     computed:{
       loggedInUser(){
