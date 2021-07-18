@@ -101,7 +101,9 @@
         </div>
         <div class="right-side">
           <h5>ADD TO CARD</h5>
-          <button @click="joinMember" v-if="isMemberIn">Join</button>
+          <button class="member-join" @click="joinMember" v-if="isMemberIn"
+            > Join</button
+          >
           <button
             class="add-member"
             data-cmp="add-member"
@@ -238,10 +240,14 @@ export default {
       if (!this.card.members || !this.card.members.length) return false;
       return true;
     },
-    isMemberIn(){
+    isMemberIn() {
       if (!this.card.members) this.card.members = [];
-    if(!this.card.members.some((m) => {m.id === this.loggedinUser.id})) 
-     return(!this.card.members.some((m) => m.id === this.loggedinUser.id)) 
+      if (
+        !this.card.members.some((m) => {
+          m.id === this.loggedinUser.id;
+        })
+      )
+        return !this.card.members.some((m) => m.id === this.loggedinUser.id);
     },
 
     showTime() {

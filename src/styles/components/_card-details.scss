@@ -136,9 +136,15 @@
             background-color: $clr3;
         }
     }
-    .add-member::before{
+
+    .member-join::before{
         font-family: fontAwesome, sans serif;
         content:'\f007'
+    }
+
+    .add-member::before{
+        font-family: fontAwesome, sans serif;
+        content:'\f0c0'
     }
     
     .add-label::before{
