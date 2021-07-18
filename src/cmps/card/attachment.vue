@@ -9,7 +9,7 @@
       <div class="attachment-info">
         <h3>{{ attachment.name }}</h3>
         <div class="attachment-controls">
-          <p>Added  </p><show-time :time="attachment.time"></show-time>
+          <p>Added</p><span></span><show-time :time="attachment.time"></show-time>
           <span>-</span>
           <a href="#">Comment</a>
           <span>-</span>
