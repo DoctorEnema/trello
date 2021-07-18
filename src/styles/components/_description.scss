@@ -1,7 +1,6 @@
 .description {
     margin-top: 16px;
     textarea {
-        cursor: pointer;
         min-width: 100%;
         max-width: 100%;
         resize: none;
@@ -16,6 +15,14 @@
             min-height: 70px;
             background-color: white;
         }
+    }
+}
+
+.desc-txt{
+    p{
+        cursor: pointer;
+        margin-top: 11px;
+        margin-inline-start: 8px;
     }
 }
 

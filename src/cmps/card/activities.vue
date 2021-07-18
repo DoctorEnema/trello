@@ -4,6 +4,7 @@
     <textarea
       v-model="activity"
       @focus="isActive = true"
+      @blur="isActive = false"
       placeholder="Write a Comment..."
     ></textarea>
     <div v-if="this.isActive" class="activitie-controls">
