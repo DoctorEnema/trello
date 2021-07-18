@@ -1,45 +1,42 @@
-.card-preview{
+.card-preview {
     position: relative;
     background-color: #ffffff;
     margin: 0px 4px 8px;
     border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(9,30,66,.25);
-    &:hover{
+    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+    &:hover {
         cursor: pointer;
     }
-    .card-preview-title{
+    .card-preview-title {
         margin-bottom: 4px;
         margin-left: 2px;
     }
-    .card-preview-badges{
+    .card-preview-badges {
         display: flex;
         flex-wrap: wrap;
-        >*:not(:first-child){
-            color: $clr2;
-            padding: 0 2px;
-            margin: 5px 5px 0px;
-            height: 20px;
-            font-size: 13px;
-        }
+        align-items: center;
+        color: $clr2;
+        gap: 10px;
+        margin-bottom: 6px;
     }
-    &:hover{
+    &:hover {
         background-color: #f7f7f7;
-        >.edit-card-preview{
+        > .edit-card-preview {
             opacity: 1;
             background-color: rgba($color: #f7f7f7, $alpha: 0.4);
         }
     }
-    &.dragging > *  {
-        background-color:#ebecf0;
+    &.dragging > * {
+        background-color: #ebecf0;
         border-radius: 3px;
-        &:hover{
+        &:hover {
             visibility: none;
         }
-        &> * {
-            visibility:hidden;
+        & > * {
+            visibility: hidden;
         }
     }
-    .edit-card-preview{
+    .edit-card-preview {
         position: absolute;
         border-radius: 3px;
         margin: 2px 2px 0 0;
@@ -48,16 +45,16 @@
         opacity: 0;
         width: 28px;
         height: 28px;
-        &:hover{
-            background-color:$clr3 
+        &:hover {
+            background-color: $clr3;
         }
-        &::before{
+        &::before {
             font-family: fontAwesome, sans serif;
-            content:'\f304'
+            content: "\f304";
         }
     }
 
-    .card-preview-members{
+    .card-preview-members {
         display: flex;
         justify-content: flex-end;
     }
@@ -87,30 +84,30 @@
     }
 }
 
-.card-preview-cover-img{
+.card-preview-cover-img {
     border-radius: 3px 3px 0 0;
     max-height: 260px;
     object-fit: contain;
 }
 
-.card-preview-cover{
+.card-preview-cover {
     height: 32px;
-    border-radius: 3px 3px 0 0
+    border-radius: 3px 3px 0 0;
 }
 
-.card-preview-content{
+.card-preview-content {
     min-height: 20px;
     padding: 8px 6px 2px;
 }
 
-.card-preview-labels{ 
+.card-preview-labels {
     display: flex;
     flex-wrap: wrap;
-    &:hover{
+    &:hover {
         filter: brightness(90%);
     }
-    >*{
-        div{
+    > * {
+        div {
             margin: 2px 2px;
             min-height: 8px;
             min-width: 40px;
@@ -119,58 +116,56 @@
     }
 }
 
-.card-preview-date{
+.card-preview-date {
     font-weight: 400;
     border-radius: 3px;
     padding: 2px 6px;
     margin-right: 6px;
-    &:hover{
+    &:hover {
         background-color: $clr3;
-        &::before{
+        &::before {
             padding-left: 2px;
             font-family: fontAwesome, sans serif;
-            content:'\f0c8' 
+            content: "\f0c8";
         }
     }
-    &::before{
-        
+    &::before {
         font-family: fontAwesome, sans serif;
-        content:'\f017'
+        content: "\f017";
     }
-
 }
 
-.date-done{
+.date-done {
     color: white;
 
-    background-color:#61bd4f ;
-    &:hover{
-        background-color:#61bd4f;
+    background-color: #61bd4f;
+    &:hover {
+        background-color: #61bd4f;
         filter: brightness(90%);
-        &::before{
+        &::before {
             padding-left: 2px;
             font-family: fontAwesome, sans serif;
-            content:'\f14a' 
+            content: "\f14a";
         }
     }
 }
 
-.card-preview-desc::before{
+.card-preview-desc::before {
     font-family: fontAwesome, sans serif;
-    content:'\f036';
+    content: "\f036";
 }
 
-.card-preview-comments::before{
+.card-preview-comments::before {
     font-family: fontAwesome, sans serif;
-    content:'\f075';
+    content: "\f075";
 }
 
-.card-preview-attachments::before{
+.card-preview-attachments::before {
     font-family: fontAwesome, sans serif;
-    content:'\f0c6';
+    content: "\f0c6";
 }
 
-.card-preview-checklists::before{
+.card-preview-checklists::before {
     font-family: fontAwesome, sans serif;
-    content:'\f14a';
+    content: "\f14a";
 }

@@ -27,7 +27,7 @@
       <div class="details-body">
         <div v-if="card" class="left-side">
           <div class="details-top-left">
-            <div class="details-members">
+            <div v-if="isMembers" class="details-members">
               <h3>MEMBERS</h3>
               <member
                 :card="card"
@@ -35,7 +35,7 @@
                 @removeMember="removeMember"
               ></member>
             </div>
-            <div class="details-labels">
+            <div v-if="isLabels" class="details-labels">
               <h3>LABELS</h3>
               <labels
                 :card="card"
@@ -43,8 +43,8 @@
                 @setModalType="setModalType"
               ></labels>
             </div>
-            <div class="details-dates">
-              <h3>DATES</h3>
+            <div v-if="card.dueDate" class="details-dates">
+              <h3>DATE</h3>
               <date
                 :card="card"
                 v-if="card.dueDate"
@@ -82,10 +82,16 @@
             </div>
             <div class="details-activity">
               <span class="details-activity-icon"></span>
-              <activities @setActivity="setActivity" ></activities>
-              <div v-for="activity in selectedBoard.activities" :key="activity.id">
+              <activities @setActivity="setActivity"></activities>
+              <div
+                v-for="activity in selectedBoard.activities"
+                :key="activity.id"
+              >
                 <section v-if="activity.card.id === card.id">
-                  <p><span>{{activity.byMember.fullname}} </span>{{activity.txt}} </p>
+                  <p>
+                    <span>{{ activity.byMember.fullname }} </span
+                    >{{ activity.txt }}
+                  </p>
                   <show-time :time="activity.creatAt"></show-time>
                 </section>
               </div>
@@ -93,7 +99,7 @@
           </div>
         </div>
         <div class="right-side">
-          <h3>Add to Card</h3>
+          <h5>ADD TO CARD</h5>
           <button
             class="add-member"
             data-cmp="add-member"
@@ -175,7 +181,7 @@ import description from "../cmps/card/description.vue";
 import showTime from "../cmps/card/show-time.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
-import { utilService } from '../services/util-service';
+import { utilService } from "../services/util-service";
 
 export default {
   components: {
@@ -192,7 +198,7 @@ export default {
     attachment,
     description,
     activities,
-    showTime
+    showTime,
   },
   data() {
     return {
@@ -222,16 +228,26 @@ export default {
       if (!this.card.attachments || !this.card.attachments.length) return false;
       return true;
     },
+    isLabels() {
+      if (!this.card.labelIds || !this.card.labelIds.length) return false;
+      return true;
+    },
+    isMembers() {
+      if (!this.card.members || !this.card.members.length) return false;
+      return true;
+    },
+
     showTime() {
-            var actionLogged = this.act.at
-            var now = Date.now()
-            var time = now - actionLogged 
-            console.log(time);
-            if (time < 60000) return ' Just now'
-            if (time < 3600000) return new Date(time).getMinutes() + ' Minutes ago'
-            if (time > 3600000 && time < 86400000) return new Date(time).getHours() + ' Hours ago'
-            else return 'A while ago'
-        }
+      var actionLogged = this.act.at;
+      var now = Date.now();
+      var time = now - actionLogged;
+      console.log(time);
+      if (time < 60000) return " Just now";
+      if (time < 3600000) return new Date(time).getMinutes() + " Minutes ago";
+      if (time > 3600000 && time < 86400000)
+        return new Date(time).getHours() + " Hours ago";
+      else return "A while ago";
+    },
   },
   methods: {
     stop() {
@@ -241,35 +257,35 @@ export default {
     updateCard() {
       this.$store.dispatch({
         type: "updateCard",
-        board:this.selectedBoard,
+        board: this.selectedBoard,
         group: this.group,
         card: this.card,
       });
     },
-    setComment(comment){
-      const fullComment= {
-        byMember:this.loggedinUser,
-        creatAt:Date.now(),
+    setComment(comment) {
+      const fullComment = {
+        byMember: this.loggedinUser,
+        creatAt: Date.now(),
         id: utilService.makeId(),
-        card:JSON.parse(JSON.stringify(this.card)) ,
-        txt:comment
-      }
-      if(!this.card.comments) this.card.comments=[]
-      this.card.comments.push(fullComment)
-      this.updateCard() 
+        card: JSON.parse(JSON.stringify(this.card)),
+        txt: comment,
+      };
+      if (!this.card.comments) this.card.comments = [];
+      this.card.comments.push(fullComment);
+      this.updateCard();
     },
-    async setActivity(activity,comment){
-      const fullActivity= {
-        byMember:this.loggedinUser,
-        creatAt:Date.now(),
+    async setActivity(activity, comment) {
+      const fullActivity = {
+        byMember: this.loggedinUser,
+        creatAt: Date.now(),
         id: utilService.makeId(),
-        card:JSON.parse(JSON.stringify(this.card)),
-        txt:activity
-      }
-       this.setComment(comment)
-       await this.$store.dispatch({
+        card: JSON.parse(JSON.stringify(this.card)),
+        txt: activity,
+      };
+      this.setComment(comment);
+      await this.$store.dispatch({
         type: "updateActivities",
-        activity:fullActivity
+        activity: fullActivity,
       });
     },
     setDesc(desc) {
@@ -279,12 +295,12 @@ export default {
     async setCover(cover) {
       this.card.cover = {};
       this.card.cover = cover;
-      await this.setActivity(`Added Cover to ${this.card.title}`)
+      await this.setActivity(`Added Cover to ${this.card.title}`);
       this.updateCard();
     },
     async removeCover() {
       this.card.cover = null;
-      await this.setActivity(`Remove Cover from ${this.card.title}`)
+      await this.setActivity(`Remove Cover from ${this.card.title}`);
       this.updateCard();
     },
     setLabel(labelId) {
@@ -324,7 +340,7 @@ export default {
       if (!this.card.dueDate) this.card.dueDate = {};
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
-           await this.setActivity(`Added Date from ${this.card.title}`)
+      await this.setActivity(`Added Date from ${this.card.title}`);
 
       this.updateCard();
     },
@@ -337,12 +353,16 @@ export default {
       };
       if (!this.card.attachments) this.card.attachments = [];
       this.card.attachments.push(newLink);
-     await this.setActivity(`Add attach ${newLink.name} to ${this.card.title}`)
+      await this.setActivity(
+        `Add attach ${newLink.name} to ${this.card.title}`
+      );
       this.updateCard();
     },
-    async removeLink(idx,attachment) {
+    async removeLink(idx, attachment) {
       this.card.attachments.splice(idx, 1);
-     await this.setActivity(`Remove attach ${attachment.name} from ${this.card.title}`)
+      await this.setActivity(
+        `Remove attach ${attachment.name} from ${this.card.title}`
+      );
       this.updateCard();
     },
     async addMember(member) {
@@ -352,7 +372,7 @@ export default {
         return;
       }
       this.card.members.push(member);
-     await this.setActivity(`Added ${member.fullname} to ${this.card.title}`)
+      await this.setActivity(`Added ${member.fullname} to ${this.card.title}`);
       this.updateCard();
     },
     async removeMember(member) {
@@ -360,7 +380,9 @@ export default {
         (mem) => mem._id === member.id
       );
       this.card.members.splice(memberIdx, 1);
-     await this.setActivity(`Removed ${member.fullname} from ${this.card.title}`)
+      await this.setActivity(
+        `Removed ${member.fullname} from ${this.card.title}`
+      );
       this.updateCard();
     },
     addTodo(checklist) {
@@ -375,7 +397,7 @@ export default {
       var newList = boardService.getEmptyList();
       newList.title = title;
       this.card.checklists.push(newList);
-       await this.setActivity(`Added Checklist to ${this.card.title}`)
+      await this.setActivity(`Added Checklist to ${this.card.title}`);
       this.updateCard();
     },
     async removeList(listId) {
@@ -383,7 +405,7 @@ export default {
         (list) => list._id === listId
       );
       this.card.checklists.splice(listIdx, 1);
-     await this.setActivity(`Remove Checklist from ${this.card.title}`)
+      await this.setActivity(`Remove Checklist from ${this.card.title}`);
       this.updateCard();
     },
     closeModal() {

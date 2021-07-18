@@ -2,15 +2,16 @@
   <section class="add-to-card">
     <section class="add-checklist">
       <header class="add-card-header">
-        <span class="add-label-title">Add checklist</span>
+        <h3>Add checklist</h3>
         <button @click="closeModal"></button>
       </header>
       <hr />
       <div>
         <form @submit.prevent="setList(), closeModal()" >
-          <label for="checklist">Title</label>
+          <label for="checklist"></label>
+          <h4>Title</h4>
           <input ref="check" id="checklist" v-model="listname" type="text" />
-          <button>Add</button>
+          <button class="add-label-btn">Add</button>
         </form>
       </div>
     </section>

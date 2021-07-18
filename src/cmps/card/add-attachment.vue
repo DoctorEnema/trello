@@ -5,8 +5,9 @@
       <button @click="closeModal"></button>
     </header>
     <hr />
-    <form @submit.prevent="setLink(), closeModal()">
-      <label for="attachment">Attach a link</label>
+    <form class="add-attachments" @submit.prevent="setLink(), closeModal()">
+      <!-- <label for="attachment">Attach a link</label> -->
+      <h3>Attach a link</h3>
       <input ref="attach" v-model="link" type="text" placeholder="Paste any link here..." />
       <button>Attach</button>
     </form>
