@@ -57,9 +57,20 @@ export const boardStore = {
         },
         setTextarea(state) {
             state.textareaOpen = !state.textareaOpen
+        },
+        removeCurrent(state){
+            state.selectedCard = null
+            state.selectedGroup = null
         }
     },
     actions: {
+        // async removeCurrent(context, {group, card}){
+        //     try{
+        //         context.commit({type: 'removeCurrent', card, group})
+        //     }catch(err){
+        //         console.log('Cannot remove current', err);
+        //     }
+        // },
         async loadCard(context, { cardId, groupId, boardId }) {
             try {
                 const { card, group } = await boardService.getCardById(cardId, groupId, boardId)

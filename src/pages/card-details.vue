@@ -55,7 +55,7 @@
           <div class="details-bottom-left">
             <div class="details-desc">
               <span class="details-desc-icon"></span>
-              <h4>Description</h4>
+
               <description :card="card" @setDesc="setDesc"></description>
             </div>
             <div v-if="isAttachments" class="details-attachment">
@@ -220,6 +220,14 @@ export default {
     const { cardId, groupId, boardId } = this.$route.params;
     this.boardId = boardId;
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
+  },
+  destroyed(){
+      // this.$store.dispatch({
+      //   type: "removeCurrent",
+      //   group: null,
+      //   card: null,
+      // });
+      this.$store.commit('removeCurrent')
   },
   computed: {
     selectedBoard() {

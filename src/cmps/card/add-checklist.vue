@@ -11,7 +11,7 @@
           <label for="checklist"></label>
           <h4>Title</h4>
           <input ref="check" id="checklist" v-model="listname" type="text" />
-          <button class="add-label-btn">Add</button>
+          <button class="add-checklist-btn">Add</button>
         </form>
       </div>
     </section>

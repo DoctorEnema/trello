@@ -4,11 +4,8 @@
         margin-inline-start: 8px;
     }
     button{
+        @include control-btn;
         margin-inline-start: 8px;
         margin-top: 8px;
-        padding: 8px 12px;
-        &:hover{
-            background-color: $clr3;
-        }
     }
 }

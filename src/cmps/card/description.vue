@@ -1,7 +1,13 @@
 <template>
   <section class="description">
-    <button v-if="card.description">Edit</button>
+    <div class="description-header">
+      <h4>Description</h4>
+      <button class="control-btn" v-if="card.description">Edit</button>
+    </div>
     <textarea
+      oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+      :style="isTyped"
+      spellcheck="false"
       v-model="desc"
       @focus="isActive = true"
       @blur="setDesc"
@@ -24,6 +30,12 @@ export default {
       isActive: false,
       desc: this.card.description || "",
     };
+  },
+  computed: {
+    isTyped() {
+      if (this.desc !== "" && !this.isActive)
+        return "backgroundColor:transparent";
+    },
   },
   methods: {
     setDesc() {

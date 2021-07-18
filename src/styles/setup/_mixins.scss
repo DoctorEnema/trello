@@ -49,6 +49,21 @@
       object-fit: cover;
     }
   }
+
+  //Mixins Trello
+
+  @mixin control-btn{
+    background-color: $clr4;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    border: none;
+    padding: 6px 8px;
+    &:hover {
+        background-color: $clr3;
+    }
+  }
+  
   
   // Mixin for removing hover efects on iphone screen
   @mixin hover-supported {    
