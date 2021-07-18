@@ -81,6 +81,7 @@
               </ul>
             </div>
             <div class="details-activity">
+              <h4>Activity</h4>
               <span class="details-activity-icon"></span>
               <activities @setActivity="setActivity"></activities>
               <div

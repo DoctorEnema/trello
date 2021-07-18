@@ -4,7 +4,7 @@
     <textarea
       v-model="activity"
       @focus="isActive = true"
-      placeholder="Add a Comment..."
+      placeholder="Write a Comment..."
     ></textarea>
     <div v-if="this.isActive" class="activitie-controls">
       <button @click.stop="setActivity">Save</button>
