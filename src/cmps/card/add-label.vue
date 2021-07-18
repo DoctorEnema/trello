@@ -65,7 +65,7 @@
             <button @click.prevent="removeLabel">Delete</button>
           </div>
           <div v-else>
-            <button>Create</button>
+            <button class="create-new-label">Create</button>
           </div>
         </form>
       </div>

@@ -79,9 +79,12 @@
     }
 }
 
-.create-label{
-    margin: 6px 0 0;
+.create-new-label{
+    margin: 6px 0;
     width: 100%;
+    height: 36px;
+    background:#0079bf ;
+    color: white;
     &:hover{
         background-color: $clr3;
     }
