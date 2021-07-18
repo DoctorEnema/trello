@@ -2721,7 +2721,8 @@ export const boardService = {
     updateCard,
     getCardById,
     getEmptyTodo,
-    getEmptyList
+    getEmptyList,
+    // updateGroup
 };
 
 
@@ -2766,8 +2767,13 @@ function removeGroup(board, groupId) {
 function addGroup(board, group) {
     group.id = utilService.makeId()
     board.groups.push(group)
-    storageService.put(BOARD_KEY, board)
-    return board
+    return storageService.put(BOARD_KEY, board)
+}
+
+function updateGroup(board, group) {
+  const groupIdx = board.groups.findIndex(g => g.id === group.id)
+  board.groups.splice(groupIdx, 1, group)
+  return storageService.put(BOARD_KEY, board)
 }
 
 function removeCard(board, group, cardId) {
