@@ -1,0 +1,14 @@
+.add-attachments{
+    padding: 0 8px 8px 8px;
+    h3{
+        margin-inline-start: 8px;
+    }
+    button{
+        margin-inline-start: 8px;
+        margin-top: 8px;
+        padding: 8px 12px;
+        &:hover{
+            background-color: $clr3;
+        }
+    }
+}

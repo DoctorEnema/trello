@@ -1,0 +1,56 @@
+.add-to-card{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    min-height: 150px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px -4px rgb(9, 30, 66 / 25%), 0 0 0 1px rgb(9, 30, 66 / 8%);
+    border-radius: 3px;
+
+    hr {
+        margin: 0 auto 12px;
+        filter: brightness(250%);
+        width: 95%;
+    }
+
+    h5{
+        color: $clr2;
+        margin: 8px 0;
+    }
+
+    input[type="text"] {
+        width: 95%;
+        outline: none;
+        border: none;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        background-color: #fafbfc;
+        border-radius: 3px;
+        line-height: 20px;
+        padding: 8px 12px;
+        margin: 6px 2.5% 0;
+    }
+}
+
+
+
+.add-card-header {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    button {
+        background-color: unset;
+        padding: 10px 12px 10px 8px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $clr2;
+        &:hover {
+            color: $clr1;
+        }
+        &::before {
+            font-family: fontAwesome, sans-serif;
+            content: "\f00d";
+        }
+    }
+}

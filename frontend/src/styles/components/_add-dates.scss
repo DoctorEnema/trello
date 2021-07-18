@@ -1,0 +1,23 @@
+.el-date-picker {
+    width: 300px;
+    box-shadow: none;
+    // position: relative!important;
+}
+
+.add-to-card {
+    .el-date-editor {
+        width: 100%;
+    }
+    i {
+        display: none;
+    }
+}
+
+button.el-button:nth-child(1) {
+    display: none;
+}
+
+
+.el-picker-panel__content {
+    margin: 0;
+}
