@@ -154,6 +154,16 @@ export const boardStore = {
                 console.log('Cannot add group', err);
             }
         },
+        // async updateGroup(context, { group }) {
+        //     try {
+        //         const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+        //         // JSON.parse(JSON.stringify(group))
+        //         const newBoard = boardService.updateGroup(board, group)
+        //         context.commit({ type: 'setBoard', newBoard })
+        //     }catch(err) {
+        //         console.log('cannot update group', err);
+        //     }
+        // },
         async removeCard(context, {board, group, cardId }) {
             try {
                 await boardService.removeCard(board, group, cardId)

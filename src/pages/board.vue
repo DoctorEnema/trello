@@ -106,7 +106,9 @@ export default {
       const board = this.board;
       this.$store.dispatch({ type: "updateBoard", board });
     },
-
+    // updateGroup(group) {
+    //   this.$store.dispatch({ type: "updateGroup", group})
+    // },
     removeGroup(groupId) {
       this.$store.dispatch({ type: "removeGroup", groupId });
     },

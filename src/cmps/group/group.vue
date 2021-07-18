@@ -1,9 +1,10 @@
 <template>
   <section>
     <div class="group-header">
-      <form @submit="saveTitle">
-        <textarea>{{ group.title }}</textarea>
-      </form>
+      <!-- <form @submit.prevent="saveTitle">
+        <textarea ref="title" @keydown.13.prevent @keyup.13="saveTitle">{{group.title}}</textarea>
+      </form> -->
+      <p>{{group.title}}</p>
       <button @click="removeGroup(group.id)"></button>
     </div>
     <draggable
@@ -65,9 +66,14 @@ export default {
     },
   },
   methods: {
-    saveTitle() {
-
-    },
+    // saveTitle() {
+    //   console.log('pressed');
+    //   this.$refs.title.blur()
+    //   console.log(this.$refs.title.value);
+    //   const group = this.copiedGroup
+    //   group.title = this.$refs.title.value
+    //   this.$emit('updateGroup', group)
+    // },
     onDragStart(ev) {
       ev.item.classList.add("dragging");
     },
