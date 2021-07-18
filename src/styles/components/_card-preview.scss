@@ -4,22 +4,10 @@
     margin: 0px 4px 8px;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+
     &:hover {
         cursor: pointer;
-    }
-    .card-preview-title {
-        margin-bottom: 4px;
-        margin-left: 2px;
-    }
-    .card-preview-badges {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        color: $clr2;
-        gap: 10px;
-        margin-bottom: 6px;
-    }
-    &:hover {
+
         background-color: #f7f7f7;
         > .edit-card-preview {
             opacity: 1;
@@ -27,27 +15,12 @@
         }
     }
 
-    .edit-card-preview {
-        position: absolute;
-        border-radius: 3px;
-        margin: 2px 2px 0 0;
-        right: 0;
-        top: 0;
-        opacity: 0;
-        width: 28px;
-        height: 28px;
-        &:hover {
-            background-color: $clr3;
-        }
-        &::before {
-            font-family: fontAwesome, sans serif;
-            content: "\f304";
-        }
-    }
+ 
+
     &.dragging > * {
-        background-color: #2b3766;
+        background-color: $clr3;
         border-radius: 3px;
-        & > * {
+        > * {
             visibility: hidden;
         }
     }
@@ -69,8 +42,8 @@
             right: 0px;
             top: 0;
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
         }
         &::first-letter {
@@ -79,6 +52,37 @@
         &:hover {
             filter: brightness(120%);
         }
+    }
+}
+
+.card-preview-title {
+    margin-bottom: 4px;
+    margin-left: 2px;
+}
+.card-preview-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: $clr2;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.edit-card-preview {
+    position: absolute;
+    border-radius: 3px;
+    margin: 2px 2px 0 0;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    width: 28px;
+    height: 28px;
+    &:hover {
+        background-color: $clr3;
+    }
+    &::before {
+        font-family: fontAwesome, sans serif;
+        content: "\f304";
     }
 }
 
@@ -169,13 +173,8 @@
 }
 
 .moving-card {
-    // background-color: black;
-    // filter:brightness(110%);
     box-shadow: unset;
-    // opacity: 0;
-    // &:hover {
-    //     .edit-card-preview {
-    //         opacity: 0;
-    //     }
-    // }
+    &:hover{
+        opacity: 0;
+    }
 }

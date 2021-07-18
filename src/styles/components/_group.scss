@@ -14,15 +14,13 @@
     }
 
     ::-webkit-scrollbar-track {
-        background: #DADBE2;
+        background: #dadbe2;
         border-radius: 20px;
-        
     }
 
     ::-webkit-scrollbar-thumb {
-        background: #BFC4CE;
+        background: #bfc4ce;
         border-radius: 20px;
-               
     }
 
     button {
@@ -57,16 +55,9 @@
 }
 
 .group-content {
-    // padding: 6px;
     max-height: 78vh;
     overflow-y: auto;
 }
-// .dragging {
-//     background-color: rgba(34, 28, 28, 0.308);
-//     height: 30px;
-//     margin: 0px 4px 8px;
-//     border-radius: 3px;
-// }
 .group-footer {
     height: 38px;
     display: flex;
@@ -135,5 +126,12 @@
         min-height: 54px;
         overflow-y: auto;
         outline: none;
+    }
+}
+
+.moving-group{
+    background-color: rgba($color: #2c2c2c, $alpha: 0.4);
+    >*{
+        opacity: 0;
     }
 }
