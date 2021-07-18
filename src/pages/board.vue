@@ -98,6 +98,7 @@ export default {
       emptyGroup: {
         title: "",
         style: {},
+        cards: [],
       },
       isSideMenu: false,
     };
