@@ -2,7 +2,9 @@
   <section class="main-header">
     <div class="header-left">
       <router-link class="to-home" to="/"></router-link>
-      <router-link class="to-boards" :to="'/board/b101'"> Boards</router-link>
+      <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link>
+      <button @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</button>
+      <board-menu @toggleMenu="toggleMenu" v-if="isBoardMenu"></board-menu>
       <div class="search">
         <input
           v-model="search"
@@ -27,11 +29,22 @@
 </template>
 
 <script>
+import boardMenu from "../cmps/board/board-menu.vue";
 export default {
+  components:{
+    boardMenu
+  },
   data() {
     return {
       search: "",
+      isBoardMenu:false
     };
   },
+  methods:{
+    toggleMenu(){
+      this.isBoardMenu = !this.isBoardMenu
+    }
+
+  }
 };
 </script>

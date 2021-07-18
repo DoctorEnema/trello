@@ -3,7 +3,9 @@
   <section class="board-menu"  >
       <h1>board menu</h1>
     <button @click="toggleMenu">X</button>
-   
+   <div>
+       
+   </div>
   </section>
 </template>
 
@@ -17,8 +19,7 @@ export default {
     };
   },
   components: {
-    showTime,
-    boardCover,
+  
   },
   computed: {
     selectedBoard() {
