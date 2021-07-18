@@ -32,6 +32,7 @@
           @end="onDragEnd"
           :animation="200"
           ghostClass="moving-group"
+          chosenClass="group-moving"
         >
           <group
             @removeCard="removeCard"
