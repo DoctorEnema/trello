@@ -185,7 +185,7 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))
                 const cardCopy = JSON.parse(JSON.stringify(card))
-                boardService.updateCard(board, group, card.id, card);
+                await boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
                 context.commit({ type: 'setCard', card: cardCopy })
 

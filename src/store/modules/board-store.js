@@ -1,4 +1,5 @@
 import { boardService } from "../../services/board-service"
+import { socketService } from '../../services/socket-service'
 
 export const boardStore = {
     state: {
@@ -196,9 +197,13 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))
                 const cardCopy = JSON.parse(JSON.stringify(card))
-                boardService.updateCard(board, group, card.id, card);
+                await boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
                 context.commit({ type: 'setCard', card: cardCopy })
+                socketService.off('updateCard')
+                socketService.on('updateCard', card => {
+                    context.commit({ type: 'setCard', card: cardCopy })
+                })
 
             } catch (err) {
                 console.log('Cant add card', err);
