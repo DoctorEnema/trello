@@ -22,10 +22,10 @@
               <div class="label-name">{{ label.name }}</div>
               <div v-if="isLabelPicked(label)" class="icon">✔</div>
             </div>
-            <a href="#" @click="editLabel(label)"></a>
+            <a href="#" @click.stop="editLabel(label)"></a>
           </div>
         </div>
-        <button class="create-label" @click.stop="createLabel" type="button">
+        <button class="create-label-btn" @click.stop="createLabel" type="button">
           Create new label
         </button>
       </div>
