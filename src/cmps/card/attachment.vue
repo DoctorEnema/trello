@@ -9,7 +9,7 @@
       <div class="attachment-info">
         <h3>{{ attachment.name }}</h3>
         <div class="attachment-controls">
-          <p>Added {{ attachment.time }}</p>
+          <p>Added  </p><show-time :time="attachment.time"></show-time>
           <span>-</span>
           <a href="#">Comment</a>
           <span>-</span>
@@ -29,10 +29,15 @@
 </template>
 
 <script>
+import showTime from "../../cmps/card/show-time.vue";
 import { utilService } from "../../services/util-service";
 export default {
   props: {
     card: Object,
+    
+  },
+  components:{
+showTime
   },
   data() {
     return {
