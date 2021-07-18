@@ -22,7 +22,7 @@
 
     h4{
         font-weight: 600;
-        font-size: 16px;
+        font-size: 17px;
     }
     .details-cover {
         display: flex;
@@ -80,7 +80,7 @@
 .details-title {
     position: absolute;
     left: -30px;
-    top: 4px;
+    top: 21px;
     &::before {
         font-size: 18px;
         font-family: fontAwesome, sans serif;
@@ -93,8 +93,9 @@
     display: flex;
     flex-wrap: wrap;
     h3 {
-        font-size: 14px;
+        font-size: 12px;
         color: $clr2;
+        margin-bottom: 6px;
     }
     > * {
         margin: 0 8px 8px 0;
@@ -106,8 +107,12 @@
 }
 
 .details-header {
-    margin: 12px 56px 8px;
+    padding-top: 16px;
+    margin: 0 56px 8px;
     position: relative;
+    h2{
+        font-weight: 600;
+    }
 }
 
 .details-body {
@@ -191,7 +196,7 @@
     font-family: fontAwesome, sans serif;
     content:'\f036';
     left: -30px;
-    top: 4px;
+    top: 3px;
     height: 24px;
     width: 24px;
 }
@@ -201,7 +206,7 @@
     font-family: fontAwesome, sans serif;
     content:'\f0c6';
     left: -30px;
-    top: 4px;
+    top: 3px;
     height: 24px;
     width: 24px;
 }
@@ -211,7 +216,7 @@
     font-family: fontAwesome, sans serif;
     content:'\f14a';
     left: -30px;
-    top: 6px;
+    top: 5px;
     font-size: 18px;
     height: 24px;
     width: 24px;
@@ -222,7 +227,7 @@
     font-family: fontAwesome, sans serif;
     content:'\f036';
     left: -30px;
-    top: 4px;
+    top: 3px;
     height: 24px;
     width: 24px;
 }

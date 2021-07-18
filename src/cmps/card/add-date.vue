@@ -6,7 +6,7 @@
     </div>
     <hr />
     <el-date-picker
-      @change="addDate"
+      @blur="addDate"
       ref="dateInput"
       v-model="date"
       type="datetime"

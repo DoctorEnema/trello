@@ -44,7 +44,7 @@
               ></labels>
             </div>
             <div v-if="card.dueDate" class="details-dates">
-              <h3>DATE</h3>
+              <h3>DUE DATE</h3>
               <date
                 :card="card"
                 v-if="card.dueDate"
@@ -67,6 +67,7 @@
                 @removeLink="removeLink"
                 @setCover="setCover"
                 @removeCover="removeCover"
+                @setModalType="setModalType"
               ></attachment>
             </div>
             <div class="details-checklist">
