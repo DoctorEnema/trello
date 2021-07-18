@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <button class="control-btn" data-cmp="add-attachment" @click.stop="setModalType">Add an attachment</button>
+    <button class="control-btn add-attachment-btn" data-cmp="add-attachment" @click.stop="setModalType">Add an attachment</button>
   </section>
 </template>
 

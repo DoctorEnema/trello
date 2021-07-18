@@ -1,9 +1,10 @@
 <template>
   <section class="description">
-    <button v-if="card.description" >Edit</button>
+    <button v-if="card.description">Edit</button>
     <textarea
       v-model="desc"
       @focus="isActive = true"
+      @blur="setDesc"
       placeholder="Add a more detailed description..."
     ></textarea>
     <div v-if="this.isActive" class="description-controls">
@@ -16,20 +17,20 @@
 <script>
 export default {
   props: {
-    card: Object
+    card: Object,
   },
   data() {
     return {
       isActive: false,
-      desc: this.card.description || '',
+      desc: this.card.description || "",
     };
   },
-  methods:{
-    setDesc(){
-      this.isActive=false
-      this.$emit('setDesc' , this.desc)
-    }
-  }
+  methods: {
+    setDesc() {
+      this.isActive = false;
+      this.$emit("setDesc", this.desc);
+    },
+  },
 };
 </script>
 
