@@ -28,7 +28,7 @@
         </ul>
       </form>
       <h3>Attachments</h3>
-
+      <img-upload-basic></img-upload-basic>
       <h3>Unsplash</h3>
       <div class="cover-unsplash">
         <button
@@ -44,7 +44,12 @@
 </template>
 
 <script>
+import imgUploadBasic from "./img-upload-basic.vue";
+
 export default {
+  components:{
+  imgUploadBasic
+  },
   data() {
     return {
       editCovers: [
