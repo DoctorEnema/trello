@@ -2,11 +2,11 @@
   <section class="main-header">
     <div class="header-left">
       <router-link class="to-home" to="/"></router-link>
-      <router-link class="to-boards" :to="'/board/60f42b03d2f67fa6bfa0f528'"> Boards</router-link>
+      <!-- <router-link class="to-boards" :to="'/board/'+currBoard"> Boards</router-link> -->
 
       <!-- <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link> -->
-      <button @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</button>
-      <board-menu @toggleMenu="toggleMenu" v-if="isBoardMenu"></board-menu>
+      <button @click="toggleMenu" class="to-boards" :to="'/board/currBoard'"> Boards</button>
+      <board-menu @selectBoard="selectBoard" @toggleMenu="toggleMenu" v-if="isBoardMenu"></board-menu>
       <div class="search">
         <input
           v-model="search"
@@ -39,13 +39,21 @@ export default {
   data() {
     return {
       search: "",
-      isBoardMenu:false
+      isBoardMenu:false,
+      currBoard:'60f42b03d2f67fa6bfa0f528'
     };
   },
   methods:{
     toggleMenu(){
       this.isBoardMenu = !this.isBoardMenu
-    }
+    },
+    selectBoard(boardId){
+      console.log("boardId", boardId)
+      this.currBoard = boardId
+      this.$router.push('/board/'+boardId)
+      console.log("this.currBoard", this.currBoard)
+
+    },
 
   }
 };

@@ -93,7 +93,7 @@ export default {
   },
   data() {
     return {
-      selectedBoard: null,
+      // selectedBoard: null,
       isAdding: false,
       emptyGroup: {
         title: "",
@@ -172,9 +172,10 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
-    boardService.getById(this.boardId).then((board) => {
-      this.selectedBoard = board;
-    });
+    // boardService.getById(this.boardId).then((board) => {
+    //   this.selectedBoard = board;
+    // });
+    socketService.emit("board topic", this.boardId);
   },
 };
 </script>

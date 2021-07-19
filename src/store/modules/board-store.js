@@ -3,6 +3,7 @@ import { socketService } from '../../services/socket-service'
 
 export const boardStore = {
     state: {
+        boards:null,
         selectedBoard: null,
         selectedGroup: null,
         selectedCard: null,
@@ -10,6 +11,9 @@ export const boardStore = {
         textareaOpen: false
     },
     getters: {
+        boards(state){
+            return state.boards
+        },
         selectedBoard(state) {
             return state.selectedBoard
         },
@@ -24,6 +28,9 @@ export const boardStore = {
         }
     },
     mutations: {
+        setBoards(state, { boards }){
+            state.boards = boards
+        },
         setBoard(state, { board }) {
             state.selectedBoard = board
         },
@@ -38,6 +45,8 @@ export const boardStore = {
         },
         addGroup(state, { group }) {
             state.selectedBoard.groups.push(group)
+            console.log('group', group);
+            console.log('state.selectedBoard', state.selectedBoard.groups);
         },
         removeCard(state, { group, cardId }) {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
@@ -53,8 +62,6 @@ export const boardStore = {
             groupCopy.cards.splice(cardIdx, 1, cardCopy)
             const grIdx = state.selectedBoard.groups.findIndex(gr => gr.id === groupCopy.id)
             state.selectedBoard.groups.splice(grIdx, 1, groupCopy)
-            // state.commit
-            // state.selectedCard = cardCopy
         },
         setTextarea(state) {
             state.textareaOpen = !state.textareaOpen
@@ -72,11 +79,38 @@ export const boardStore = {
         //         console.log('Cannot remove current', err);
         //     }
         // },
+        
+        async loadBoards(context) {
+            try {
+                const boards = await boardService.query()
+                console.log("boards", boards)
+                context.commit({ type: 'setBoards', boards })
+                // context.commit({ type: 'setGroup', group })
+                // return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
+        async addBoard(context, {board}) {
+            try {
+                await boardService.saveBoard(board)
+                // context.commit({ type: 'setCard', card })
+                // context.commit({ type: 'setGroup', group })
+                // return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
         async loadCard(context, { cardId, groupId, boardId }) {
             try {
                 const { card, group } = await boardService.getCardById(cardId, groupId, boardId)
                 context.commit({ type: 'setCard', card })
                 context.commit({ type: 'setGroup', group })
+                socketService.off('updateCard')
+                socketService.on('updateCard', cardToUpdate => {
+                    console.log('updating card');
+                    context.commit({ type: 'setCard', card: cardToUpdate })
+                })
                 return card
             } catch (err) {
                 console.log('Cannot load board', err);
@@ -84,8 +118,20 @@ export const boardStore = {
         },
         async loadBoard(context, { boardId }) {
             try {
+
                 const board = await boardService.getById(boardId)
+                context.commit({ type: 'removeCurrent' })
                 context.commit({ type: 'setBoard', board })
+                socketService.off('updateBoard')
+                socketService.on('updateBoard', board => {
+                    console.log('updating board');
+                    context.commit({ type: 'setBoard', board })
+                })
+                socketService.off('addGroup')
+                socketService.on('addGroup', group => {
+                    // console.log(groupToAdd);
+                    context.commit({ type: 'addGroup', group })
+                })
                 return board
             } catch (err) {
                 console.log('Cannot load board', err);
@@ -95,6 +141,7 @@ export const boardStore = {
             try {
                 const savedBoard = await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board: savedBoard })
+                socketService.emit('boardUpdated', savedBoard)
                 return board
             } catch (err) {
                 console.log('cannot update board', err);
@@ -160,8 +207,9 @@ export const boardStore = {
         async addGroup(context, { group }) {
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
-                await boardService.addGroup(board, group)
+               const newBoard =  await boardService.addGroup(board, group)
                 context.commit({ type: 'addGroup', group })
+                socketService.emit('groupAdded', group)
             } catch (err) {
                 console.log('Cannot add group', err);
             }
@@ -200,11 +248,7 @@ export const boardStore = {
                 await boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
                 context.commit({ type: 'setCard', card: cardCopy })
-                socketService.off('updateCard')
-                socketService.on('updateCard', card => {
-                    context.commit({ type: 'setCard', card: cardCopy })
-                })
-
+                socketService.emit('cardUpdated', cardCopy)
             } catch (err) {
                 console.log('Cant add card', err);
             }

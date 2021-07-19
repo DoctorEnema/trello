@@ -60,12 +60,18 @@ export default {
     group: Object,
     hardcodedBoardId: String
   },
+  created() {
+    // socketService.on()
+  },
+  destroyed() {
+
+  },
   methods: {
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
     },
     openCard(groupId, cardId) {
-      this.$router.push(`/board/${this.hardcodedBoardId}/${groupId}/${cardId}`);
+      this.$router.push(`/board/${this.selectedBoard._id}/${groupId}/${cardId}`);
     },
     toggleDate() {
       this.currentCard.dueDate.isComplete =
@@ -83,6 +89,9 @@ export default {
     },
   },
   computed: {
+    selectedBoard(){
+      return this.$store.getters.selectedBoard;
+    },
     currentGroup() {
       const idx = this.$store.getters.selectedBoard.groups.findIndex(
         (g) => this.group.id === g.id
