@@ -209,11 +209,15 @@ export default {
     };
   },
   async created() {
-    const { cardId, groupId, boardId } = this.$route.params;
-    this.boardId = boardId;
-    this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
-    socketService.emit("card topic", cardId);
-    console.log(this.loggedinUser);
+    try {
+      const { cardId, groupId, boardId } = this.$route.params;
+      this.boardId = boardId;
+      const card = await this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
+      socketService.emit("card topic", cardId);
+      this.isUserAssignedToCard()
+    } catch (err) {
+      ('cannot load card', err) 
+    }
     // if (this.loggedinUser) this.$store.dispatch({ type: 'turnCardWatchOn'})
   },
   destroyed() {
@@ -281,6 +285,13 @@ export default {
     },
   },
   methods: {
+    isUserAssignedToCard() {
+      console.log(1 + 1 === 2);
+      // if (!this.loggedinUser) return
+      if (!this.card?.members.lenth) return 'no members assigned to card'
+      const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
+      console.log('isUserMember',isUserMember);
+    },
     stop() {
       // Dont Delete!!
       // no one knows what this deos but it works
@@ -417,7 +428,8 @@ export default {
       }
       this.card.members.push(member);
       await this.setActivity(`Added ${member.fullname} to ${this.card.title}`);
-      this.updateCard();
+      await this.updateCard();
+      this.isUserAssignedToCard()
     },
     async removeMember(member) {
       const memberIdx = this.card.members.findIndex(
@@ -427,7 +439,8 @@ export default {
       await this.setActivity(
         `Removed ${member.fullname} from ${this.card.title}`
       );
-      this.updateCard();
+      await this.updateCard();
+      this.isUserAssignedToCard()
     },
     addTodo(checklist) {
       const checklistIdx = this.card.checklists.findIndex(

@@ -131,11 +131,11 @@ export const boardStore = {
                     context.commit({ type: 'removeGroup', groupId })
                 })
                 socketService.off('removeCard')
-                socketService.on('removeCard', ({group, cardId}) => {
+                socketService.on('removeCard', ({ group, cardId }) => {
                     context.commit({ type: 'removeCard', group, cardId })
                 })
                 socketService.off('addCard')
-                socketService.on('addCard', ({groupId, card}) => {
+                socketService.on('addCard', ({ groupId, card }) => {
                     context.commit({ type: 'addCard', groupId, card })
                 })
                 // socketService.off('addCard')
