@@ -2,12 +2,12 @@
   <section class="description">
     <div class="description-header">
       <h4>Description</h4>
-      <button class="control-btn" v-if="card.description">Edit</button>
+      <button class="control-btn" @click="isActive=true" v-if="card.description">Edit</button>
     </div>
     <div class="desc-txt">
       <textarea
         ref="contentTextArea"
-        v-if="isActive"
+        v-if="!isTyped"
         oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
         onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
         :style="isTyped"

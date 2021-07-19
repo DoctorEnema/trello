@@ -4,6 +4,7 @@
       <button @click="closeModal"></button>
       <h3>Dates</h3>
     </div>
+    <button v-if="card.dueDate" @click="removeDate">Remove Date</button>
     <hr />
     <el-date-picker
       @blur="addDate"
@@ -20,6 +21,9 @@
 
 <script>
 export default {
+  props:{
+    card:Object
+  },
   data() {
     return {
       pickerOptions: {
@@ -61,6 +65,9 @@ export default {
     },
     addDate() {
       this.$emit("addDate", this.date);
+    },
+    removeDate() {
+      this.$emit("removeDate");
     },
   },
 };

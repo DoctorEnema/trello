@@ -1,6 +1,7 @@
 .member{
     display: flex;
     button{
+        position:relative;
         border: none;
         width: 32px;
         height: 32px;
@@ -12,11 +13,29 @@
         }
     }
     img{
+        top: 0;
+        right: 0;
+        position: absolute;
         border-radius: 50%;
-        width: 30px;
+        width: 32px;
     }
     .add-new-member::before{
         font-family: fontAwesome, sans serif;
         content: '\f067';
     }
+    .members{
+        position: relative;
+    }
+}
+
+.member-user{
+    right: 0;
+    top: 0;
+    padding-left: 8px;
+    padding-top: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    position: absolute;
 }

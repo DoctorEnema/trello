@@ -30,6 +30,7 @@
             <div v-if="isMembers" class="details-members">
               <h3>MEMBERS</h3>
               <member
+                @setModalType="setModalType"
                 :card="card"
                 v-if="card.members"
                 @removeMember="removeMember"
@@ -49,6 +50,7 @@
                 :card="card"
                 v-if="card.dueDate"
                 @changeComplete="changeComplete"
+                @setModalType="setModalType"
               ></date>
             </div>
           </div>
@@ -149,8 +151,9 @@
             @listAdded="addList"
             @setCover="setCover"
             @removeCover="removeCover"
-            :card="card"
             @search="setSearch"
+            @removeDate="removeDate"
+            :card="card"
             :labels="labelsToShow"
             :users="usersToShow"
           ></component>
@@ -178,7 +181,7 @@ import showTime from "../cmps/card/show-time.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
 import { utilService } from "../services/util-service";
-import { socketService } from '../services/socket-service.js';
+import { socketService } from "../services/socket-service.js";
 
 export default {
   components: {
@@ -243,7 +246,6 @@ export default {
     isMembers() {
       if (!this.card.members || !this.card.members.length) return false;
       return true;
-      
     },
     isMemberIn() {
       if (!this.card.members) this.card.members = [];
@@ -368,7 +370,11 @@ export default {
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
       await this.setActivity(`Added Date from ${this.card.title}`);
-
+      this.updateCard();
+    },
+    async removeDate() {
+      this.card.dueDate = null;
+      await this.setActivity(`Remove Date from ${this.card.title}`);
       this.updateCard();
     },
     async linkAdded(link) {

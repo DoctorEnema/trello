@@ -2,7 +2,7 @@
   <section class="date">
     <span>
       <input type="checkbox" v-model="checkbox" @change="changeComplete" />
-      <button>
+      <button data-cmp="add-date" @click.stop="setModalType">
         {{ time }}
         <span class="is-complete" v-if="checkbox">COMPLETE </span>
       </button>
@@ -35,6 +35,9 @@ export default {
     changeComplete() {
       this.$emit("changeComplete", this.checkbox);
     },
+     setModalType(ev){
+    this.$emit('setModalType', ev)
+  }
   },
 };
 </script>
