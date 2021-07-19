@@ -45,8 +45,6 @@ export const boardStore = {
         },
         addGroup(state, { group }) {
             state.selectedBoard.groups.push(group)
-            console.log('group', group);
-            console.log('state.selectedBoard', state.selectedBoard.groups);
         },
         removeCard(state, { group, cardId }) {
             const idx = state.selectedBoard.groups.findIndex(gr => gr.id === group.id)
@@ -83,7 +81,6 @@ export const boardStore = {
         async loadBoards(context) {
             try {
                 const boards = await boardService.query()
-                console.log("boards", boards)
                 context.commit({ type: 'setBoards', boards })
                 // context.commit({ type: 'setGroup', group })
                 // return card
@@ -108,7 +105,6 @@ export const boardStore = {
                 context.commit({ type: 'setGroup', group })
                 socketService.off('updateCard')
                 socketService.on('updateCard', cardToUpdate => {
-                    console.log('updating card');
                     context.commit({ type: 'setCard', card: cardToUpdate })
                 })
                 return card
@@ -158,10 +154,8 @@ export const boardStore = {
             }
         },
         async updateActivities(context, { activity }) {
-            console.log("activity", activity)
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
-                console.log("board", board)
                 if (!board.activities) board.activities = []
                 board.activities.unshift(activity)
                 await boardService.saveBoard(board)
