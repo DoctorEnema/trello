@@ -8,6 +8,7 @@
     <form class="add-attachments" @submit.prevent="setLink(), closeModal()">
       <!-- <label for="attachment">Attach a link</label> -->
       <h3>Attach a link</h3>
+      <image-upload @save="saveLink"></image-upload>
       <input ref="attach" v-model="link" type="text" placeholder="Paste any link here..." />
       <button>Attach</button>
     </form>
@@ -15,7 +16,11 @@
 </template>
 
 <script>
+import imageUpload from "./img-upload.vue";
 export default {
+  components:{
+    imageUpload
+  },
   mounted() {
     this.$refs.attach.focus();
   },
@@ -27,6 +32,9 @@ export default {
   methods: {
     resetModals() {
       this.$emit("closeModals");
+    },
+    saveLink(link){
+      this.link=link
     },
     setLink() {
       // console.log(this.link);
