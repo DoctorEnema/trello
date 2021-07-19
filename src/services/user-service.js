@@ -83,7 +83,7 @@ async function signup(userCred) {
     return _saveLocalUser(user)
 }
 async function logout() {
-    // sessionStorage.clear()
+    sessionStorage.clear()
     return await httpService.post('auth/logout')
 }
 function _createUsers() {
@@ -106,7 +106,7 @@ function getById(userId) {
     return httpService.get(`user/${userId}`)
 }
 function remove(userId) {
-    return storageService.remove('user', userId)
+    // return storageService.remove('user', userId)
     return httpService.delete(`user/${userId}`)
 }
 

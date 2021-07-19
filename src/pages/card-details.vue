@@ -213,6 +213,8 @@ export default {
     this.boardId = boardId;
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
     socketService.emit("card topic", cardId);
+    console.log(this.loggedinUser);
+    // if (this.loggedinUser) this.$store.dispatch({ type: 'turnCardWatchOn'})
   },
   destroyed() {
     // this.$store.dispatch({

@@ -54,12 +54,8 @@ function connectSockets(http, session) {
         // })
         socket.on('user-watch', userId => {
             socket.join(userId)
+            console.log(`user ${userId} watching his cards`);
         })
-        // socket.on('typing', data => {
-        //     // console.log(data);
-        //     // socket.broadcast.emit('chat typing', data)
-        //     socket.to(socket.myTopic).emit('chat typing', data)
-        // })
         socket.on('cardUpdated', data => {
             socket.to(socket.myTopic).emit('updateCard', data)
         })
@@ -68,9 +64,6 @@ function connectSockets(http, session) {
         })
         socket.on('boardUpdated', data => {
             socket.to(socket.boardTopic).emit('updateBoard', data)
-            // console.log(data);
-            // socket.to(socket.boardTopic).to(socket.myTopic).emit('updateBoard', data)
-            // socket.to("room1").to("room2").emit(/* ... */);
         })
         socket.on('groupRemoved', data => {
             socket.to(socket.boardTopic).emit('removeGroup', data)
@@ -94,7 +87,6 @@ function emitToUser({ type, data, userId }) {
     gIo.to(userId).emit(type, data)
 }
 
-
 // Send to all sockets BUT not the current socket 
 function broadcast({ type, data, room = null }) {
     const store = asyncLocalStorage.getStore()
@@ -111,6 +103,7 @@ function broadcast({ type, data, room = null }) {
 module.exports = {
     connectSockets,
     emitToAll,
+    emitToUser,
     broadcast,
 }
 
