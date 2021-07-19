@@ -121,6 +121,7 @@
     border: none;
     color: white;
     width: 180px;
+
     &:hover {
         background-color: rgba($color: #ffffff, $alpha: 0.4);
     }
@@ -129,10 +130,12 @@
         color: $clr2;
         width: 250px;
     }
+
     &::placeholder{
         opacity: 1;
     }
 }
+
 
 .to-create-board::before {
     font-family: fontAwesome, sans serif;

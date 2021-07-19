@@ -7,8 +7,8 @@
     </div>
     <div class="starred-boards">Starred Boards</div>
     <add-board
-      @creatBoard="creatBoard"
-      @openCreatBoard="openCreatBoard"
+      @createBoard="createBoard"
+      @toggleCreateBoard="toggleCreateBoard"
       v-if="isCreate"
     ></add-board>
     <div class="board-menu-content">
@@ -23,7 +23,7 @@
         
       </button>
     </div>
-      <a href="#" @click="openCreatBoard">Create new board...</a>
+      <a href="#" @click="toggleCreateBoard">Create new board...</a>
   </section>
 </template>
 
@@ -69,14 +69,14 @@ export default {
     boardCoverColor(color) {
       this.$emit("boardCoverColor", color);
     },
-    openCreatBoard() {
+    toggleCreateBoard() {
       this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
       await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
     },
-    async creatBoard(title, imgUrl) {
+    async createBoard(title, imgUrl) {
       const board = {
         title: title,
         createdAt: Date.now(),
