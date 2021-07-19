@@ -20,9 +20,9 @@
         @changeComplete="changeComplete"
         @removeCard="removeCard"
         class="card-preview"
+        v-for="card in group.cards"
         :group="group"
         :card="card"
-        v-for="card in group.cards"
         :key="card.id"
         :hardcodedBoardId="hardcodedBoardId"
       ></card-preview>

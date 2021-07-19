@@ -1,6 +1,6 @@
 import { utilService } from '../services/util-service.js';
 import { storageService } from '../services/async-storage-service.js';
-import {httpService} from '../services/http-service.js';
+import { httpService } from '../services/http-service.js';
 
 // const user = {
 //     "_id": "u101",
@@ -32,6 +32,7 @@ export const boardService = {
     getCardById,
     getEmptyTodo,
     getEmptyList,
+    updateLabel,
     // updateGroup
 };
 
@@ -63,7 +64,7 @@ function remove(boardId) {
 }
 
 function getById(boardId) {
-  return httpService.get(`board/${boardId}`)
+    return httpService.get(`board/${boardId}`)
     // return storageService.get(BOARD_KEY, boardId);
 }
 
@@ -73,8 +74,8 @@ function getById(boardId) {
 // }
 
 function saveBoard(board) {
-  if (board._id) return httpService.put('board', board)
-  else return httpService.post('board', board)
+    if (board._id) return httpService.put('board', board)
+    else return httpService.post('board', board)
     // return storageService.put(BOARD_KEY, board)
 }
 
@@ -91,9 +92,9 @@ function addGroup(board, group) {
 }
 
 function updateGroup(board, group) {
-  const groupIdx = board.groups.findIndex(g => g.id === group.id)
-  board.groups.splice(groupIdx, 1, group)
-  return saveBoard(board)
+    const groupIdx = board.groups.findIndex(g => g.id === group.id)
+    board.groups.splice(groupIdx, 1, group)
+    return saveBoard(board)
 }
 
 function removeCard(board, group, cardId) {
@@ -127,8 +128,32 @@ async function getCardById(cardId, groupId, boardId) {
         const cardIdx = board.groups[groupIdx].cards.findIndex(card => card.id === cardId)
         return { card: board.groups[groupIdx].cards[cardIdx], group: board.groups[groupIdx], board: board }
     } catch (err) {
-        console.log('cant get card', err);
+        console.log('cannot get card', err);
     }
+}
+
+function updateLabel(board, action, pickedLabel) {
+    if (!board.labels) board.labels = []
+    if (action === 'add') {
+        board.labels.push(pickedLabel)
+    } else if (action === 'remove') {
+        const labelIdx = board.labels.findIndex(label => label.id === pickedLabel.id)
+        board.labels.splice(labelIdx, 1)
+        board.groups.forEach(group => {
+            group.cards.forEach(card => {
+                if (card.labelIds) {
+                    const idIdx = card.labelIds.findIndex(id => id === pickedLabel.id)
+                    if (idIdx !== -1) {
+                        card.labelIds.splice(idIdx, 1)
+                    }
+                }
+            })
+        })
+    } else if (action === 'update') {
+        const labelIdx = board.labels.findIndex(label => label.id === pickedLabel.id)
+        if (labelIdx !== -1) board.labels.splice(labelIdx, 1, pickedLabel)
+    }
+    return saveBoard(board)
 }
 
 function getEmptyTodo() {

@@ -51,9 +51,9 @@
             @removeCard="removeCard"
             @removeGroup="removeGroup"
             @addCard="addCard"
+            v-for="group in board.groups"
             class="group"
             :group="group"
-            v-for="group in board.groups"
             :key="group.id"
             @onDragEnd="onDragEnd"
           ></group>

@@ -64,15 +64,22 @@ function connectSockets(http, session) {
             socket.to(socket.myTopic).emit('updateCard', data)
         })
         socket.on('groupAdded', data => {
-            // socket.broadcast.emit('addGroup', data)
-            console.log('group', data);
             socket.to(socket.boardTopic).emit('addGroup', data)
         })
         socket.on('boardUpdated', data => {
             socket.to(socket.boardTopic).emit('updateBoard', data)
+            console.log(data);
+            // socket.to(socket.boardTopic).to(socket.myTopic).emit('updateBoard', data)
+            // socket.to("room1").to("room2").emit(/* ... */);
         })
         socket.on('groupRemoved', data => {
             socket.to(socket.boardTopic).emit('removeGroup', data)
+        })
+        socket.on('cardRemoved', data => {
+            socket.to(socket.boardTopic).emit('removeCard', data)
+        })
+        socket.on('cardAdded', data => {
+            socket.to(socket.boardTopic).emit('addCard', data)
         })
     })
 }
