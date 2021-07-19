@@ -42,6 +42,16 @@
                 padding: 0;
             }
         }
+        .to-boards {
+            min-width: fit-content;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 0;
+            &::before {
+                font-family: fontAwesome, sans serif;
+                content: "\f868";
+            }
+        }
     }
     .header-right {
         display: flex;
@@ -89,13 +99,7 @@
     content: "\f80c";
 }
 
-.to-boards {
-    font-weight: 600;
-    &::before {
-        font-family: fontAwesome, sans serif;
-        content: "\f868";
-    }
-}
+
 
 .search {
     position: relative;
@@ -122,8 +126,11 @@
     }
     &:focus {
         background-color: white;
-        color: black;
+        color: $clr2;
         width: 250px;
+    }
+    &::placeholder{
+        opacity: 1;
     }
 }
 

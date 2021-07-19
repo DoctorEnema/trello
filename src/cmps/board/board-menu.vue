@@ -1,7 +1,7 @@
 
 <template>
   <section class="board-menu">
-    <h1>board menu</h1>
+    <input type="text" placeholder="Find boards by name...">
     <button @click="toggleMenu">X</button>
     <button @click="openCreatBoard">Creat Board</button>
     <add-board
@@ -10,7 +10,11 @@
       v-if="isCreat"
     ></add-board>
     <div>
-      <button v-for="board in boards" :key="board._id" @click="selectBoard(board._id)">
+      <button
+        v-for="board in boards"
+        :key="board._id"
+        @click="selectBoard(board._id)"
+      >
         {{ board.title }}
       </button>
     </div>
@@ -62,10 +66,9 @@ export default {
     openCreatBoard() {
       this.isCreat = !this.isCreat;
     },
-    async selectBoard(boardId){
-      await this.$store.dispatch({ type: "loadBoard" ,boardId});
-      this.$emit('selectBoard',boardId)
-
+    async selectBoard(boardId) {
+      await this.$store.dispatch({ type: "loadBoard", boardId });
+      this.$emit("selectBoard", boardId);
     },
     async creatBoard(title, imgUrl) {
       const board = {

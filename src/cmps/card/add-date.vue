@@ -4,10 +4,11 @@
       <button @click="closeModal"></button>
       <h3>Dates</h3>
     </div>
-    <button v-if="card.dueDate" @click="removeDate">Remove Date</button>
-    <hr />
+    <hr class="date-hr" />
+        <button class="remove-date" v-if="card.dueDate" @click="removeDate() ; closeModal()">Remove Date</button>
+
     <el-date-picker
-      @blur="addDate"
+      @change="addDate(); closeModal()"
       ref="dateInput"
       v-model="date"
       type="datetime"
