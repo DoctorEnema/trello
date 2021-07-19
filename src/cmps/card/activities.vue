@@ -1,39 +1,61 @@
 
 <template>
   <section class="activities">
-    <textarea
-      v-model="activity"
-      @focus="isActive = true"
-      @blur="isActive = false"
-      placeholder="Write a Comment..."
-    ></textarea>
-    <div v-if="this.isActive" class="activitie-controls">
+    <div class="add-comment">
+      <img :src="loggedinUser.imgUrl" />
+      <textarea
+        v-model="activity"
+        @focus="isActive = true"
+        placeholder="Write a Comment..."
+      ></textarea>
+    </div>
+    <div v-if="this.isActive" class="activity-controls">
       <button @click.stop="setActivity">Save</button>
       <button @focus="isActive = false"></button>
     </div>
-
+    <div v-for="activity in selectedBoard.activities" :key="activity.id">
+      <section v-if="activity.card.id === card.id">
+        <div class="activity">
+          <img :src="activity.byMember.imgUrl">
+          <span class="member-name">{{ activity.byMember.fullname }}</span> <span>{{ activity.txt }}</span>
+        <show-time :time="activity.creatAt"></show-time>
+        </div>
+      </section>
+    </div>
   </section>
 </template>
 
 <script>
+import showTime from "./show-time.vue";
 export default {
-  props: {
-    card: Object
+  components: {
+    showTime,
   },
   data() {
     return {
       isActive: false,
-      activity:  '',
+      activity: "",
     };
   },
-  methods:{
-    setActivity(){
-      this.isActive=false
-      const newActivity = 'comment a '+this.activity
-      this.$emit('setActivity' , newActivity, this.activity)
-      this.activity = ''
-    }
-  }
+  computed: {
+    selectedBoard() {
+      return this.$store.getters.selectedBoard;
+    },
+    card() {
+      return this.$store.getters.selectedCard;
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
+  },
+  methods: {
+    setActivity() {
+      this.isActive = false;
+      const newActivity = "commented: " + `'${this.activity}'`;
+      this.$emit("setActivity", newActivity, this.activity);
+      this.activity = "";
+    },
+  },
 };
 </script>
 

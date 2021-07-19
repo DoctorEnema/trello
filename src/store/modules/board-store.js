@@ -69,7 +69,7 @@ export const boardStore = {
         removeCurrent(state){
             state.selectedCard = null
             state.selectedGroup = null
-        }
+        },
     },
     actions: {
         // async removeCurrent(context, {group, card}){

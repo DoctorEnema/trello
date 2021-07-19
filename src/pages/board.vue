@@ -116,11 +116,10 @@ export default {
   },
   methods: {
     onDragStart() {
-      console.log(this.board.groups);
     },
     onDragEnd() {
-      console.log("dragEnd");
       const board = this.board;
+      this.$store.commit({type:'setBoard', board})
       this.$store.dispatch({ type: "updateBoard", board });
     },
     // updateGroup(group) {
