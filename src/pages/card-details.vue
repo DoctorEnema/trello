@@ -286,9 +286,12 @@ export default {
   },
   methods: {
     isUserAssignedToCard() {
-      console.log(1 + 1 === 2);
-      // if (!this.loggedinUser) return
-      if (!this.card?.members.lenth) return 'no members assigned to card'
+      // if(!this.loggedinUser) console.log('true');
+     
+      if (!this.loggedinUser) return
+      // console.log('asdasd');
+      if (!this.card?.members.length) return ('no members assigned to card')
+      // console.log('asdasdasdasdsadasd');
       const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
       console.log('isUserMember',isUserMember);
     },
@@ -297,7 +300,6 @@ export default {
       // no one knows what this deos but it works
     },
     updateCard() {
-      console.log(this.card.dueDate)
       this.$store.dispatch({
         type: "updateCard",
         board: this.selectedBoard,

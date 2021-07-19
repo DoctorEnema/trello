@@ -82,7 +82,6 @@ export default {
     },
     createBoard() {
       if (!this.title) return;
-      console.log('this.title',this.title);
       this.$emit("createBoard", this.title, this.imgUrl);
       this.$emit("toggleCreateBoard");
     },
