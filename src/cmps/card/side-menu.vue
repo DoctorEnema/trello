@@ -10,9 +10,10 @@
     ></board-cover>
     <div v-if="!isActivityModal">
       <h3>Activities</h3>
+      <!-- {{selectedBoard.activities}} -->
       <div v-for="activity in selectedBoard.activities" :key="activity.id">
         <p>
-          <span>{{ activity.byMember.fullname }} </span>{{ activity.txt }}
+          <span >{{ activity.byMember.fullname }} </span>{{ activity.txt }}
         </p>
         <show-time :time="activity.creatAt"></show-time>
       </div>
