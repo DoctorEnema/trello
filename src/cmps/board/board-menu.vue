@@ -73,7 +73,7 @@ export default {
       this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
-      if(boardId === this.selectedBoard._id) return
+      if(this.selectedBoard && boardId === this.selectedBoard._id) return
       await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
     },
