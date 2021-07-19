@@ -1,14 +1,28 @@
 .create-cover {
-    padding: 0 7px 8px;
-    h3 {
-        margin: 8px 0;
-        &:first-of-type {
-            margin: 0;
+    padding: 12px;
+    ul{
+        margin: 0;
+        padding-top: 12px;
+    }
+    .card-cover-color {
+        display: inline-block;
+        height: 32px;
+        margin: 0 8px 8px 0;
+        padding: 0;
+        width: 48.5px;
+        cursor: pointer;
+        border-radius: 4px;
+        &:nth-child(5){
+            margin-right: 0;
+        }
+        &:nth-child(10){
+            margin-right: 0;
         }
     }
 }
 
 .cover-controls {
+        padding: 0;
     button {
         width: 100%;
         padding: 12px;
@@ -28,15 +42,7 @@
     margin-inline-start: 6px;
 }
 
-.card-cover-color {
-    display: inline-block;
-    height: 32px;
-    margin: 0 8px 8px 0;
-    padding: 0;
-    width: 48px;
-    cursor: pointer;
-    border-radius: 4px;
-}
+
 
 .cover-unsplash {
     display: grid;

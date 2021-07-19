@@ -7,8 +7,14 @@
         <button @click="closeModal"></button>
       </header>
       <hr />
+      <input
+        v-model="searchBy"
+        ref="searchInput"
+        type="text"
+        @input="search"
+        placeholder="Search labels..."
+      />
       <div v-if="!isCreate" class="choose-label">
-        <input v-model="searchBy" ref="searchInput" type="text" @input="search" placeholder="Search labels..." />
         <h5>LABELS</h5>
         <div class="label-picker">
           <div
@@ -25,11 +31,15 @@
             <a href="#" @click.stop="editLabel(label)"></a>
           </div>
         </div>
-        <button class="create-label-btn" @click.stop="createLabel" type="button">
+      </div>
+        <button
+          class="create-label-btn"
+          @click.stop="createLabel"
+          type="button"
+        >
           Create new label
         </button>
-      </div>
-      <div v-else class="create-label">
+      <div v-if="isCreate" class="create-label">
         <form @submit.prevent="createLabel()">
           <div v-if="!isEdit">
             <label for="name">Name</label>
@@ -81,7 +91,7 @@ export default {
   },
   props: {
     card: Object,
-    labels:Array
+    labels: Array,
   },
   created() {},
   mounted() {
@@ -111,7 +121,7 @@ export default {
         isPicked: true,
       },
       labelToEdit: null,
-      searchBy: ''
+      searchBy: "",
     };
   },
   computed: {
@@ -146,8 +156,8 @@ export default {
       // else return false
     },
     closeModal() {
-      this.searchBy = ''
-      this.search()
+      this.searchBy = "";
+      this.search();
       this.$emit("closeModal");
     },
     setLabel(label) {
@@ -215,8 +225,8 @@ export default {
         : (this.pickedLabel.color = color);
     },
     search() {
-            this.$emit('search',  {type: 'label' ,searchBy:this.searchBy});
-        }
+      this.$emit("search", { type: "label", searchBy: this.searchBy });
+    },
   },
 };
 </script>
