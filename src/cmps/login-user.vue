@@ -24,7 +24,7 @@
 
 <script>
 // @ is an alias to /src
-
+import {userService} from "../services/user-service";
 
 export default {
   components: {
@@ -53,8 +53,10 @@ export default {
       }
     },
 methods:{
-    login(){
+    async login(){
       this.$store.dispatch({type:"login", userCred:this.credentials})
+      const users = await userService.getUsers()
+      console.log(users);
     },
     signup(){
       this.$store.dispatch({type:"signup", userCred:this.credentials})
