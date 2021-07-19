@@ -284,6 +284,7 @@ export default {
       // no one knows what this deos but it works
     },
     updateCard() {
+      console.log(this.card.dueDate)
       this.$store.dispatch({
         type: "updateCard",
         board: this.selectedBoard,
