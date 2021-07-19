@@ -26,17 +26,8 @@ export default {
       // return new Date(this.card.dueDate.date)
       const date = new Date(this.card.dueDate.date);
       return (
-        date.getDate() +
-        "/" +
-        (date.getMonth() + 1) +
-        "/" +
-        date.getFullYear() +
-        " " +
-        date.getHours() +
-        ":" +
-        date.getMinutes() +
-        ":" +
-        date.getSeconds()
+      `${(new Date(date).getDate() + '').padStart(2, '0')}/${(new Date(date).getMonth() + 1 + '').padStart(2, '0')}/${new Date(date).getFullYear() + ''} ${(new Date(date).getHours() + '').padStart(2, '0')}:${(new Date(date).getMinutes() + '').padStart(2, '0')}`
+
       );
     },
   },
