@@ -5,8 +5,7 @@
       <!-- <router-link class="to-boards" :to="'/board/'+currBoard"> Boards</router-link> -->
 
       <!-- <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link> -->
-      <button @click="toggleMenu" class="to-boards" :to="'/board/currBoard'"> Boards</button>
-      <board-menu @selectBoard="selectBoard" @toggleMenu="toggleMenu" v-if="isBoardMenu"></board-menu>
+      <button @click="toggleMenu" class="to-boards">Boards</button>
       <div class="search">
         <input
           v-model="search"
@@ -27,34 +26,37 @@
       <button class="to-notifications"></button>
       <button class="to-user">User</button>
     </div>
+    <board-menu
+      @selectBoard="selectBoard"
+      @toggleMenu="toggleMenu"
+      v-if="isBoardMenu"
+    ></board-menu>
   </section>
 </template>
 
 <script>
 import boardMenu from "../cmps/board/board-menu.vue";
 export default {
-  components:{
-    boardMenu
+  components: {
+    boardMenu,
   },
   data() {
     return {
       search: "",
-      isBoardMenu:false,
-      currBoard:'60f42b03d2f67fa6bfa0f528'
+      isBoardMenu: false,
+      currBoard: "60f42b03d2f67fa6bfa0f528",
     };
   },
-  methods:{
-    toggleMenu(){
-      this.isBoardMenu = !this.isBoardMenu
+  methods: {
+    toggleMenu() {
+      this.isBoardMenu = !this.isBoardMenu;
     },
-    selectBoard(boardId){
-      console.log("boardId", boardId)
-      this.currBoard = boardId
-      this.$router.push('/board/'+boardId)
-      console.log("this.currBoard", this.currBoard)
-
+    selectBoard(boardId) {
+      console.log("boardId", boardId);
+      this.currBoard = boardId;
+      this.$router.push("/board/" + boardId);
+      console.log("this.currBoard", this.currBoard);
     },
-
-  }
+  },
 };
 </script>

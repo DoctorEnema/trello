@@ -1,9 +1,19 @@
-.board-menu{
+.board-menu {
     z-index: 5;
     position: absolute;
     left: 0;
-    top: 0;
-    width: 300px;
+    top: 43px;
+    width: 295px;
     height: 100vh;
-    background-color: rgb(230, 125, 125);
+    background-color: $clr5;
+    color: black;
+    button {
+        color: black;
+    }
+    input[type="text"] {
+        @include trello-txt;
+        &:focus {
+            box-shadow: inset 0 0 0 2px #0079bf;
+        }
+    }
 }
