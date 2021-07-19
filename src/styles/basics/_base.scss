@@ -54,3 +54,15 @@ textarea{
     @include control-btn
 }
 
+.to-user{
+    padding-left: 10px;
+    color: transparent;
+    border-radius: 50%;
+    background-color: $clr3;
+    font-weight: 600;
+    &::first-letter{
+        text-transform: uppercase;
+        color: $clr2;
+    }
+}
+

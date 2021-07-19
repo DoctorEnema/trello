@@ -1,11 +1,18 @@
 <template>
   <section class="member" v-if="card.members">
-    <div v-for="member in card.members" :key="member.id">
+    <div class="members" v-for="member in card.members" :key="member.id">
       <button @click="removeMember(member)">
-        <img :src="member.imgUrl" />
+        <img v-if="member.imgUrl" :src="member.imgUrl" />
+        <div v-else class="to-user member-user">
+          {{ member.fullname }}
+        </div>
       </button>
     </div>
-    <button class="add-new-member"></button>
+    <button
+      data-cmp="add-member"
+      @click.stop="setModalType"
+      class="add-new-member"
+    ></button>
   </section>
 </template>
 
@@ -20,8 +27,10 @@ export default {
   },
   methods: {
     removeMember(member) {
-      console.log("member", member)
       this.$emit("removeMember", member);
+    },
+    setModalType(ev) {
+      this.$emit("setModalType", ev);
     },
   },
   computed: {},

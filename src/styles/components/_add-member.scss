@@ -1,6 +1,8 @@
 .add-member {
     img {
         width: 35px;
+        border-radius: 50%;
+        background-color: $clr3;
     }
 
     h3{
@@ -15,7 +17,7 @@
 
 .user-member{
     button{
-        margin: 0 auto;
+        margin: 2px auto;
         color: $clr1;
         width: 95%;
         display: flex;
@@ -28,4 +30,12 @@
             background-color: $clr4;
         }
     }
+}
+
+.user-letter{
+    width: 35px;
+    height: 35px;
+    padding-top: 6px;
+    padding-left: 9px;
+    font-size: 18px;
 }

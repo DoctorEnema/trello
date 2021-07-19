@@ -16,9 +16,18 @@
     <div v-for="activity in selectedBoard.activities" :key="activity.id">
       <section v-if="activity.card.id === card.id">
         <div class="activity">
-          <img :src="activity.byMember.imgUrl">
-          <span class="member-name">{{ activity.byMember.fullname }}</span> <span>{{ activity.txt }}</span>
-        <show-time :time="activity.creatAt"></show-time>
+          <div>
+            <img
+              v-if="activity.byMember.imgUrl"
+              :src="activity.byMember.imgUrl"
+            />
+            <div v-else class="to-user activity-user">
+              {{ activity.byMember.fullname }}
+            </div>
+          </div>
+          <span class="member-name">{{ activity.byMember.fullname }}</span>
+          <span><span> </span> {{ activity.txt }}</span>
+          <show-time class="activity-time" :time="activity.creatAt"></show-time>
         </div>
       </section>
     </div>

@@ -41,6 +41,24 @@
     position: relative;
 }
 
+.activity-user{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    padding-top: 6px;
+    padding-left: 10px;
+    left: -42px;
+    position: absolute;
+    cursor: default;
+}
+
+.activity-time{
+    font-size: 12px;
+    color: $clr2;
+    padding-top: 4px;
+}
+
 .activity-controls {
     display: flex;
     align-items: center;

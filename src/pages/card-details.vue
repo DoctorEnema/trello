@@ -30,6 +30,7 @@
             <div v-if="isMembers" class="details-members">
               <h3>MEMBERS</h3>
               <member
+                @setModalType="setModalType"
                 :card="card"
                 v-if="card.members"
                 @removeMember="removeMember"
@@ -178,7 +179,7 @@ import showTime from "../cmps/card/show-time.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
 import { utilService } from "../services/util-service";
-import { socketService } from '../services/socket-service.js';
+import { socketService } from "../services/socket-service.js";
 
 export default {
   components: {
@@ -243,7 +244,6 @@ export default {
     isMembers() {
       if (!this.card.members || !this.card.members.length) return false;
       return true;
-      
     },
     isMemberIn() {
       if (!this.card.members) this.card.members = [];
