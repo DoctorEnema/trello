@@ -85,18 +85,6 @@
               <h4>Activity</h4>
               <span class="details-activity-icon"></span>
               <activities @setActivity="setActivity"></activities>
-              <div
-                v-for="activity in selectedBoard.activities"
-                :key="activity.id"
-              >
-                <section v-if="activity.card.id === card.id">
-                  <p>
-                    <span>{{ activity.byMember.fullname }} </span
-                    >{{ activity.txt }}
-                  </p>
-                  <show-time :time="activity.creatAt"></show-time>
-                </section>
-              </div>
             </div>
           </div>
         </div>
@@ -212,8 +200,8 @@ export default {
     return {
       openModalType: null,
       boardId: null,
-      searchBy: '',
-      searchType:''
+      searchBy: "",
+      searchType: "",
     };
   },
   async created() {
@@ -221,13 +209,13 @@ export default {
     this.boardId = boardId;
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
   },
-  destroyed(){
-      // this.$store.dispatch({
-      //   type: "removeCurrent",
-      //   group: null,
-      //   card: null,
-      // });
-      this.$store.commit('removeCurrent')
+  destroyed() {
+    // this.$store.dispatch({
+    //   type: "removeCurrent",
+    //   group: null,
+    //   card: null,
+    // });
+    this.$store.commit("removeCurrent");
   },
   computed: {
     selectedBoard() {
@@ -264,10 +252,10 @@ export default {
         return !this.card.members.some((m) => m.id === this.loggedinUser.id);
     },
     labelsToShow() {
-      return this.labelToShow() 
+      return this.labelToShow();
     },
     usersToShow() {
-      return this.userToShow() 
+      return this.userToShow();
     },
     users() {
       return this.$store.getters.users;
@@ -465,28 +453,28 @@ export default {
     },
     setSearch(search) {
       this.searchBy = search.searchBy;
-      this.searchType= search.type
+      this.searchType = search.type;
     },
     labelToShow() {
       if (!this.searchBy) return this.selectedBoard.labels;
-      if(this.searchType !== 'label') return this.selectedBoard.labels
+      if (this.searchType !== "label") return this.selectedBoard.labels;
       if (this.searchBy) {
         const searchStr = this.searchBy.toLowerCase();
         const labelToShow = this.selectedBoard.labels.filter((lable) => {
           return lable.name?.toLowerCase().includes(searchStr);
         });
-        return(labelToShow);
+        return labelToShow;
       }
     },
     userToShow() {
       if (!this.searchBy) return this.users;
-      if(this.searchType !== 'user') return this.users
+      if (this.searchType !== "user") return this.users;
       if (this.searchBy) {
         const searchStr = this.searchBy.toLowerCase();
         const userToShow = this.users.filter((user) => {
           return user.fullname?.toLowerCase().includes(searchStr);
         });
-        return(userToShow);
+        return userToShow;
       }
     },
   },
