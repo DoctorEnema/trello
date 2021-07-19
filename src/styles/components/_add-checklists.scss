@@ -1,12 +1,13 @@
 .add-checklist {
+    padding: 8px;
     h3 {
         color: $clr2;
     }
     h4 {
-        padding: 0 8px;
+        padding-bottom: 8px;
     }
     .add-checklist-btn {
-        margin: 8px;
+        margin-top: 8px;
         background-color: #0079bf;
         color: white;
         padding: 9px 18px;
