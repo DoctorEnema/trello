@@ -3,6 +3,7 @@ import { socketService } from '../../services/socket-service'
 
 export const boardStore = {
     state: {
+        boards:null,
         selectedBoard: null,
         selectedGroup: null,
         selectedCard: null,
@@ -10,6 +11,9 @@ export const boardStore = {
         textareaOpen: false
     },
     getters: {
+        boards(state){
+            return state.boards
+        },
         selectedBoard(state) {
             return state.selectedBoard
         },
@@ -24,6 +28,9 @@ export const boardStore = {
         }
     },
     mutations: {
+        setBoards(state, { boards }){
+            state.boards = boards
+        },
         setBoard(state, { board }) {
             state.selectedBoard = board
         },
@@ -62,7 +69,7 @@ export const boardStore = {
         removeCurrent(state){
             state.selectedCard = null
             state.selectedGroup = null
-        }
+        },
     },
     actions: {
         // async removeCurrent(context, {group, card}){
@@ -72,6 +79,28 @@ export const boardStore = {
         //         console.log('Cannot remove current', err);
         //     }
         // },
+        
+        async loadBoards(context) {
+            try {
+                const boards = await boardService.query()
+                console.log("boards", boards)
+                context.commit({ type: 'setBoards', boards })
+                // context.commit({ type: 'setGroup', group })
+                // return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
+        async addBoard(context, {board}) {
+            try {
+                await boardService.saveBoard(board)
+                // context.commit({ type: 'setCard', card })
+                // context.commit({ type: 'setGroup', group })
+                // return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
         async loadCard(context, { cardId, groupId, boardId }) {
             try {
                 const { card, group } = await boardService.getCardById(cardId, groupId, boardId)
@@ -89,7 +118,9 @@ export const boardStore = {
         },
         async loadBoard(context, { boardId }) {
             try {
+
                 const board = await boardService.getById(boardId)
+                context.commit({ type: 'removeCurrent' })
                 context.commit({ type: 'setBoard', board })
                 // socketService.off('updateBoard')
                 // socketService.on('updateBoard', boardToUpdate => {

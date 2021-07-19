@@ -1,25 +1,47 @@
 .activities {
     margin-top: 16px;
+    margin-bottom: 30px;
     textarea {
         min-width: 100%;
         max-width: 100%;
         resize: none;
         border-radius: 3px;
-        background-color:white;
+        background-color: white;
         border: none;
-        padding: 10px 8px;
-        height: 40px;
+        padding: 8px 8px;
+        height: 36px;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
+        box-shadow: 0 1px 2px -1px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
         &:focus {
             max-height: 108px;
             background-color: white;
         }
         margin-bottom: 6px;
     }
+    img {
+        background-color: $clr3;
+        position: absolute;
+        left: -42px;
+        border-radius: 50%;
+        width: 36px;
+    }
 }
 
-.activitie-controls {
+.activity{
+    padding: 10px;
+}
+
+.member-name{
+    font-weight: 700;
+}
+
+.add-comment {
+    display: flex;
+    position: relative;
+}
+
+.activity-controls {
     display: flex;
     align-items: center;
     margin-top: 2px;
