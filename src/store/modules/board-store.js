@@ -32,7 +32,6 @@ export const boardStore = {
             state.boards = boards
         },
         setBoard(state, { board }) {
-            console.log('board', board);
             state.selectedBoard = board
         },
         setGroup(state, { group }) {
