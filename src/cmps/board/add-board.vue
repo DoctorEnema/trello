@@ -4,7 +4,11 @@
       <button @click="openCreatBoard">X</button>
       <input v-model="title" type="text" />
       <div class="board-covers">
-        <button v-for="cover in selectedBoard.covers" :key="cover.id" @click="imgUrl=cover.imgUrl" >
+        <button
+          v-for="cover in selectedBoard.covers"
+          :key="cover.id"
+          @click="imgUrl = cover.imgUrl"
+        >
           <img :src="cover.imgUrl" alt="" />
         </button>
       </div>
@@ -17,8 +21,9 @@
 export default {
   data() {
     return {
-      title: '',
-      imgUrl:'https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg'
+      title: "",
+      imgUrl:
+        "https://res.cloudinary.com/davidyan7/image/upload/v1625997002/samples/landscapes/beach-boat.jpg",
     };
   },
   computed: {
@@ -30,10 +35,10 @@ export default {
     openCreatBoard() {
       this.$emit("openCreatBoard");
     },
-    creatBoard(){
-        if(!this.title) return
-        this.$emit('creatBoard',this.title,this.imgUrl)
-    }
+    creatBoard() {
+      if (!this.title) return;
+      this.$emit("creatBoard", this.title, this.imgUrl);
+    },
   },
 };
 </script>

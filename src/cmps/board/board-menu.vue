@@ -1,23 +1,29 @@
 
 <template>
   <section class="board-menu">
-    <input type="text" placeholder="Find boards by name...">
-    <button @click="toggleMenu">X</button>
-    <button @click="openCreatBoard">Creat Board</button>
+    <div class="board-menu-header">
+      <input type="text" placeholder="Find boards by name..." />
+      <button @click="toggleMenu"></button>
+    </div>
+    <div class="starred-boards">Starred Boards</div>
     <add-board
       @creatBoard="creatBoard"
       @openCreatBoard="openCreatBoard"
-      v-if="isCreat"
+      v-if="isCreate"
     ></add-board>
-    <div>
+    <div class="board-menu-content">
       <button
         v-for="board in boards"
         :key="board._id"
         @click="selectBoard(board._id)"
+        :style="{ backgroundImage: 'url(' + board.style.backgroundImg + ')' }"
       >
-        {{ board.title }}
+      <div class="diffuser">{{ board.title }}</div>
+      <img :src="board.style.backgroundImg">
+        
       </button>
     </div>
+      <a href="#" @click="openCreatBoard">Create new board...</a>
   </section>
 </template>
 
@@ -29,7 +35,7 @@ export default {
     return {
       isCoverModal: false,
       isActivityModal: false,
-      isCreat: false,
+      isCreate: false,
     };
   },
   async created() {
@@ -64,7 +70,7 @@ export default {
       this.$emit("boardCoverColor", color);
     },
     openCreatBoard() {
-      this.isCreat = !this.isCreat;
+      this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
       await this.$store.dispatch({ type: "loadBoard", boardId });
