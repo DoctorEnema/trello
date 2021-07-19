@@ -93,7 +93,7 @@ export default {
   },
   data() {
     return {
-      selectedBoard: null,
+      // selectedBoard: null,
       isAdding: false,
       emptyGroup: {
         title: "",

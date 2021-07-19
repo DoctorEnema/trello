@@ -63,16 +63,16 @@ function connectSockets(http, session) {
         socket.on('cardUpdated', data => {
             socket.to(socket.myTopic).emit('updateCard', data)
         })
-        // socket.on('groupAdded', data => {
-        //     socket.broadcast.emit('addGroup', data)
+        socket.on('groupAdded', data => {
+            // socket.broadcast.emit('addGroup', data)
+            console.log('group', data);
+            socket.to(socket.boardTopic).emit('addGroup', data)
+        })
+        socket.on('boardUpdated', data => {
+            // socket.broadcast.emit('updateBoard', data)
 
-        //     // socket.to(socket.boardTopic).emit('addGroup', data)
-        // })
-        // socket.on('boardUpdated', data => {
-        //     // socket.broadcast.emit('updateBoard', data)
-
-        //     socket.to(socket.boardTopic).emit('updateBoard', data)
-        // })
+            socket.to(socket.boardTopic).emit('updateBoard', data)
+        })
     })
 }
 
