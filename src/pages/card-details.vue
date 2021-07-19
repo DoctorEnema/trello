@@ -49,6 +49,7 @@
                 :card="card"
                 v-if="card.dueDate"
                 @changeComplete="changeComplete"
+                @setModalType="setModalType"
               ></date>
             </div>
           </div>
@@ -149,8 +150,9 @@
             @listAdded="addList"
             @setCover="setCover"
             @removeCover="removeCover"
-            :card="card"
             @search="setSearch"
+            @removeDate="removeDate"
+            :card="card"
             :labels="labelsToShow"
             :users="usersToShow"
           ></component>
@@ -368,7 +370,11 @@ export default {
       this.card.dueDate.date = date;
       if (!this.card.dueDate.isComplete) this.card.dueDate.isComplete = false;
       await this.setActivity(`Added Date from ${this.card.title}`);
-
+      this.updateCard();
+    },
+    async removeDate() {
+      this.card.dueDate = null;
+      await this.setActivity(`Remove Date from ${this.card.title}`);
       this.updateCard();
     },
     async linkAdded(link) {
