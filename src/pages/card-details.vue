@@ -296,7 +296,7 @@ export default {
         byMember: this.loggedinUser,
         creatAt: Date.now(),
         id: utilService.makeId(),
-        card: JSON.parse(JSON.stringify(this.card)),
+        card: {id:this.card.id, title:this.card.title},
         txt: comment,
       };
       if (!this.card.comments) this.card.comments = [];
@@ -308,7 +308,7 @@ export default {
         byMember: this.loggedinUser,
         creatAt: Date.now(),
         id: utilService.makeId(),
-        card: JSON.parse(JSON.stringify(this.card)),
+        card:{id:this.card.id, title:this.card.title},
         txt: activity,
       };
       this.setComment(comment);

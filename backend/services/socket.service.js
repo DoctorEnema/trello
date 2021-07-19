@@ -68,7 +68,7 @@ function connectSockets(http, session) {
         })
         socket.on('boardUpdated', data => {
             socket.to(socket.boardTopic).emit('updateBoard', data)
-            console.log(data);
+            // console.log(data);
             // socket.to(socket.boardTopic).to(socket.myTopic).emit('updateBoard', data)
             // socket.to("room1").to("room2").emit(/* ... */);
         })
@@ -98,7 +98,7 @@ function emitToUser({ type, data, userId }) {
 // Send to all sockets BUT not the current socket 
 function broadcast({ type, data, room = null }) {
     const store = asyncLocalStorage.getStore()
-    console.log(store);
+    // console.log(store);
     const { sessionId } = store
     if (!sessionId) return logger.debug('Shoudnt happen, no sessionId in asyncLocalStorage store')
     const excludedSocket = gSocketBySessionIdMap[sessionId]

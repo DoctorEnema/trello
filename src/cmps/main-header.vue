@@ -54,10 +54,8 @@ export default {
       this.isBoardMenu = !this.isBoardMenu;
     },
     selectBoard(boardId) {
-      console.log("boardId", boardId);
       this.currBoard = boardId;
       this.$router.push("/board/" + boardId);
-      console.log("this.currBoard", this.currBoard);
     },
   },
 };
