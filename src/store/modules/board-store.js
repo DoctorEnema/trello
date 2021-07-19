@@ -143,6 +143,10 @@ export const boardStore = {
                 socketService.on('addCard', ({groupId, card}) => {
                     context.commit({ type: 'addCard', groupId, card })
                 })
+                // socketService.off('addCard')
+                // socketService.on('addCard', ({groupId, card}) => {
+                //     context.commit({ type: 'addCard', groupId, card })
+                // })
                 return board
             } catch (err) {
                 console.log('Cannot load board', err);
@@ -167,6 +171,8 @@ export const boardStore = {
                 board.activities.unshift(activity)
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
+                const savedBoard = board
+                socketService.emit('boardUpdated', savedBoard)
                 return board
             } catch (err) {
                 console.log('cannot update board', err);
