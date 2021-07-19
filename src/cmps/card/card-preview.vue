@@ -35,7 +35,7 @@
         <div v-if="isAttachments" class="card-preview-attachments">
           {{ card.attachments.length }}
         </div>
-        <div v-if="isChecklists" class="card-preview-checklists">
+        <div :class="{'checklist-done': isChecklistDone}" v-if="isChecklists" class="card-preview-checklists">
           {{ completedTodos }}/{{ numberOfTodos }}
         </div>
       </div>
@@ -72,11 +72,6 @@ export default {
     },
     openCard(groupId, cardId) {
       this.$router.push(`/board/${this.selectedBoard._id}/${groupId}/${cardId}`);
-    },
-    toggleDate() {
-      this.currentCard.dueDate.isComplete =
-        !this.currentCard.dueDate.isComplete;
-      console.log(this.currentCard.dueDate.isComplete);
     },
     changeComplete() {
       this.currentCard.dueDate.isComplete =
@@ -138,7 +133,7 @@ export default {
       else return true;
     },
     isChecklistDone(){
-      if(this.numberOfTodos === this.completedTodos) return true
+      if(this.numberOfTodos === this.completedTodos) return 'true'
     },
     date() {
       let time = new Date(this.card.dueDate.date);
@@ -156,7 +151,7 @@ export default {
         "Nov",
         "Dec",
       ];
-      let day = time.getDay();
+      let day = time.getDate();
       return `${shortMonths[time.getMonth()]} ${day}`;
     },
     boardLabels() {

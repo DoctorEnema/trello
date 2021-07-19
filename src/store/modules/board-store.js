@@ -151,12 +151,14 @@ export const boardStore = {
             }
         },
         async updateActivities(context, {activity}) {
+            console.log("activity", activity)
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                console.log("board", board)
                 if(!board.activities) board.activities = []
                 board.activities.unshift(activity)
                 await boardService.saveBoard(board)
-                context.commit({ type: 'setBoard', board: board })
+                context.commit({ type: 'setBoard', board })
                 return board
             } catch (err) {
                 console.log('cannot update board', err);
