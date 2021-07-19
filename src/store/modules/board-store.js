@@ -77,6 +77,11 @@ export const boardStore = {
                 const { card, group } = await boardService.getCardById(cardId, groupId, boardId)
                 context.commit({ type: 'setCard', card })
                 context.commit({ type: 'setGroup', group })
+                socketService.off('updateCard')
+                socketService.on('updateCard', cardToUpdate => {
+                    console.log('updating card');
+                    context.commit({ type: 'setCard', card: cardToUpdate })
+                })
                 return card
             } catch (err) {
                 console.log('Cannot load board', err);
@@ -86,6 +91,16 @@ export const boardStore = {
             try {
                 const board = await boardService.getById(boardId)
                 context.commit({ type: 'setBoard', board })
+                // socketService.off('updateBoard')
+                // socketService.on('updateBoard', boardToUpdate => {
+                //     console.log('updating board');
+                //     context.commit({ type: 'setBoard', boardToUpdate })
+                // })
+                // socketService.off('addGroup')
+                // socketService.on('addGroup', groupToAdd => {
+                //     console.log(groupToAdd);
+                //     context.commit({ type: 'addGroup', groupToAdd })
+                // })
                 return board
             } catch (err) {
                 console.log('Cannot load board', err);
@@ -95,6 +110,7 @@ export const boardStore = {
             try {
                 const savedBoard = await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board: savedBoard })
+                socketService.emit('boardUpdated', savedBoard)
                 return board
             } catch (err) {
                 console.log('cannot update board', err);
@@ -162,6 +178,7 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.addGroup(board, group)
                 context.commit({ type: 'addGroup', group })
+                // socketService.emit('groupAdded', group)
             } catch (err) {
                 console.log('Cannot add group', err);
             }
@@ -200,11 +217,7 @@ export const boardStore = {
                 await boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
                 context.commit({ type: 'setCard', card: cardCopy })
-                socketService.off('updateCard')
-                socketService.on('updateCard', card => {
-                    context.commit({ type: 'setCard', card: cardCopy })
-                })
-
+                socketService.emit('cardUpdated', cardCopy)
             } catch (err) {
                 console.log('Cant add card', err);
             }

@@ -25,14 +25,25 @@ function connectSockets(http, session) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null
             }
         })
-        socket.on('chat topic', topic => {
+        socket.on('card topic', topic => {
             if (socket.myTopic === topic) return;
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
             }
             socket.join(topic) 
+            console.log('joined card', topic);
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
+        })
+        socket.on('board topic', topic => {
+            if (socket.boardTopic === topic) return;
+            if (socket.boardTopic) {
+                socket.leave(socket.boardTopic)
+            }
+            socket.join(topic) 
+            console.log('joined board', topic);
+            // logger.debug('Session ID is', socket.handshake.sessionID)
+            socket.boardTopic = topic
         })
         socket.on('chat newMsg', msg => {
             console.log('socket-service newMsg called');
@@ -49,7 +60,19 @@ function connectSockets(http, session) {
             // socket.broadcast.emit('chat typing', data)
             socket.to(socket.myTopic).emit('chat typing', data)
         })
+        socket.on('cardUpdated', data => {
+            socket.to(socket.myTopic).emit('updateCard', data)
+        })
+        // socket.on('groupAdded', data => {
+        //     socket.broadcast.emit('addGroup', data)
 
+        //     // socket.to(socket.boardTopic).emit('addGroup', data)
+        // })
+        // socket.on('boardUpdated', data => {
+        //     // socket.broadcast.emit('updateBoard', data)
+
+        //     socket.to(socket.boardTopic).emit('updateBoard', data)
+        // })
     })
 }
 

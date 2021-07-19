@@ -190,6 +190,7 @@ import showTime from "../cmps/card/show-time.vue";
 import { boardService } from "../services/board-service";
 import { userService } from "../services/user-service";
 import { utilService } from "../services/util-service";
+import { socketService } from '../services/socket-service.js';
 
 export default {
   components: {
@@ -220,6 +221,7 @@ export default {
     const { cardId, groupId, boardId } = this.$route.params;
     this.boardId = boardId;
     this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
+    socketService.emit("card topic", cardId);
   },
   destroyed(){
       // this.$store.dispatch({
@@ -253,6 +255,7 @@ export default {
     isMembers() {
       if (!this.card.members || !this.card.members.length) return false;
       return true;
+      
     },
     isMemberIn() {
       if (!this.card.members) this.card.members = [];

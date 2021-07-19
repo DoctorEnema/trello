@@ -60,6 +60,12 @@ export default {
     group: Object,
     hardcodedBoardId: String
   },
+  created() {
+    // socketService.on()
+  },
+  destroyed() {
+
+  },
   methods: {
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
