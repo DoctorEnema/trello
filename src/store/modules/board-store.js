@@ -129,8 +129,11 @@ export const boardStore = {
                 })
                 socketService.off('addGroup')
                 socketService.on('addGroup', group => {
-                    // console.log(groupToAdd);
                     context.commit({ type: 'addGroup', group })
+                })
+                socketService.off('removeGroup')
+                socketService.on('removeGroup', groupId => {
+                    context.commit({ type: 'removeGroup', groupId })
                 })
                 return board
             } catch (err) {
@@ -200,6 +203,7 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 await boardService.removeGroup(board, groupId)
                 context.commit({ type: 'removeGroup', groupId })
+                socketService.emit('groupRemoved', groupId)
             } catch (err) {
                 console.log('Cannot delete group', err);
             }
@@ -228,6 +232,7 @@ export const boardStore = {
             try {
                 await boardService.removeCard(board, group, cardId)
                 context.commit({ type: 'removeCard', group, cardId })
+                socketService.emit('cardRemoved', group, cardId)
             } catch (err) {
                 console.log('Cant remove card', err);
             }
@@ -240,7 +245,7 @@ export const boardStore = {
                 console.log('Cant add card', err);
             }
         },
-        async updateCard(context, {board, group, card }) {
+        async updateCard(context, {group, card }) {
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))

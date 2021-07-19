@@ -45,21 +45,21 @@ function connectSockets(http, session) {
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.boardTopic = topic
         })
-        socket.on('chat newMsg', msg => {
-            console.log('socket-service newMsg called');
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
-            gIo.to(socket.myTopic).emit('chat addMsg', msg)
-        })
+        // socket.on('chat newMsg', msg => {
+        //     console.log('socket-service newMsg called');
+        //     // emits to all sockets:
+        //     // gIo.emit('chat addMsg', msg)
+        //     // emits only to sockets in the same room
+        //     gIo.to(socket.myTopic).emit('chat addMsg', msg)
+        // })
         socket.on('user-watch', userId => {
             socket.join(userId)
         })
-        socket.on('typing', data => {
-            // console.log(data);
-            // socket.broadcast.emit('chat typing', data)
-            socket.to(socket.myTopic).emit('chat typing', data)
-        })
+        // socket.on('typing', data => {
+        //     // console.log(data);
+        //     // socket.broadcast.emit('chat typing', data)
+        //     socket.to(socket.myTopic).emit('chat typing', data)
+        // })
         socket.on('cardUpdated', data => {
             socket.to(socket.myTopic).emit('updateCard', data)
         })
@@ -69,9 +69,10 @@ function connectSockets(http, session) {
             socket.to(socket.boardTopic).emit('addGroup', data)
         })
         socket.on('boardUpdated', data => {
-            // socket.broadcast.emit('updateBoard', data)
-
             socket.to(socket.boardTopic).emit('updateBoard', data)
+        })
+        socket.on('groupRemoved', data => {
+            socket.to(socket.boardTopic).emit('removeGroup', data)
         })
     })
 }
