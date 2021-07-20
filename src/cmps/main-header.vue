@@ -24,10 +24,11 @@
       <div class="header-right">
         <button class="to-create-board"></button>
         <button class="to-info"></button>
-        <button class="to-notifications"></button>
+        <button @click="openNotifModal" class="to-notifications"></button>
         <button class="to-user">User</button>
       </div>
     </div>
+    <notifications v-if="isNotifOpen"></notifications>
     <board-menu
       @selectBoard="selectBoard"
       @toggleMenu="toggleMenu"
@@ -38,15 +39,18 @@
 
 <script>
 import boardMenu from "../cmps/board/board-menu.vue";
+import notifications from "./notifications.vue";
 export default {
   components: {
     boardMenu,
+    notifications
   },
   data() {
     return {
       search: "",
       isBoardMenu: false,
       currBoard: "60f42b03d2f67fa6bfa0f528",
+      isNotifOpen: false,
     };
   },
   methods: {
@@ -57,6 +61,9 @@ export default {
       this.currBoard = boardId;
       this.$router.push("/board/" + boardId);
     },
+    openNotifModal() {
+      this.isNotifOpen = !this.isNotifOpen
+    }
   },
 };
 </script>

@@ -75,7 +75,7 @@ function connectSockets(http, session) {
             socket.to(socket.boardTopic).emit('addCard', data)
         })
         socket.on('notifyMember', ({fullActivity, userId}) => {
-            console.log('data', fullActivity, userId);
+            // console.log('data', fullActivity, userId);
             socket.to(userId).emit('notifyMemberActivity', fullActivity)
             // emitToUser('notifyMemberActivity', fullActivity, userId)
             console.log('watched user notified');
@@ -91,7 +91,7 @@ function emitToAll({ type, data, room = null }) {
 
 // TODO: Need to test emitToUser feature
 function emitToUser({ type, data, userId }) {
-    socket.to(userId).emit(type, data)
+    gIo.to(userId).emit(type, data)
 }
 
 // Send to all sockets BUT not the current socket 

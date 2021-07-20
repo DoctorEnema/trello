@@ -271,7 +271,9 @@ export default {
     users() {
       return this.$store.getters.users;
     },
-
+    user() {
+      return this.$store.getters.user;
+    },
     showTime() {
       var actionLogged = this.act.at;
       var now = Date.now();
@@ -289,7 +291,10 @@ export default {
       if (!this.card?.members.length) return
       this.card.members.forEach(member => {
         const data = {fullActivity, userId: member._id}
+        if (this.loggedinUser._id !== member._id){
+        this.$store.dispatch({type: 'updateUserNotifications', data})
         socketService.emit('notifyMember', data)
+        }
       })
     },
     stop() {
@@ -322,8 +327,9 @@ export default {
       await this.updateCard();
     },
     async setActivity(activity, comment) {
+      const {_id, fullname, imgUrl} = this.loggedinUser
       const fullActivity = {
-        byMember: this.loggedinUser,
+        byMember: {_id, fullname, imgUrl},
         creatAt: Date.now(),
         id: utilService.makeId(),
         card:{id:this.card.id, title:this.card.title},

@@ -8,12 +8,13 @@ export const userStore = {
     state: {
         loggedinUser: userService.getLoggedinUser(),
         users: [],
-        watchedUser: null
+        watchedUser: null,
     },
     getters: {
         users({ users }) { return users },
         loggedinUser({ loggedinUser }) { return loggedinUser },
-        watchedUser({ watchedUser }) { return watchedUser }
+        watchedUser({ watchedUser }) { return watchedUser },
+        user({ user }) { return user }
     },
     mutations: {
         setLoggedinUser(state, { user }) {
@@ -28,9 +29,15 @@ export const userStore = {
         setUsers(state, { users }) {
             state.users = users;
         },
+        setUser(state, { user }) {
+            state.users = user;
+        },
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
+        setNotification(state, {activity}) {
+            state.loggedinUser.notifications.unshift(activity);
+        }
     },
     actions: {
         async login({ commit }, { userCred }) {
@@ -89,14 +96,12 @@ export const userStore = {
         
         async loadUserCardWatch({ commit }, { userId }) {
             try {
-                console.log(userId);
                 const user = await userService.getById(userId);
-                commit({ type: 'setWatchedUser', user })
+                commit({ type: 'setUser', user })
                 socketService.emit("user-watch", userId);
                 socketService.off('notifyMemberActivity')
                 socketService.on('notifyMemberActivity', activity => {
-                    // commit({ type: 'setWatchedUser', user })
-                    console.log(activity);
+                    commit({ type: 'setNotification', activity })
                 })
             } catch (err) {
                 console.log('userStore: Error in loadAndWatchUser', err)
@@ -115,8 +120,17 @@ export const userStore = {
         },
         async updateUser({ commit }, { user }) {
             try {
-                user = await userService.update(user);
-                commit({ type: 'setUser', user })
+                const user = await userService.update(user);
+                // commit({ type: 'setUser', user })
+            } catch (err) {
+                console.log('userStore: Error in updateUser', err)
+                throw err
+            }
+        },
+        async updateUserNotifications({ commit }, { data }) {
+            try {
+                // const user = await userService.getById(data.userId)
+                await userService.updateUserNotifications(data)
             } catch (err) {
                 console.log('userStore: Error in updateUser', err)
                 throw err

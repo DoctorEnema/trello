@@ -7,41 +7,41 @@ import { httpService } from '../services/http-service'
 
 const usersJson = [
     {
-    "_id": "u105",
-    "fullname": "Liran Barzilay",
-    "username": "abi@ababmi.com",
-    "password": "aBambi123",
-    "imgUrl": "https://ca.slack-edge.com/T01RYA29LLB-U01SE0KL7RQ-c4725a6539f2-72",
-    "mentions": [{
-        "id": "m101",
-        "userId": "m101",
-        "taskId": "t101"
-    }]
-},
+        "_id": "u105",
+        "fullname": "Liran Barzilay",
+        "username": "abi@ababmi.com",
+        "password": "aBambi123",
+        "imgUrl": "https://ca.slack-edge.com/T01RYA29LLB-U01SE0KL7RQ-c4725a6539f2-72",
+        "mentions": [{
+            "id": "m101",
+            "userId": "m101",
+            "taskId": "t101"
+        }]
+    },
     {
-    "_id": "u106",
-    "fullname": "Meidan Yona",
-    "username": "Mosh@Mosh.com",
-    "password": "mosh123",
-    "imgUrl": "https://trello-members.s3.amazonaws.com/60e75346a139822337c8c5ad/da3326afdf656a4aed9ae1f46db124b3/original.png",
-    "mentions": [{
-        "id": "m102",
-        "userId": "m102",
-        "taskId": "t102"
-    }]
-},
+        "_id": "u106",
+        "fullname": "Meidan Yona",
+        "username": "Mosh@Mosh.com",
+        "password": "mosh123",
+        "imgUrl": "https://trello-members.s3.amazonaws.com/60e75346a139822337c8c5ad/da3326afdf656a4aed9ae1f46db124b3/original.png",
+        "mentions": [{
+            "id": "m102",
+            "userId": "m102",
+            "taskId": "t102"
+        }]
+    },
     {
-    "_id": "u107",
-    "fullname": "Sahar Davidyan",
-    "username": "Mosh@Mosh.com",
-    "password": "mosh123",
-    "imgUrl": "https://trello-members.s3.amazonaws.com/5e5ad6ca4e7adc4a3b8cf9db/1480e469745bf6bac3f0b7ab6013f318/original.png",
-    "mentions": [{
-        "id": "m102",
-        "userId": "m102",
-        "taskId": "t102"
-    }]
-},
+        "_id": "u107",
+        "fullname": "Sahar Davidyan",
+        "username": "Mosh@Mosh.com",
+        "password": "mosh123",
+        "imgUrl": "https://trello-members.s3.amazonaws.com/5e5ad6ca4e7adc4a3b8cf9db/1480e469745bf6bac3f0b7ab6013f318/original.png",
+        "mentions": [{
+            "id": "m102",
+            "userId": "m102",
+            "taskId": "t102"
+        }]
+    },
 ]
 
 
@@ -59,7 +59,7 @@ export const userService = {
     remove,
     update,
     getLoggedinUser,
-    
+    updateUserNotifications
 }
 
 // window.userService = userService
@@ -112,9 +112,10 @@ function remove(userId) {
 
 async function update(user) {
     // return storageService.put('user', user)
-    user = await httpService.put(`user/${user._id}`, user)
+    return await httpService.put(`user/${user._id}`, user)
     // Handle case in which admin updates other user's details
     if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
+    // else return savedUser
 }
 
 
@@ -127,3 +128,16 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem('loggedinUser') || 'null')
 }
 
+async function updateUserNotifications(data) {
+    try {
+        const user = await getById(data.userId)
+        console.log(user, 'user');
+        if (!user.notifications) user.notifications = []
+        user.notifications.unshift(data.fullActivity)
+        const savedUser = await update(user)
+        return savedUser
+        // console.log(savedUser);
+    } catch (err) {
+        console.log('cannot update notification', err);
+    }
+}
