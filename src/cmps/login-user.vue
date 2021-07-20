@@ -18,6 +18,11 @@
           v-model="signupCred.username"
         />
         <input
+          type="email"
+          placeholder="Email"
+          v-model="signupCred.email"
+        />
+        <input
           type="text"
           placeholder="password"
           v-model="signupCred.password"
@@ -59,9 +64,10 @@ export default {
         mentions: [{}],
       },
       signupCred: {
-        username: "Shimi@balili.com",
+        username: "Shimi balili",
         password: "1234",
         fullname: "shimi balili",
+        email:"Shimi@balili.com",
         imgUrl: "",
         mentions: [{}],
       }

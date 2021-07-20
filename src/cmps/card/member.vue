@@ -3,9 +3,10 @@
     <div class="members" v-for="member in card.members" :key="member.id">
       <button @click="removeMember(member)">
         <img v-if="member.imgUrl" :src="member.imgUrl" />
-        <div v-else class="to-user member-user">
+        <div v-else-if="member.fullname" class="to-user member-user">
           {{ member.fullname.charAt(0) }}
         </div>
+        <div v-else>?</div>
       </button>
     </div>
     <button

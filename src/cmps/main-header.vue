@@ -6,7 +6,7 @@
         <!-- <router-link class="to-boards" :to="'/board/'+currBoard"> Boards</router-link> -->
 
         <!-- <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link> -->
-        <button @click="toggleMenu" class="to-boards">Boards</button>
+        <button @click="toggleMenu" class="to-boards"> Boards</button>
         <div class="search">
           <input
             v-model="search"
@@ -29,7 +29,11 @@
           class="to-notifications"
           :class="isNewNotifications"
         ></button>
-        <button class="to-user">User</button>
+        <button class="header-user">
+        <img v-if="loggedinUser.imgUrl"  :src="loggedinUser.imgUrl">
+        <div v-else-if="loggedinUser.fullname" class="to-user" >{{loggedinUser.fullname.charAt(0)}}</div>
+        <div v-else>?</div>
+        </button>
       </div>
     </div>
     <notifications

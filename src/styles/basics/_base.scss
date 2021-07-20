@@ -55,14 +55,16 @@ textarea{
 }
 
 .to-user{
-    padding-left: 10px;
-    color: transparent;
-    border-radius: 50%;
+    text-align: center;
     background-color: $clr3;
-    font-weight: 600;
-    &::first-letter{
-        text-transform: uppercase;
-        color: $clr2;
-    }
+    border-radius: 50%;
+    padding-top: 4px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    cursor: default;
 }
 

@@ -38,7 +38,7 @@ async function addBoard(req, res) {
         console.log('trying to add');
         const board = req.body
         await boardService.add(board)
-        res.send({ msg: 'Added successfully' })
+        res.send(board)
     } catch (err) {
         logger.error('Failed to add board', err)
         res.status(500).send({ err: 'Failed to add board' })

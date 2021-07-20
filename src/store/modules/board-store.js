@@ -101,7 +101,9 @@ export const boardStore = {
         },
         async addBoard(context, { board }) {
             try {
-                await boardService.saveBoard(board)
+                const newBoard =  await boardService.saveBoard(board)
+                console.log("newBoard", newBoard)
+                this.$router.push("/board/" + newBoard._id);
                 // context.commit({ type: 'setCard', card })
                 // context.commit({ type: 'setGroup', group })
                 // return card

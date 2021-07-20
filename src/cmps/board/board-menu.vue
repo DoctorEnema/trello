@@ -79,9 +79,9 @@ export default {
     },
     async removeBoard(boardId){
       if('60f42b03d2f67fa6bfa0f528'===boardId) return
+      this.$router.push("/board");
       await this.$store.dispatch({ type: "removeBoards", boardId });
       await this.$store.dispatch({ type: "loadBoards" });
-    console.log("boardId", boardId)
 
     },
     async createBoard(title, imgUrl) {

@@ -21,9 +21,10 @@
               v-if="activity.byMember.imgUrl"
               :src="activity.byMember.imgUrl"
             />
-            <div v-else class="to-user activity-user">
+            <div v-else-if="activity.byMember.fullname" class="to-user activity-user">
               {{ activity.byMember.fullname.charAt(0) }}
             </div>
+            <div v-else>?</div>
           </div>
           <span class="member-name">{{ activity.byMember.fullname }}</span>
           <span><span> </span> {{ activity.txt }}</span>
