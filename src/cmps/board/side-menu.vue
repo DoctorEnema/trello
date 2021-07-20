@@ -32,7 +32,7 @@
                   :src="activity.byMember.imgUrl"
                 />
                 <div v-else class="to-user side-menu-user">
-                  {{ activity.byMember.fullname }}
+                  {{ activity.byMember.fullname.charAt(0) }}
                 </div>
               </div>
               <span class="member-name">{{ activity.byMember.fullname }}</span>

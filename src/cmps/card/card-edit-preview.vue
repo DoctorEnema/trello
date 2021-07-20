@@ -51,7 +51,7 @@
             :key="member._id"
           >
             <img v-if="member.imgUrl" :src="member.imgUrl" />
-            <span v-else>{{ member.fullname }}</span>
+            <span v-else>{{ member.fullnam.charAt(0) }}</span>
           </button>
         </div>
       </div>
