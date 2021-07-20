@@ -67,6 +67,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     isNewNotifications() {
+      if (!this.loggedinUser || !this.loggedinUser.notifications) return false
       var isRead = false;
       if (this.isNotifOpen) return isRead
       isRead = this.loggedinUser.notifications.some(n=> !n.isRead)
