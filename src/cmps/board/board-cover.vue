@@ -1,37 +1,33 @@
 <template>
   <div v-if="isModalOpen" class="">
-    <div class="">
-      <div class="board-cover">
-        <button @click="closeModal">X</button>
-        <button @click="backModal">back</button>
-        <button @click="colorModal">Colors</button>
-        <button @click="photoModal">Photos</button>
-      </div>
-      <form v-if="isColors" @submit.prevent="setCoverColor()">
-        <!-- <label for="name">colors</label> -->
-        <h3>Colors</h3>
-        <ul class="cover-colors">
-          <li
-            class="card-cover-color"
-            v-for="(label, idx) in editCovers"
-            :key="idx"
-            :style="'background-color:' + label"
-            @click="boardCoverColor(label)"
-          >
-            <span class="icon"></span>
-          </li>
-        </ul>
-      </form>
-      <div v-if="isPhotos" class="cover-unsplash">
-      <h3>Unsplash</h3>
-        <button
-          v-for="(cover, idx) in boardCovers"
+    <div class="board-cover">
+      <button @click="colorModal">Colors</button>
+      <button @click="photoModal">Photos</button>
+    </div>
+    <form v-if="isColors" @submit.prevent="setCoverColor()">
+      <!-- <label for="name">colors</label> -->
+      <h3>Colors</h3>
+      <ul class="cover-colors">
+        <li
+          class="card-cover-color"
+          v-for="(label, idx) in editCovers"
           :key="idx"
-          @click="boardCoverImage(cover)"
+          :style="'background-color:' + label"
+          @click="boardCoverColor(label)"
         >
-          <img class="cover-img" :src="cover.imgUrl" alt="" />
-        </button>
-      </div>
+          <span class="icon"></span>
+        </li>
+      </ul>
+    </form>
+    <div v-if="isPhotos" class="cover-unsplash">
+      <h3>Unsplash</h3>
+      <button
+        v-for="(cover, idx) in boardCovers"
+        :key="idx"
+        @click="boardCoverImage(cover)"
+      >
+        <img class="cover-img" :src="cover.imgUrl" alt="" />
+      </button>
     </div>
   </div>
 </template>

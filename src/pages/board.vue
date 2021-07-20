@@ -85,7 +85,7 @@ import { boardService } from "../services/board-service.js";
 import group from "../cmps/group/group.vue";
 import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
-import sideMenu from "../cmps/card/side-menu.vue";
+import sideMenu from "../cmps/board/side-menu.vue";
 export default {
   components: {
     group,

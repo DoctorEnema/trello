@@ -1,9 +1,65 @@
-.side-menu{
-    z-index: 5;
+.side-menu {
+    z-index: 1;
     position: absolute;
     right: 0;
-    top: 0;
-    width: 300px;
+    top: 40px;
+    width: 340px;
     height: 100vh;
-    background-color: lightgrey;
+    background-color: $clr4;
+    padding: 8px;
+    color: $clr1;
+    border-radius: 3px;
+
+
+
+    hr {
+        margin: 0;
+        filter: brightness(250%);
+        width: 100%;
+    }
+}
+
+.side-menu-header{
+   position: relative;
+   h3 {
+    color: $clr1;
+    padding-top: 6px;
+}
+   button{
+       padding: 0;
+       font-size: 18px;
+       &:hover{
+           background-color: unset;
+       }
+   }
+}
+
+.side-menu-content{
+    height: 90%;
+    overflow-y: auto;
+    button{
+        width: 100%;
+        background-color: unset;
+        color: $clr1;
+    }
+}
+
+.side-menu-back{
+    text-decoration: none;
+    color: $clr2;
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    padding: 6px;
+    padding-inline-start: 12px;
+    left: 0;
+    top: 0;
+    &::before{
+        font-family: fontAwesome, sans serif;
+        content:'\f053'
+    }
+    &:hover{
+        cursor: pointer;
+        color: $clr1;
+    }
 }
