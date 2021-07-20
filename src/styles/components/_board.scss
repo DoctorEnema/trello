@@ -4,7 +4,6 @@
     .groups {
         // height: fit-content;
         display: flex;
-        gap: 0.2rem;
     }
 }
 
@@ -15,10 +14,9 @@
 .board-header {
     display: flex;
     justify-content: space-between;
-    margin: 6px 2px;
+    padding: 8px;
     color: white;
     h2 {
-        padding-top: 3px;
         font-weight: 600;
     }
     button {
@@ -26,18 +24,24 @@
         background-color: rgba($color: #ffffff, $alpha: 0.3);
         min-width: 32px;
         height: 32px;
-        margin: 6px 4px;
+        margin-inline-end: 4px;
         border-radius: 3px;
         border: none;
-        padding: 6px 8px;
+        padding: 0 8px;
         &:hover {
             background-color: rgba($color: #000000, $alpha: 0.2);
         }
+        &:last-of-type{
+            margin: 0;
+        }
     }
-    .board-members {
+    .board-members{
+        margin-inline-end: 8px;
+    }
+    .board-member-header {
+        margin: 0;
         position: relative;
         overflow: hidden;
-        margin: 6px 0;
         max-width: 32px;
         color: transparent;
         border-radius: 50%;
@@ -94,13 +98,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #bfc4ce;
-    border-radius: 20px;
+    background: rgba($color: $clr3, $alpha: 0.4);
+    border-radius: 4px;
 }
 
 .board-content {
     display: flex;
-    gap: 0.2rem;
     overflow-x: auto;
 }
 
@@ -139,7 +142,7 @@
     color: white;
     border: none;
     border-radius: 3px;
-    margin: 0 6px;
+    margin: 8px;
     background-color: #ebecf0;
     input[type="text"] {
         padding-inline-start: 12px;

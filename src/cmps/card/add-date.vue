@@ -1,5 +1,5 @@
 <template>
-  <section class="add-to-card">
+  <section class="add-to-card add-date">
     <div class="add-card-header">
       <button @click="closeModal"></button>
       <h3>Dates</h3>

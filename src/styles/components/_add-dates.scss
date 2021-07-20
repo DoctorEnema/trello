@@ -2,6 +2,10 @@
     width: 300px;
 }
 
+.add-date{
+    padding: 12px;
+}
+
 .add-to-card {
     .el-date-editor {
         width: 100%;
@@ -14,10 +18,13 @@
     }
 }
 
+.el-picker-panel{
+    left: 602px!important
+}
 .remove-date{
     @include control-btn;
-    width: 95%;
-    margin: 0 2.5%;
+    width: 100%;
+    margin-bottom: 8px;
 }
 
 button.el-button:nth-child(1) {
@@ -28,3 +35,4 @@ button.el-button:nth-child(1) {
 .el-picker-panel__content {
     margin: 0;
 }
+

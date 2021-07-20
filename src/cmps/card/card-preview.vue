@@ -19,35 +19,41 @@
         </div>
       </div>
       <div class="card-preview-title">{{ card.title }}</div>
-      <div class="card-preview-badges">
-        <div
-          @click.stop="changeComplete()"
-          v-if="card.dueDate"
-          :class="{ 'date-done': card.dueDate.isComplete }"
-          class="card-preview-date"
-        >
-          {{ date }}
+      <div class="card-preview-bottom">
+        <div class="card-preview-badges">
+          <div
+            @click.stop="changeComplete()"
+            v-if="card.dueDate"
+            :class="{ 'date-done': card.dueDate.isComplete }"
+            class="card-preview-date"
+          >
+            {{ date }}
+          </div>
+          <div v-if="card.description" class="card-preview-desc"></div>
+          <div v-if="card.comments" class="card-preview-comments">
+            {{ card.comments.length }}
+          </div>
+          <div v-if="isAttachments" class="card-preview-attachments">
+            {{ card.attachments.length }}
+          </div>
+          <div
+            :class="{ 'checklist-done': isChecklistDone }"
+            v-if="isChecklists"
+            class="card-preview-checklists"
+          >
+            {{ completedTodos }}/{{ numberOfTodos }}
+          </div>
         </div>
-        <div v-if="card.description" class="card-preview-desc"></div>
-        <div v-if="card.comments" class="card-preview-comments">
-          {{ card.comments.length }}
+        <div class="card-preview-members">
+          <button
+            class="card-preview-member"
+            v-for="member in card.members"
+            :key="member._id"
+          >
+            <img v-if="member.imgUrl" :src="member.imgUrl" />
+            <span v-else>{{ member.fullname }}</span>
+          </button>
         </div>
-        <div v-if="isAttachments" class="card-preview-attachments">
-          {{ card.attachments.length }}
-        </div>
-        <div :class="{'checklist-done': isChecklistDone}" v-if="isChecklists" class="card-preview-checklists">
-          {{ completedTodos }}/{{ numberOfTodos }}
-        </div>
-      </div>
-      <div class="card-preview-members">
-        <button
-          class="card-preview-member"
-          v-for="member in card.members"
-          :key="member._id"
-        >
-          <img v-if="member.imgUrl" :src="member.imgUrl" />
-          <span v-else>{{ member.fullname }}</span>
-        </button>
       </div>
     </div>
   </section>
@@ -58,20 +64,20 @@ export default {
   props: {
     card: Object,
     group: Object,
-    hardcodedBoardId: String
+    hardcodedBoardId: String,
   },
   created() {
     // socketService.on()
   },
-  destroyed() {
-
-  },
+  destroyed() {},
   methods: {
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
     },
     openCard(groupId, cardId) {
-      this.$router.push(`/board/${this.selectedBoard._id}/${groupId}/${cardId}`);
+      this.$router.push(
+        `/board/${this.selectedBoard._id}/${groupId}/${cardId}`
+      );
     },
     changeComplete() {
       this.currentCard.dueDate.isComplete =
@@ -84,7 +90,7 @@ export default {
     },
   },
   computed: {
-    selectedBoard(){
+    selectedBoard() {
       return this.$store.getters.selectedBoard;
     },
     currentGroup() {
@@ -132,8 +138,8 @@ export default {
         return false;
       else return true;
     },
-    isChecklistDone(){
-      if(this.numberOfTodos === this.completedTodos) return 'true'
+    isChecklistDone() {
+      if (this.numberOfTodos === this.completedTodos) return "true";
     },
     date() {
       let time = new Date(this.card.dueDate.date);

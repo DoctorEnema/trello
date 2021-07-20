@@ -88,6 +88,17 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
+        async removeBoards(context,{boardId}) {
+            try {
+                const boards = await boardService.remove(boardId)
+                console.log('remove');
+                context.commit({ type: 'setBoards', boards })
+                // context.commit({ type: 'setGroup', group })
+                // return card
+            } catch (err) {
+                console.log('Cannot load board', err);
+            }
+        },
         async addBoard(context, { board }) {
             try {
                 await boardService.saveBoard(board)

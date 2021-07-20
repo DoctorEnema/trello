@@ -28,16 +28,21 @@
     .card-preview-members {
         display: flex;
         justify-content: flex-end;
+        flex: 1;
     }
 
     .card-preview-member {
         position: relative;
         overflow: hidden;
-        margin: 6px 2px;
+        margin: 0 2px;
         width: 32px;
         height: 32px;
+        background-color: $clr3;
         color: transparent;
         border-radius: 50%;
+        span{
+            margin-left: 6.5px;
+        }
         img {
             right: 0px;
             top: 0;
@@ -50,9 +55,16 @@
             color: black;
         }
         &:hover {
-            filter: brightness(120%);
+            filter: brightness(80%);
         }
     }
+}
+
+.card-preview-bottom{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom:6px ;
 }
 
 .card-preview-title {
@@ -65,7 +77,6 @@
     align-items: center;
     color: $clr2;
     gap: 10px;
-    margin-bottom: 6px;
 }
 
 .edit-card-preview {

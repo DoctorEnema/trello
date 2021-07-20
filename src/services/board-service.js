@@ -60,7 +60,8 @@ async function query() {
 //     return storageService.remove(BOARD_KEY, boardId)
 // }
 function remove(boardId) {
-    return httpService.remove(`board/${boardId}`)
+    console.log("boardId", boardId)
+    return httpService.delete(`board/${boardId}`)
 }
 
 function getById(boardId) {

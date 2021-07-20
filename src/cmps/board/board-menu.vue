@@ -19,8 +19,8 @@
         :style="{ backgroundImage: 'url(' + board.style.backgroundImg + ')' }"
       >
       <div class="diffuser">{{ board.title }}</div>
-      <img :src="board.style.backgroundImg">
-        
+      <img v-if="board.style.backgroundImg" :src="board.style.backgroundImg">
+        <button v-if="'60f42b03d2f67fa6bfa0f528'!==board._id" @click.stop="removeBoard(board._id)" class="board-remove">X</button>
       </button>
     </div>
       <a href="#" @click="toggleCreateBoard">Create new board...</a>
@@ -73,8 +73,16 @@ export default {
       this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
+      if(this.selectedBoard && boardId === this.selectedBoard._id) return
       await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
+    },
+    async removeBoard(boardId){
+      if('60f42b03d2f67fa6bfa0f528'===boardId) return
+      await this.$store.dispatch({ type: "removeBoards", boardId });
+      await this.$store.dispatch({ type: "loadBoards" });
+    console.log("boardId", boardId)
+
     },
     async createBoard(title, imgUrl) {
       const board = {
