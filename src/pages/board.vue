@@ -30,13 +30,15 @@
         </div>
         <button>Invite</button>
       </div>
-      <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
-      <side-menu
-        @boardCoverColor="boardCoverColor"
-        @boardCoverImage="boardCoverImage"
-        v-if="isSideMenu"
-        @toggleMenu="toggleMenu"
-      ></side-menu>
+      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
+      <transition name="go-side">
+        <side-menu
+          @boardCoverColor="boardCoverColor"
+          @boardCoverImage="boardCoverImage"
+          v-if="isSideMenu"
+          @toggleMenu="toggleMenu"
+        ></side-menu>
+      </transition>
     </div>
     <div class="board-content">
       <div class="groups-and-add">
@@ -181,7 +183,11 @@ export default {
     // });
     console.log(this.loggedinUser);
     socketService.emit("board topic", this.boardId);
-    if (this.loggedinUser) this.$store.dispatch({type: 'loadUserCardWatch', userId: this.loggedinUser._id})
+    if (this.loggedinUser)
+      this.$store.dispatch({
+        type: "loadUserCardWatch",
+        userId: this.loggedinUser._id,
+      });
   },
 };
 </script>
