@@ -88,7 +88,7 @@ export const boardStore = {
                 console.log('Cannot load board', err);
             }
         },
-        async removeBoards(context,{boardId}) {
+        async removeBoards(context, { boardId }) {
             try {
                 const boards = await boardService.remove(boardId)
                 console.log('remove');
@@ -186,7 +186,7 @@ export const boardStore = {
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 if (!board.members) board.members = []
-                if(board.members.some(m=> m._id === member._id)) return
+                if (board.members.some(m => m._id === member._id)) return
                 board.members.unshift(member)
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
