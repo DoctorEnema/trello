@@ -28,7 +28,14 @@
             <span v-else>{{ member.fullname }}</span>
           </button>
         </div>
-        <button>Invite</button>
+        <button @click="memberModal">Invite</button>
+        <div v-if="isMember" class="invite-member">
+          <button @click="memberModal">X</button>
+          <button v-for="user in users" :key="user._id" @click="addMember(user)" >
+            <img class="img-invite" :src="user.imgUrl" alt="">
+            {{user.fullname}}
+          </button>
+        </div>
       </div>
       <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
       <side-menu
@@ -103,6 +110,7 @@ export default {
         cards: [],
       },
       isSideMenu: false,
+      isMember:false
     };
   },
   computed: {
@@ -118,8 +126,27 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
+    users() {
+      return this.$store.getters.users;
+    },
   },
   methods: {
+   async addMember(user){
+    const member = {
+      fullname:user.fullname,
+      _id:user._id,
+      imgUrl:user.imgUrl
+    }
+    await this.$store.dispatch({
+        type: "addMember",
+        member: member,
+      });
+
+    },
+    memberModal(){
+      this.isMember=!this.isMember
+
+    },
     onDragStart() {},
     onDragEnd() {
       const board = this.board;
@@ -176,6 +203,7 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
+    this.$store.dispatch({ type: "loadUsers" });
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });

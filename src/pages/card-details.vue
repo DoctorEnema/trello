@@ -1,6 +1,6 @@
 <template>
   <div v-if="card" @click="closeCard" class="card-details-container">
-    <section v-if="card" class="card-details" @click.stop="closeModal">
+    <section  v-if="!isEditCard"  class="card-details" @click.stop="closeModal">
       <div
         v-if="card.cover"
         class="details-cover"
@@ -139,6 +139,7 @@
             Cover
           </button>
         </div>
+      </div>
         <section class="modal" v-if="openModalType" @click.stop="stop">
           <component
             :is="openModalType"
@@ -158,10 +159,58 @@
             :users="usersToShow"
           ></component>
         </section>
-      </div>
     </section>
-      <card-edit-preview :group="group"
-        :card="card" v-if="isEditCard"></card-edit-preview>
+    <div v-if="isEditCard" class="card-editor">
+      <div class="right-side">
+        <h5>ADD TO CARD</h5>
+        <button
+          class="add-member"
+          data-cmp="add-member"
+          @click.stop="setModalType"
+        >
+          Members
+        </button>
+        <button
+          class="add-label"
+          data-cmp="add-label"
+          @click.stop="setModalType"
+        >
+          Labels
+        </button>
+        <button class="add-date" data-cmp="add-date" @click.stop="setModalType">
+          Dates
+        </button>
+        
+        <button
+          v-if="!card.cover"
+          class="add-cover"
+          data-cmp="add-cover"
+          @click.stop="setModalType"
+        >
+          Cover
+        </button>
+      </div>
+       <section class="modal" v-if="openModalType" @click.stop="stop">
+          <component
+            :is="openModalType"
+            @closeModal="closeModal"
+            @addUser="addMember"
+            @linkAdded="linkAdded"
+            @addDate="addDate"
+            @createLabel="createLabel"
+            @setLabel="setLabel"
+            @listAdded="addList"
+            @setCover="setCover"
+            @removeCover="removeCover"
+            @search="setSearch"
+            @removeDate="removeDate"
+            :card="card"
+            :labels="labelsToShow"
+            :users="usersToShow"
+          ></component>
+        </section>
+      <card-edit-preview :group="group" :card="card"></card-edit-preview>
+    </div>
   </div>
 </template>
 
@@ -210,18 +259,25 @@ export default {
       boardId: null,
       searchBy: "",
       searchType: "",
-      isEditCard:false
+      isEditCard: null,
     };
   },
   async created() {
     try {
-      const { cardId, groupId, boardId } = this.$route.params;
+      const { cardId, groupId, boardId, isEditCard } = this.$route.params;
+      if(isEditCard === 'true')this.isEditCard = true;
+      else this.isEditCard=false
       this.boardId = boardId;
-      const card = await this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
+      const card = await this.$store.dispatch({
+        type: "loadCard",
+        boardId,
+        groupId,
+        cardId,
+      });
       socketService.emit("card topic", cardId);
       // this.isUserAssignedToCard()
     } catch (err) {
-      ('cannot load card', err) 
+      "cannot load card", err;
     }
     // if (this.loggedinUser) this.$store.dispatch({ type: 'turnCardWatchOn'})
   },
@@ -249,6 +305,13 @@ export default {
     isAttachments() {
       if (!this.card.attachments || !this.card.attachments.length) return false;
       return true;
+    },
+    isItEditCard(){
+      console.log("this.isEditCard", this.isEditCard)
+      console.log(this.card);
+      if((this.isEditCard===true) && (this.card===true)) {console.log('true')}
+      else console.log('false')
+      return (this.isEditCard && this.card)
     },
     isLabels() {
       if (!this.card.labelIds || !this.card.labelIds.length) return false;
@@ -290,12 +353,12 @@ export default {
     },
   },
   methods: {
-    editCard(){
-      this.isEditCard=true
+    editCard() {
+      this.isEditCard = true;
     },
     // isUserAssignedToCard() {
     //   // if(!this.loggedinUser) console.log('true');
-     
+
     //   if (!this.loggedinUser) return
     //   // console.log('asdasd');
     //   if (!this.card?.members.length) return ('no members assigned to card')
@@ -303,11 +366,11 @@ export default {
     //   const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
     //   console.log('isUserMember',isUserMember);
     emitToUsers(fullActivity) {
-      if (!this.card?.members.length) return
-      this.card.members.forEach(member => {
-        const data = {fullActivity, userId: member._id}
-        socketService.emit('notifyMember', data)
-      })
+      if (!this.card?.members.length) return;
+      this.card.members.forEach((member) => {
+        const data = { fullActivity, userId: member._id };
+        socketService.emit("notifyMember", data);
+      });
     },
     stop() {
       // Dont Delete!!
@@ -321,9 +384,9 @@ export default {
           group: this.group,
           card: this.card,
         });
-        return board
-      } catch(err) {
-        console.log('cannot update card', err);
+        return board;
+      } catch (err) {
+        console.log("cannot update card", err);
       }
     },
     async setComment(comment) {
@@ -331,7 +394,7 @@ export default {
         byMember: this.loggedinUser,
         creatAt: Date.now(),
         id: utilService.makeId(),
-        card: {id:this.card.id, title:this.card.title},
+        card: { id: this.card.id, title: this.card.title },
         txt: comment,
       };
       if (!this.card.comments) this.card.comments = [];
@@ -343,7 +406,7 @@ export default {
         byMember: this.loggedinUser,
         creatAt: Date.now(),
         id: utilService.makeId(),
-        card:{id:this.card.id, title:this.card.title},
+        card: { id: this.card.id, title: this.card.title },
         txt: activity,
       };
       this.setComment(comment);
@@ -351,7 +414,7 @@ export default {
         type: "updateActivities",
         activity: fullActivity,
       });
-        this.emitToUsers(fullActivity)
+      this.emitToUsers(fullActivity);
     },
     setDesc(desc) {
       this.card.description = desc;
@@ -490,6 +553,7 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
+      console.log("ev", ev)
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },

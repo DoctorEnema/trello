@@ -9,7 +9,7 @@
       <input v-model="searchBy" ref="searchInput" type="text" @input="search" placeholder="Search members" />
       <ul>
         <h5>BOARD MEMBERS</h5>
-        <li class="user-member" v-for="user in users" :key="user._id">
+        <li class="user-member" v-for="user in selectedBoard.members" :key="user._id">
           <button @click="addUser(user)">
             <img v-if="user.imgUrl" :src="user.imgUrl" />
             <div v-else class="to-user user-letter">{{user.fullname}}</div>
@@ -60,6 +60,9 @@ export default {
     // users() {
     //   return this.$store.getters.users;
     // },
+      selectedBoard() {
+      return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
+    },
   },
 };
 </script>

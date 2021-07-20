@@ -1,8 +1,8 @@
 <template>
-  <section @click="openCard(group.id, card.id)">
+  <section @click.stop="openCard(group.id, card.id,isEditCard=false)">
     <button
       class="edit-card-preview"
-      @click.stop="editCard()"
+      @click.stop="openCard(group.id, card.id,isEditCard=true)"
     ></button>
     <!-- <button
       class="edit-card-preview"
@@ -66,6 +66,8 @@
 <script>
 
 export default {
+  components:{
+  },
   props: {
     card: Object,
     group: Object,
@@ -81,15 +83,13 @@ export default {
   },
   destroyed() {},
   methods: {
-    editCard(){
-      this.isEditCard=true
-    },
+    
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
     },
-    openCard(groupId, cardId) {
+    openCard(groupId, cardId,isEditCard) {
       this.$router.push(
-        `/board/${this.selectedBoard._id}/${groupId}/${cardId}`
+        `/board/${this.selectedBoard._id}/${groupId}/${cardId}/${isEditCard}`
       );
     },
     changeComplete() {

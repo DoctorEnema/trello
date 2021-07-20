@@ -182,6 +182,21 @@ export const boardStore = {
                 console.log('cannot update board', err);
             }
         },
+        async addMember(context, { member }) {
+            try {
+                const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
+                if (!board.members) board.members = []
+                if(board.members.some(m=> m._id === member._id)) return
+                board.members.unshift(member)
+                await boardService.saveBoard(board)
+                context.commit({ type: 'setBoard', board })
+                const savedBoard = board
+                socketService.emit('boardUpdated', savedBoard)
+                return board
+            } catch (err) {
+                console.log('cannot update board', err);
+            }
+        },
         async updateLabel(context, { boardId, pickedLabel, action }) {
             try {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
