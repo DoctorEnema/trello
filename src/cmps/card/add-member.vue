@@ -12,7 +12,7 @@
         <li class="user-member" v-for="user in selectedBoard.members" :key="user._id">
           <button @click="addUser(user)">
             <img v-if="user.imgUrl" :src="user.imgUrl" />
-            <div v-else class="to-user user-letter">{{user.fullname}}</div>
+            <div v-else class="to-user user-letter">{{user.fullname.charAt(0)}}</div>
             {{ user.fullname }}({{ user.username }})
              <span v-if="isMemberPicked(user)" class="icon">✔</span>
           </button>

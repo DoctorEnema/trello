@@ -31,9 +31,13 @@
         <button @click="memberModal">Invite</button>
         <div v-if="isMember" class="invite-member">
           <button @click="memberModal">X</button>
-          <button v-for="user in users" :key="user._id" @click="addMember(user)" >
-            <img class="img-invite" :src="user.imgUrl" alt="">
-            {{user.fullname}}
+          <button
+            v-for="user in users"
+            :key="user._id"
+            @click="addMember(user)"
+          >
+            <img class="img-invite" :src="user.imgUrl" alt="" />
+            {{ user.fullname }}
           </button>
         </div>
       </div>
@@ -85,6 +89,7 @@
         </button>
       </div>
     </div>
+      <!-- <yuumi class="yuumi"></yuumi> -->
     <router-view></router-view>
   </section>
 </template>
@@ -95,12 +100,14 @@ import group from "../cmps/group/group.vue";
 import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/board/side-menu.vue";
+import yuumi from "../cmps/board/yuumi.vue";
 export default {
   components: {
     group,
     activities,
     sideMenu,
     draggable,
+    yuumi,
   },
   data() {
     return {
@@ -112,7 +119,7 @@ export default {
         cards: [],
       },
       isSideMenu: false,
-      isMember:false
+      isMember: false,
     };
   },
   computed: {
@@ -133,21 +140,19 @@ export default {
     },
   },
   methods: {
-   async addMember(user){
-    const member = {
-      fullname:user.fullname,
-      _id:user._id,
-      imgUrl:user.imgUrl
-    }
-    await this.$store.dispatch({
+    async addMember(user) {
+      const member = {
+        fullname: user.fullname,
+        _id: user._id,
+        imgUrl: user.imgUrl,
+      };
+      await this.$store.dispatch({
         type: "addMember",
         member: member,
       });
-
     },
-    memberModal(){
-      this.isMember=!this.isMember
-
+    memberModal() {
+      this.isMember = !this.isMember;
     },
     onDragStart() {},
     onDragEnd() {

@@ -4,7 +4,7 @@
       <button @click="removeMember(member)">
         <img v-if="member.imgUrl" :src="member.imgUrl" />
         <div v-else class="to-user member-user">
-          {{ member.fullname }}
+          {{ member.fullname.charAt(0) }}
         </div>
       </button>
     </div>
