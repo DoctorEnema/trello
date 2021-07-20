@@ -434,7 +434,7 @@ export default {
     },
     async removeCover() {
       this.card.cover = null;
-      await this.setActivity(`Remove Cover from ${this.card.title}`);
+      await this.setActivity(`Removed Cover from ${this.card.title}`);
       this.updateCard();
     },
     setLabel(labelId) {
@@ -499,7 +499,7 @@ export default {
     async removeLink(idx, attachment) {
       this.card.attachments.splice(idx, 1);
       await this.setActivity(
-        `Remove attach ${attachment.name} from ${this.card.title}`
+        `Removed attach ${attachment.name} from ${this.card.title}`
       );
       this.updateCard();
     },

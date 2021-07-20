@@ -10,17 +10,17 @@
         <input
           type="text"
           placeholder="Your full name"
-          v-model="credentials.fullname"
+          v-model="signupCred.fullname"
         />
         <input
           type="text"
           placeholder="username"
-          v-model="credentials.username"
+          v-model="signupCred.username"
         />
         <input
-          type="password"
+          type="text"
           placeholder="password"
-          v-model="credentials.password"
+          v-model="signupCred.password"
         />
         <button>Signup</button>
       </form>
@@ -32,7 +32,7 @@
           v-model="credentials.username"
         />
         <input
-          type="password"
+          type="text"
           placeholder="password"
           v-model="credentials.password"
         />
@@ -58,21 +58,28 @@ export default {
         imgUrl: "",
         mentions: [{}],
       },
+      signupCred: {
+        username: "Shimi@balili.com",
+        password: "1234",
+        fullname: "shimi balili",
+        imgUrl: "",
+        mentions: [{}],
+      }
       // loggedInUser: this.$store.getters.loggedinUser
     };
   },
   async created() {
     //loggs in a user automatically
-    try {
-      const user = await this.$store.dispatch({
-        type: "login",
-        userCred: this.credentials,
-      });
+    // try {
+      // const user = await this.$store.dispatch({
+      //   type: "login",
+      //   userCred: this.credentials,
+      // });
       // socketService.emit("user-watch", user._id);
-      this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
-    } catch (err) {
-      console.log("cannot login", err);
-    }
+      // this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
+    // } catch (err) {
+    //   console.log("cannot login", err);
+    // }
   },
   computed: {
     loggedInUser() {
@@ -86,7 +93,6 @@ export default {
           type: "login",
           userCred: this.credentials,
         });
-        // socketService.emit("user-watch", user._id);
         this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
       } catch (err) {
         console.log("cannot login", err);
@@ -96,9 +102,8 @@ export default {
       try {
         const user = await this.$store.dispatch({
           type: "signup",
-          userCred: this.credentials,
+          userCred: this.signupCred,
         });
-        // socketService.emit("user-watch", user._id);
         this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
       } catch (err) {
         console.log("cannot signup", err);
