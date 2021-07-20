@@ -49,7 +49,7 @@ export default {
       return this.$store.getters.boards;
     },
     selectedBoard() {
-      return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
+      return this.$store.getters.selectedBoard
     },
     loggedInUser() {
       return this.$store.getters.loggedinUser;
@@ -73,7 +73,7 @@ export default {
       this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
-      if(this.selectedBoard && boardId === this.selectedBoard._id) return
+      if(boardId === this.selectedBoard?._id) return
       await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
     },
