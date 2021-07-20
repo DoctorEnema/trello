@@ -55,7 +55,8 @@
             :key="member._id"
           >
             <img v-if="member.imgUrl" :src="member.imgUrl" />
-            <span v-else>{{ member.fullname }}</span>
+            <span class="to-user" v-else-if="member.fullname">{{ member.fullname.charAt(0) }}</span>
+            <span v-else>?</span>
           </button>
         </div>
       </div>

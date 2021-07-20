@@ -26,6 +26,7 @@
     }
 
     .card-preview-members {
+        margin-top: 2px;
         display: flex;
         justify-content: flex-end;
         flex: 1;
@@ -35,24 +36,17 @@
         position: relative;
         overflow: hidden;
         margin: 0 2px;
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         background-color: $clr3;
-        color: transparent;
         border-radius: 50%;
-        span{
-            margin-left: 6.5px;
-        }
         img {
             right: 0px;
             top: 0;
             position: absolute;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             object-fit: contain;
-        }
-        &::first-letter {
-            color: black;
         }
         &:hover {
             filter: brightness(80%);

@@ -24,8 +24,9 @@
             v-for="member in board.members"
             :key="member._id"
           >
-            <span v-if="member.imgUrl"><img :src="member.imgUrl" /></span>
-            <span v-else>{{ member.fullname }}</span>
+            <div v-if="member.imgUrl"><img :src="member.imgUrl" /></div>
+            <div v-else-if="member.fullname" class="to-user">{{ member.fullname.charAt(0) }}</div>
+            <div v-else class="to-user">?</div>
           </button>
         </div>
         <button @click="memberModal">Invite</button>
@@ -41,7 +42,7 @@
           </button>
         </div>
       </div>
-      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
+      <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
       <transition name="go-side">
         <side-menu
           @boardCoverColor="boardCoverColor"

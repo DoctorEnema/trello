@@ -6,15 +6,28 @@
         <button @click="closeModal"></button>
       </header>
       <hr />
-      <input v-model="searchBy" ref="searchInput" type="text" @input="search" placeholder="Search members" />
+      <input
+        v-model="searchBy"
+        ref="searchInput"
+        type="text"
+        @input="search"
+        placeholder="Search members"
+      />
       <ul>
         <h5>BOARD MEMBERS</h5>
-        <li class="user-member" v-for="user in selectedBoard.members" :key="user._id">
+        <li
+          class="user-member"
+          v-for="user in selectedBoard.members"
+          :key="user._id"
+        >
           <button @click="addUser(user)">
             <img v-if="user.imgUrl" :src="user.imgUrl" />
-            <div v-else class="to-user user-letter">{{user.fullname.charAt(0)}}</div>
+            <div v-else-if="user.fullname" class="to-user">
+              {{ user.fullname.charAt(0) }}
+            </div>
+            <div class="to-user" v-else>?</div>
             {{ user.fullname }}({{ user.username }})
-             <span v-if="isMemberPicked(user)" class="icon">✔</span>
+            <span v-if="isMemberPicked(user)" class="icon">✔</span>
           </button>
         </li>
       </ul>
@@ -26,12 +39,12 @@
 export default {
   data() {
     return {
-      searchBy: ''
+      searchBy: "",
     };
   },
   props: {
     card: Object,
-    users:Array
+    users: Array,
   },
   created() {
     this.$store.dispatch({ type: "loadUsers" });
@@ -41,26 +54,26 @@ export default {
   },
   methods: {
     closeModal() {
-      this.searchBy = ''
-      this.search()
+      this.searchBy = "";
+      this.search();
       this.$emit("closeModal");
     },
     addUser(user) {
       this.$emit("addUser", user);
     },
-    isMemberPicked(member){
-      if(!this.card.members) return
-      return this.card.members.some(m=>m._id === member._id)
+    isMemberPicked(member) {
+      if (!this.card.members) return;
+      return this.card.members.some((m) => m._id === member._id);
     },
     search() {
-            this.$emit('search',  {type: 'user' ,searchBy:this.searchBy});
-        }
+      this.$emit("search", { type: "user", searchBy: this.searchBy });
+    },
   },
   computed: {
     // users() {
     //   return this.$store.getters.users;
     // },
-      selectedBoard() {
+    selectedBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
   },

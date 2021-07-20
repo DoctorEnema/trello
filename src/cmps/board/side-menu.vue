@@ -31,9 +31,10 @@
                   v-if="activity.byMember.imgUrl"
                   :src="activity.byMember.imgUrl"
                 />
-                <div v-else class="to-user side-menu-user">
+                <div v-else-if="activity.byMember.fullname" class="to-user side-menu-user">
                   {{ activity.byMember.fullname.charAt(0) }}
                 </div>
+                <div v-else>?</div>
               </div>
               <span class="member-name">{{ activity.byMember.fullname }}</span>
               <span><span> </span> {{ activity.txt }}</span>
@@ -67,6 +68,9 @@ export default {
     selectedBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.selectedBoard));
     },
+    firstLetter(){
+      return this.activity.byMember.fullname.charAt(0)
+    }
   },
   methods: {
     toggleMenu() {
