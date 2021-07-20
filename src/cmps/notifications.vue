@@ -2,6 +2,7 @@
 <template>
   <section class="notifications">
     Notifications
+    {{isNewNotifications}}
     <button @click="toggleNotifModal">X</button>
     <section v-if="!loggedinUser.notifications.length">
       No notifications to show
@@ -39,6 +40,9 @@ export default {
   components: {
     showTime,
   },
+  props: {
+    isNotifOpen: Boolean,
+  },
   data() {
     return {
       isActive: false,
@@ -46,12 +50,6 @@ export default {
     };
   },
   computed: {
-    // selectedBoard() {
-    //   return this.$store.getters.selectedBoard;
-    // },
-    // card() {
-    //   return this.$store.getters.selectedCard;
-    // },
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },

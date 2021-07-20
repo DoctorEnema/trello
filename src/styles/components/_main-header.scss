@@ -150,6 +150,14 @@
 .to-notifications::before {
     font-family: fontAwesome, sans serif;
     content: "\f0f3";
+    &.active {
+        background-color:red;
+    }
+}
+.to-notifications.active::before {
+    font-family: fontAwesome, sans serif;
+    content: "\f0f3";
+    background-color:red;
 }
 
 .search-glass::before {

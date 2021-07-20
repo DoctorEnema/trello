@@ -27,12 +27,14 @@
         <button
           @click="toggleNotifModal(), markRead()"
           class="to-notifications"
+          :class="isNewNotifications"
         ></button>
         <button class="to-user">User</button>
       </div>
     </div>
     <notifications
       v-if="isNotifOpen"
+      :isNotifOpen="isNotifOpen"
       @toggleNotifModal="toggleNotifModal"
       @clearNotifications="clearNotifications"
     ></notifications>
@@ -64,6 +66,12 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
+    isNewNotifications() {
+      var isRead = false;
+      if (this.isNotifOpen) return isRead
+      isRead = this.loggedinUser.notifications.some(n=> !n.isRead)
+      return {active: isRead}
+    }
   },
   methods: {
     toggleMenu() {
@@ -80,7 +88,7 @@ export default {
       this.$store.dispatch({ type: "clearNotifications", userId });
     },
     markRead() {
-      if (!isNotifOpen) return;
+      if (!this.isNotifOpen) return;
       this.$store.dispatch({ type: "markRead", userId: this.loggedinUser._id });
     },
   },

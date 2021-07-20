@@ -158,6 +158,7 @@ async function markRead(userId) {
     try {
         const user = await getById(userId)
         user.notifications.forEach(n => n.isRead = true)
+        console.log('notifications',user.notifications);
         const savedUser = await update(user)
         return savedUser
     } catch (err) {
