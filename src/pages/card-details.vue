@@ -339,7 +339,9 @@ export default {
     users() {
       return this.$store.getters.users;
     },
-
+    user() {
+      return this.$store.getters.user;
+    },
     showTime() {
       var actionLogged = this.act.at;
       var now = Date.now();
@@ -366,11 +368,14 @@ export default {
     //   const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
     //   console.log('isUserMember',isUserMember);
     emitToUsers(fullActivity) {
-      if (!this.card?.members.length) return;
-      this.card.members.forEach((member) => {
-        const data = { fullActivity, userId: member._id };
-        socketService.emit("notifyMember", data);
-      });
+      if (!this.card?.members.length) return
+      this.card.members.forEach(member => {
+        const data = {fullActivity, userId: member._id}
+        if (this.loggedinUser._id !== member._id){
+        this.$store.dispatch({type: 'updateUserNotifications', data})
+        socketService.emit('notifyMember', data)
+        }
+      })
     },
     stop() {
       // Dont Delete!!
@@ -402,8 +407,9 @@ export default {
       await this.updateCard();
     },
     async setActivity(activity, comment) {
+      const {_id, fullname, imgUrl} = this.loggedinUser
       const fullActivity = {
-        byMember: this.loggedinUser,
+        byMember: {_id, fullname, imgUrl},
         creatAt: Date.now(),
         id: utilService.makeId(),
         card: { id: this.card.id, title: this.card.title },
