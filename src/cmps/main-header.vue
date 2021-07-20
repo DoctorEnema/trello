@@ -89,6 +89,7 @@ export default {
       this.$store.dispatch({ type: "clearNotifications", userId });
     },
     markRead() {
+      if (!this.loggedinUser) return
       if (!this.isNotifOpen) return;
       this.$store.dispatch({ type: "markRead", userId: this.loggedinUser._id });
     },
