@@ -1,9 +1,5 @@
 <template>
-  <section @click="openCard(group.id, card.id)">
-    <button
-      class="edit-card-preview"
-      @click.stop="editCard()"
-    ></button>
+  <section class="card-edit-preview" @click="openCard(group.id, card.id)">
     <!-- <button
       class="edit-card-preview"
       @click.stop="removeCard(card.id)"
@@ -64,26 +60,17 @@
 </template>
 
 <script>
-
 export default {
   props: {
     card: Object,
     group: Object,
     hardcodedBoardId: String,
   },
-  data(){
-    return{
-      isEditCard:false
-    }
-  },
   created() {
     // socketService.on()
   },
   destroyed() {},
   methods: {
-    editCard(){
-      this.isEditCard=true
-    },
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
     },

@@ -160,10 +160,13 @@
         </section>
       </div>
     </section>
+      <card-edit-preview :group="group"
+        :card="card" v-if="isEditCard"></card-edit-preview>
   </div>
 </template>
 
 <script>
+import cardEditPreview from "../cmps/card/card-edit-preview.vue";
 import addLabel from "../cmps/card/add-label.vue";
 import addChecklist from "../cmps/card/add-checklist.vue";
 import addDate from "../cmps/card/add-date.vue";
@@ -185,6 +188,7 @@ import { socketService } from "../services/socket-service.js";
 
 export default {
   components: {
+    cardEditPreview,
     addLabel,
     addChecklist,
     addDate,
@@ -206,6 +210,7 @@ export default {
       boardId: null,
       searchBy: "",
       searchType: "",
+      isEditCard:false
     };
   },
   async created() {
@@ -287,6 +292,18 @@ export default {
     },
   },
   methods: {
+    editCard(){
+      this.isEditCard=true
+    },
+    // isUserAssignedToCard() {
+    //   // if(!this.loggedinUser) console.log('true');
+     
+    //   if (!this.loggedinUser) return
+    //   // console.log('asdasd');
+    //   if (!this.card?.members.length) return ('no members assigned to card')
+    //   // console.log('asdasdasdasdsadasd');
+    //   const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
+    //   console.log('isUserMember',isUserMember);
     emitToUsers(fullActivity) {
       if (!this.card?.members.length) return
       this.card.members.forEach(member => {

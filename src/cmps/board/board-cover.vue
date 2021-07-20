@@ -1,29 +1,27 @@
 <template>
   <div v-if="isModalOpen" class="">
-    <div class="">
-      <div class="board-cover">
-        <button @click="closeModal">X</button>
-        <button @click="backModal">back</button>
-        <button @click="colorModal">Colors</button>
-        <button @click="photoModal">Photos</button>
-      </div>
-      <form v-if="isColors" @submit.prevent="setCoverColor()">
-        <!-- <label for="name">colors</label> -->
-        <h3>Colors</h3>
-        <ul class="cover-colors">
-          <li
-            class="card-cover-color"
-            v-for="(label, idx) in editCovers"
-            :key="idx"
-            :style="'background-color:' + label"
-            @click="boardCoverColor(label)"
-          >
-            <span class="icon"></span>
-          </li>
-        </ul>
-      </form>
-      <div v-if="isPhotos" class="cover-unsplash">
+    <div class="board-cover-btns">
+      <button @click="colorModal"><h3>Colors</h3></button>
+      <button @click="photoModal"><h3>Photos</h3></button>
+    </div>
+    <form v-if="isColors" @submit.prevent="setCoverColor()">
+      <!-- <label for="name">colors</label> -->
+      <h3>Colors</h3>
+      <ul class="side-menu-colors">
+        <li
+          class="side-menu-color"
+          v-for="(label, idx) in editCovers"
+          :key="idx"
+          :style="'background-color:' + label"
+          @click="boardCoverColor(label)"
+        >
+          <span class="icon"></span>
+        </li>
+      </ul>
+    </form>
+    <div v-if="isPhotos">
       <h3>Unsplash</h3>
+      <div class="side-menu-imgs">
         <button
           v-for="(cover, idx) in boardCovers"
           :key="idx"
@@ -91,10 +89,10 @@ export default {
       this.isPhotos = true;
       this.isColors = false;
     },
-    backModal() {
-      this.isPhotos = false;
-      this.isColors = false;
-    },
+    // backModal() {
+    //   this.isPhotos = false;
+    //   this.isColors = false;
+    // },
   },
 };
 </script>
