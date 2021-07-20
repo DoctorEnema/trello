@@ -414,6 +414,7 @@ export default {
         id: utilService.makeId(),
         card: { id: this.card.id, title: this.card.title },
         txt: activity,
+        isRead: false,
       };
       this.setComment(comment);
       await this.$store.dispatch({

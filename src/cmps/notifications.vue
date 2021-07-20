@@ -2,11 +2,12 @@
 <template>
   <section class="notifications">
     Notifications
+    <button @click="toggleNotifModal">X</button>
     <section v-if="!loggedinUser.notifications.length">
       No notifications to show
     </section>
     <section v-else class="activities">
-      <button @click="clearActivities">Clear</button>
+      <button @click="clearNotifications">Clear</button>
       <div v-for="(notification, idx) in loggedinUser.notifications" :key="idx">
         <div class="activity">
           <div>
@@ -59,9 +60,12 @@ export default {
     // },
   },
   methods: {
-    clearActivities() {
-      this.$emit("clearUserAct", this.user._id);
+    clearNotifications() {
+      this.$emit("clearNotifications", this.loggedinUser._id);
     },
+    toggleNotifModal() {
+      this.$emit('toggleNotifModal')
+    }
   },
 };
 </script>

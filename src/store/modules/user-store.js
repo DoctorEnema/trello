@@ -135,6 +135,25 @@ export const userStore = {
                 console.log('userStore: Error in updateUser', err)
                 throw err
             }
+        },
+        async clearNotifications({commit}, {userId}) {
+            try{
+                const user = await userService.clearNotifications(userId)
+                console.log('user',user);
+                commit({ type: 'setLoggedinUser', user })
+            } catch (err) {
+                console.log('cannot clear notifications');
+            }
+        },
+        async markRead({commit}, {userId}) {
+            try{
+                const user = await userService.markRead(userId)
+                console.log('user',user);
+                commit({ type: 'setLoggedinUser', user })
+            } catch (err) {
+                console.log('cannot clear notifications');
+            }
         }
+
     }
 }

@@ -95,6 +95,7 @@ import group from "../cmps/group/group.vue";
 import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/board/side-menu.vue";
+import {userService} from "../services/user-service.js"
 export default {
   components: {
     group,
@@ -202,6 +203,14 @@ export default {
       board.style.backgroundImg = null;
       this.$store.dispatch({ type: "updateBoard", board });
     },
+    async setUpdatedLoggedInUser() {
+      try {
+        const user = await userService.getById(this.loggedinUser._id);
+        this.$store.commit({type: 'setLoggedinUser', user})
+      } catch (err) {
+        console.log('cannot get user', err);
+      }
+    }
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
@@ -209,7 +218,7 @@ export default {
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });
-    console.log(this.loggedinUser);
+    this.setUpdatedLoggedInUser()
     socketService.emit("board topic", this.boardId);
     if (this.loggedinUser)
       this.$store.dispatch({

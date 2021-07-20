@@ -59,7 +59,9 @@ export const userService = {
     remove,
     update,
     getLoggedinUser,
-    updateUserNotifications
+    updateUserNotifications,
+    clearNotifications,
+    markRead
 }
 
 // window.userService = userService
@@ -131,7 +133,6 @@ function getLoggedinUser() {
 async function updateUserNotifications(data) {
     try {
         const user = await getById(data.userId)
-        console.log(user, 'user');
         if (!user.notifications) user.notifications = []
         user.notifications.unshift(data.fullActivity)
         const savedUser = await update(user)
@@ -141,3 +142,26 @@ async function updateUserNotifications(data) {
         console.log('cannot update notification', err);
     }
 }
+
+async function clearNotifications(userId) {
+    try {
+        const user = await getById(userId)
+        console.log(user);
+        user.notifications = []
+        const savedUser = await update(user)
+        return savedUser
+    } catch (err) {
+        console.log('cannot update notification', err);
+    }
+}
+async function markRead(userId) {
+    try {
+        const user = await getById(userId)
+        user.notifications.forEach(n => n.isRead = true)
+        const savedUser = await update(user)
+        return savedUser
+    } catch (err) {
+        console.log('cannot update notification', err);
+    }
+}
+

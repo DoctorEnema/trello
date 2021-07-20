@@ -6,7 +6,7 @@
         <!-- <router-link class="to-boards" :to="'/board/'+currBoard"> Boards</router-link> -->
 
         <!-- <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link> -->
-        <button @click="toggleMenu" class="to-boards"> Boards</button>
+        <button @click="toggleMenu" class="to-boards">Boards</button>
         <div class="search">
           <input
             v-model="search"
@@ -24,11 +24,18 @@
       <div class="header-right">
         <button class="to-create-board"></button>
         <button class="to-info"></button>
-        <button @click="openNotifModal" class="to-notifications"></button>
+        <button
+          @click="toggleNotifModal(), markRead()"
+          class="to-notifications"
+        ></button>
         <button class="to-user">User</button>
       </div>
     </div>
-    <notifications v-if="isNotifOpen"></notifications>
+    <notifications
+      v-if="isNotifOpen"
+      @toggleNotifModal="toggleNotifModal"
+      @clearNotifications="clearNotifications"
+    ></notifications>
     <board-menu
       @selectBoard="selectBoard"
       @toggleMenu="toggleMenu"
@@ -43,7 +50,7 @@ import notifications from "./notifications.vue";
 export default {
   components: {
     boardMenu,
-    notifications
+    notifications,
   },
   data() {
     return {
@@ -53,6 +60,11 @@ export default {
       isNotifOpen: false,
     };
   },
+  computed: {
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
+  },
   methods: {
     toggleMenu() {
       this.isBoardMenu = !this.isBoardMenu;
@@ -61,9 +73,16 @@ export default {
       this.currBoard = boardId;
       this.$router.push("/board/" + boardId);
     },
-    openNotifModal() {
-      this.isNotifOpen = !this.isNotifOpen
-    }
+    toggleNotifModal() {
+      this.isNotifOpen = !this.isNotifOpen;
+    },
+    clearNotifications(userId) {
+      this.$store.dispatch({ type: "clearNotifications", userId });
+    },
+    markRead() {
+      if (!isNotifOpen) return;
+      this.$store.dispatch({ type: "markRead", userId: this.loggedinUser._id });
+    },
   },
 };
 </script>
