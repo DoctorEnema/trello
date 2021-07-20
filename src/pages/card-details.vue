@@ -219,7 +219,7 @@ export default {
       this.boardId = boardId;
       const card = await this.$store.dispatch({ type: "loadCard", boardId, groupId, cardId });
       socketService.emit("card topic", cardId);
-      this.isUserAssignedToCard()
+      // this.isUserAssignedToCard()
     } catch (err) {
       ('cannot load card', err) 
     }
@@ -293,29 +293,40 @@ export default {
     editCard(){
       this.isEditCard=true
     },
-    isUserAssignedToCard() {
-      // if(!this.loggedinUser) console.log('true');
+    // isUserAssignedToCard() {
+    //   // if(!this.loggedinUser) console.log('true');
      
-      if (!this.loggedinUser) return
-      // console.log('asdasd');
-      if (!this.card?.members.length) return ('no members assigned to card')
-      // console.log('asdasdasdasdsadasd');
-      const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
-      console.log('isUserMember',isUserMember);
+    //   if (!this.loggedinUser) return
+    //   // console.log('asdasd');
+    //   if (!this.card?.members.length) return ('no members assigned to card')
+    //   // console.log('asdasdasdasdsadasd');
+    //   const isUserMember = this.card.members.some(member => member._id === this.loggedinUser._id)
+    //   console.log('isUserMember',isUserMember);
+    emitToUsers(fullActivity) {
+      if (!this.card?.members.length) return
+      this.card.members.forEach(member => {
+        const data = {fullActivity, userId: member._id}
+        socketService.emit('notifyMember', data)
+      })
     },
     stop() {
       // Dont Delete!!
-      // no one knows what this deos but it works
+      // no one knows what this does but it works
     },
-    updateCard() {
-      this.$store.dispatch({
-        type: "updateCard",
-        board: this.selectedBoard,
-        group: this.group,
-        card: this.card,
-      });
+    async updateCard() {
+      try {
+        const board = await this.$store.dispatch({
+          type: "updateCard",
+          board: this.selectedBoard,
+          group: this.group,
+          card: this.card,
+        });
+        return board
+      } catch(err) {
+        console.log('cannot update card', err);
+      }
     },
-    setComment(comment) {
+    async setComment(comment) {
       const fullComment = {
         byMember: this.loggedinUser,
         creatAt: Date.now(),
@@ -325,7 +336,7 @@ export default {
       };
       if (!this.card.comments) this.card.comments = [];
       this.card.comments.push(fullComment);
-      this.updateCard();
+      await this.updateCard();
     },
     async setActivity(activity, comment) {
       const fullActivity = {
@@ -340,6 +351,7 @@ export default {
         type: "updateActivities",
         activity: fullActivity,
       });
+        this.emitToUsers(fullActivity)
     },
     setDesc(desc) {
       this.card.description = desc;
@@ -439,7 +451,6 @@ export default {
       this.card.members.push(member);
       await this.setActivity(`Added ${member.fullname} to ${this.card.title}`);
       await this.updateCard();
-      this.isUserAssignedToCard()
     },
     async removeMember(member) {
       const memberIdx = this.card.members.findIndex(
@@ -450,7 +461,6 @@ export default {
         `Removed ${member.fullname} from ${this.card.title}`
       );
       await this.updateCard();
-      this.isUserAssignedToCard()
     },
     addTodo(checklist) {
       const checklistIdx = this.card.checklists.findIndex(

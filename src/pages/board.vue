@@ -16,19 +16,21 @@
     />
     <div class="board-header">
       <div class="main-header-side">
-        <h2>Electricity~</h2>
+        <button><h2>Electricity~</h2></button>
         <button class="favorite-board"></button>
-        <button
-          class="board-members"
-          v-for="member in board.members"
-          :key="member._id"
-        >
-          <span v-if="member.imgUrl"><img :src="member.imgUrl" /></span>
-          <span v-else>{{ member.fullname }}</span>
-        </button>
+        <div class="board-members">
+          <button
+            class="board-member-header"
+            v-for="member in board.members"
+            :key="member._id"
+          >
+            <span v-if="member.imgUrl"><img :src="member.imgUrl" /></span>
+            <span v-else>{{ member.fullname }}</span>
+          </button>
+        </div>
         <button>Invite</button>
       </div>
-      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
+      <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
       <side-menu
         @boardCoverColor="boardCoverColor"
         @boardCoverImage="boardCoverImage"
@@ -113,13 +115,15 @@ export default {
     copiedGroup() {
       return JSON.parse(JSON.stringify(this.emptyGroup));
     },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
   },
   methods: {
-    onDragStart() {
-    },
+    onDragStart() {},
     onDragEnd() {
       const board = this.board;
-      this.$store.commit({type:'setBoard', board})
+      this.$store.commit({ type: "setBoard", board });
       this.$store.dispatch({ type: "updateBoard", board });
     },
     // updateGroup(group) {
@@ -175,7 +179,9 @@ export default {
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });
+    console.log(this.loggedinUser);
     socketService.emit("board topic", this.boardId);
+    if (this.loggedinUser) this.$store.dispatch({type: 'loadUserCardWatch', userId: this.loggedinUser._id})
   },
 };
 </script>
