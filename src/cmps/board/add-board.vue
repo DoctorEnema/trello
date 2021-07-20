@@ -11,7 +11,7 @@
       </div>
       <div class="add-board-covers">
         <button
-          v-for="cover in selectedBoard.covers"
+          v-for="cover in covers"
           :key="cover.id"
           @click="imgUrl = cover.imgUrl"
         >
