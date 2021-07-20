@@ -1,6 +1,5 @@
 .side-menu {
-
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     right: 0;
     top: 40px;
@@ -20,13 +19,13 @@
         width: 100%;
     }
 }
-.go-side-enter-active{
-    transform: translateX(0);
-}
 
-.go-side-leave-active {
+.go-side-leave-active, .go-side-enter-active {
+    transition: transform 0.3s ease;
+}
+.go-side-enter, .go-side-leave-to{
     transform: translateX(340px);
-  }
+}
 
 .side-menu-header {
     position: relative;
