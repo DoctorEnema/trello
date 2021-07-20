@@ -72,20 +72,38 @@ export const userStore = {
                 throw err
             }
         },        
-        async loadAndWatchUser({ commit }, { userId }) {
+        // async loadAndWatchUser({ commit }, { userId }) {
+        //     try {
+        //         const user = await userService.getById(userId);
+        //         commit({ type: 'setWatchedUser', user })
+        //         socketService.emit(SOCKET_EMIT_USER_WATCH, userId) 
+        //         socketService.off(SOCKET_EVENT_USER_UPDATED)
+        //         socketService.on(SOCKET_EVENT_USER_UPDATED, user => {
+        //             commit({ type: 'setWatchedUser', user })
+        //         })
+        //     } catch (err) {
+        //         console.log('userStore: Error in loadAndWatchUser', err)
+        //         throw err
+        //     }
+        // },
+        
+        async loadUserCardWatch({ commit }, { userId }) {
             try {
+                console.log(userId);
                 const user = await userService.getById(userId);
                 commit({ type: 'setWatchedUser', user })
-                socketService.emit(SOCKET_EMIT_USER_WATCH, userId) 
-                socketService.off(SOCKET_EVENT_USER_UPDATED)
-                socketService.on(SOCKET_EVENT_USER_UPDATED, user => {
-                    commit({ type: 'setWatchedUser', user })
+                socketService.emit("user-watch", userId);
+                socketService.off('notifyMemberActivity')
+                socketService.on('notifyMemberActivity', activity => {
+                    // commit({ type: 'setWatchedUser', user })
+                    console.log(activity);
                 })
             } catch (err) {
                 console.log('userStore: Error in loadAndWatchUser', err)
                 throw err
             }
         },
+
         async removeUser({ commit }, { userId }) {
             try {
                 await userService.remove(userId);
@@ -103,7 +121,6 @@ export const userStore = {
                 console.log('userStore: Error in updateUser', err)
                 throw err
             }
-
         }
     }
 }

@@ -68,7 +68,8 @@ export default {
         type: "login",
         userCred: this.credentials,
       });
-      socketService.emit("user-watch", user._id);
+      // socketService.emit("user-watch", user._id);
+      this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
     } catch (err) {
       console.log("cannot login", err);
     }
@@ -85,7 +86,8 @@ export default {
           type: "login",
           userCred: this.credentials,
         });
-        socketService.emit("user-watch", user._id);
+        // socketService.emit("user-watch", user._id);
+        this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
       } catch (err) {
         console.log("cannot login", err);
       }
@@ -96,7 +98,8 @@ export default {
           type: "signup",
           userCred: this.credentials,
         });
-        socketService.emit("user-watch", user._id);
+        // socketService.emit("user-watch", user._id);
+        this.$store.dispatch({type: 'loadUserCardWatch', userId: user._id})
       } catch (err) {
         console.log("cannot signup", err);
       }

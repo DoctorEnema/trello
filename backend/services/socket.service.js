@@ -30,7 +30,7 @@ function connectSockets(http, session) {
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
             }
-            socket.join(topic) 
+            socket.join(topic)
             console.log('joined card', topic);
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
@@ -40,7 +40,7 @@ function connectSockets(http, session) {
             if (socket.boardTopic) {
                 socket.leave(socket.boardTopic)
             }
-            socket.join(topic) 
+            socket.join(topic)
             console.log('joined board', topic);
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.boardTopic = topic
@@ -74,17 +74,24 @@ function connectSockets(http, session) {
         socket.on('cardAdded', data => {
             socket.to(socket.boardTopic).emit('addCard', data)
         })
+        socket.on('notifyMember', ({fullActivity, userId}) => {
+            console.log('data', fullActivity, userId);
+            socket.to(userId).emit('notifyMemberActivity', fullActivity)
+            // emitToUser('notifyMemberActivity', fullActivity, userId)
+            console.log('watched user notified');
+        })
     })
 }
 
+
 function emitToAll({ type, data, room = null }) {
-    if (room) gIo.to(room).emit(type, data)
+    if (room) socket.to(room).emit(type, data)
     else gIo.emit(type, data)
 }
 
 // TODO: Need to test emitToUser feature
 function emitToUser({ type, data, userId }) {
-    gIo.to(userId).emit(type, data)
+    socket.to(userId).emit(type, data)
 }
 
 // Send to all sockets BUT not the current socket 

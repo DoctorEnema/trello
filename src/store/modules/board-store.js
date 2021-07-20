@@ -237,12 +237,13 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 const groupCopy = JSON.parse(JSON.stringify(group))
                 const cardCopy = JSON.parse(JSON.stringify(card))
-                await boardService.updateCard(board, group, card.id, card);
+                const savedBoard = await boardService.updateCard(board, group, card.id, card);
                 context.commit({ type: 'updateCard', groupCopy, cardCopy })
                 context.commit({ type: 'setCard', card: cardCopy })
                 socketService.emit('cardUpdated', cardCopy)
-                const savedBoard = board
+                // const savedBoard = board
                 socketService.emit('boardUpdated', savedBoard)
+                return savedBoard
             } catch (err) {
                 console.log('Cant add card', err);
             }

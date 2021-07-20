@@ -113,6 +113,9 @@ export default {
     copiedGroup() {
       return JSON.parse(JSON.stringify(this.emptyGroup));
     },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
   },
   methods: {
     onDragStart() {
@@ -175,7 +178,9 @@ export default {
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });
+    console.log(this.loggedinUser);
     socketService.emit("board topic", this.boardId);
+    if (this.loggedinUser) this.$store.dispatch({type: 'loadUserCardWatch', userId: this.loggedinUser._id})
   },
 };
 </script>
