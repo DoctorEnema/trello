@@ -82,7 +82,6 @@ export default {
       this.checklist.todos.push({ ...this.todo });
       this.$emit("addTodo", this.checklist);
       this.todo = boardService.getEmptyTodo();
-      console.log("check added", this.checklist);
     },
     editTodo(todo) {
       const idx = this.checklist.todos.findIndex((t) => t.id === todo.id);

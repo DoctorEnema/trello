@@ -274,6 +274,7 @@ export default {
         groupId,
         cardId,
       });
+      document.title = `Yuulo - ${this.card.title}`
       socketService.emit("card topic", cardId);
       // this.isUserAssignedToCard()
     } catch (err) {
@@ -288,6 +289,7 @@ export default {
     //   card: null,
     // });
     this.$store.commit("removeCurrent");
+    document.title = `Yuulo`
   },
   computed: {
     selectedBoard() {
@@ -307,10 +309,6 @@ export default {
       return true;
     },
     isItEditCard(){
-      console.log("this.isEditCard", this.isEditCard)
-      console.log(this.card);
-      if((this.isEditCard===true) && (this.card===true)) {console.log('true')}
-      else console.log('false')
       return (this.isEditCard && this.card)
     },
     isLabels() {
@@ -527,7 +525,7 @@ export default {
     },
     async removeMember(member) {
       const memberIdx = this.card.members.findIndex(
-        (mem) => mem._id === member.id
+        (mem) => mem._id === member._id
       );
       this.card.members.splice(memberIdx, 1);
       await this.setActivity(
@@ -563,7 +561,6 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
-      console.log("ev", ev)
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },
