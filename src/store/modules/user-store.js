@@ -11,7 +11,9 @@ export const userStore = {
         watchedUser: null,
     },
     getters: {
-        users({ users }) { return users },
+        users(state) { 
+            return state.users 
+        },
         loggedinUser({ loggedinUser }) { return loggedinUser },
         watchedUser({ watchedUser }) { return watchedUser },
         user({ user }) { return user }
@@ -29,9 +31,9 @@ export const userStore = {
         setUsers(state, { users }) {
             state.users = users;
         },
-        setUser(state, { user }) {
-            state.users = user;
-        },
+        // setUser(state, { user }) {
+        //     state.user = user;
+        // },
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
@@ -97,7 +99,7 @@ export const userStore = {
         async loadUserCardWatch({ commit }, { userId }) {
             try {
                 const user = await userService.getById(userId);
-                commit({ type: 'setUser', user })
+                // commit({ type: 'setUser', user })
                 socketService.emit("user-watch", userId);
                 socketService.off('notifyMemberActivity')
                 socketService.on('notifyMemberActivity', activity => {

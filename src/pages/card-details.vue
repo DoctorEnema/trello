@@ -519,6 +519,7 @@ export default {
         this.removeMember(member);
         return;
       }
+      if(!this.selectedBoard.members.some(m=>m._id === member._id)) return
       this.card.members.push(member);
       await this.setActivity(`Added ${member.fullname} to ${this.card.title}`);
       await this.updateCard();
