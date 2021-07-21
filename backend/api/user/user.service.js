@@ -96,8 +96,9 @@ async function add(user) {
             username: user.username,
             password: user.password,
             fullname: user.fullname,
+            email: user.email,
             notifications: user.notifications || [],
-            imgUrl: user.imgUrl || null
+            imgUrl: user.imgUrl || null,
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
