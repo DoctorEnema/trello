@@ -87,6 +87,7 @@ export default {
     selectBoard(boardId) {
       this.currBoard = boardId;
       this.$router.push("/board/" + boardId);
+      this.toggleMenu()
     },
     toggleNotifModal() {
       this.isNotifOpen = !this.isNotifOpen;
