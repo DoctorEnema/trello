@@ -106,7 +106,7 @@ import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/board/side-menu.vue";
 import { userService } from "../services/user-service.js";
-import yuumi from "../cmps/board/yuumi.vue";
+import yuumi from "../cmps/yuumi.vue";
 export default {
   components: {
     group,
@@ -229,12 +229,13 @@ export default {
     // });
     this.setUpdatedLoggedInUser();
     socketService.emit("board topic", this.boardId);
-    if (this.loggedinUser)
+    if (this.loggedinUser){
       this.$store.dispatch({
         type: "loadUserCardWatch",
         userId: this.loggedinUser._id,
       });
-    document.title = `Yuulo`;
+    }
+    window.document.title = `Yuulo`;
   },
 };
 </script>
