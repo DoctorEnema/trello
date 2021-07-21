@@ -6,7 +6,7 @@
         <!-- <router-link class="to-boards" :to="'/board/'+currBoard"> Boards</router-link> -->
 
         <!-- <router-link @click="toggleMenu" class="to-boards" :to="'/board/b101'"> Boards</router-link> -->
-        <button @click="toggleMenu" class="to-boards"> Boards</button>
+        <button @click="toggleMenu" class="to-boards">Boards</button>
         <div class="search">
           <input
             v-model="search"
@@ -30,9 +30,13 @@
           :class="isNewNotifications"
         ></button>
         <button class="header-user">
-        <img v-if="loggedinUser.imgUrl"  :src="loggedinUser.imgUrl">
-        <div v-else-if="loggedinUser.fullname" class="to-user" >{{loggedinUser.fullname.charAt(0)}}</div>
-        <div v-else>?</div>
+          <div v-if="loggedinUser">
+            <img v-if="loggedinUser.imgUrl" :src="loggedinUser.imgUrl" />
+            <div v-else-if="loggedinUser.fullname" class="to-user">
+              {{ loggedinUser.fullname.charAt(0) }}
+            </div>
+            <div v-else>?</div>
+          </div>
         </button>
       </div>
     </div>
@@ -71,12 +75,12 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     isNewNotifications() {
-      if (!this.loggedinUser || !this.loggedinUser.notifications) return false
+      if (!this.loggedinUser || !this.loggedinUser.notifications) return false;
       var isRead = false;
-      if (this.isNotifOpen) return isRead
-      isRead = this.loggedinUser.notifications.some(n=> !n.isRead)
-      return {active: isRead}
-    }
+      if (this.isNotifOpen) return isRead;
+      isRead = this.loggedinUser.notifications.some((n) => !n.isRead);
+      return { active: isRead };
+    },
   },
   methods: {
     toggleMenu() {
@@ -93,7 +97,7 @@ export default {
       this.$store.dispatch({ type: "clearNotifications", userId });
     },
     markRead() {
-      if (!this.loggedinUser) return
+      if (!this.loggedinUser) return;
       if (!this.isNotifOpen) return;
       this.$store.dispatch({ type: "markRead", userId: this.loggedinUser._id });
     },

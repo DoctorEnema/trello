@@ -47,7 +47,7 @@ export default {
     // users: Array,
   },
   created() {
-    // this.$store.dispatch({ type: "loadUsers" });
+    this.$store.dispatch({ type: "loadUsers" });
     console.log(this.users);
   },
   mounted() {
