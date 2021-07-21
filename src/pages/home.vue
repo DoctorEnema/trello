@@ -14,5 +14,8 @@ export default {
   components: {
     loginUser
   },
+  mounted(){
+    document.title = `Yuulo - Home`
+  }
 };
 </script>

@@ -25,7 +25,9 @@
             :key="member._id"
           >
             <div v-if="member.imgUrl"><img :src="member.imgUrl" /></div>
-            <div v-else-if="member.fullname" class="to-user">{{ member.fullname.charAt(0) }}</div>
+            <div v-else-if="member.fullname" class="to-user">
+              {{ member.fullname.charAt(0) }}
+            </div>
             <div v-else class="to-user">?</div>
           </button>
         </div>
@@ -42,7 +44,7 @@
           </button>
         </div>
       </div>
-      <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
+      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
       <transition name="go-side">
         <side-menu
           @boardCoverColor="boardCoverColor"
@@ -90,7 +92,7 @@
         </button>
       </div>
     </div>
-      <!-- <yuumi class="yuumi"></yuumi> -->
+    <!-- <yuumi class="yuumi"></yuumi> -->
     <router-view></router-view>
   </section>
 </template>
@@ -101,7 +103,7 @@ import group from "../cmps/group/group.vue";
 import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/board/side-menu.vue";
-import {userService} from "../services/user-service.js"
+import { userService } from "../services/user-service.js";
 import yuumi from "../cmps/board/yuumi.vue";
 export default {
   components: {
@@ -211,11 +213,11 @@ export default {
     async setUpdatedLoggedInUser() {
       try {
         const user = await userService.getById(this.loggedinUser._id);
-        this.$store.commit({type: 'setLoggedinUser', user})
+        this.$store.commit({ type: "setLoggedinUser", user });
       } catch (err) {
-        console.log('cannot get user', err);
+        console.log("cannot get user", err);
       }
-    }
+    },
   },
   created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
@@ -223,13 +225,14 @@ export default {
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });
-    this.setUpdatedLoggedInUser()
+    this.setUpdatedLoggedInUser();
     socketService.emit("board topic", this.boardId);
     if (this.loggedinUser)
       this.$store.dispatch({
         type: "loadUserCardWatch",
         userId: this.loggedinUser._id,
       });
+    document.title = `Yuulo`;
   },
 };
 </script>

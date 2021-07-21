@@ -72,6 +72,10 @@
 }
 .header-user{
     padding: 0;
+    .to-user{
+        background-color: inherit;
+        padding-top: 7px;
+    }
     img{
         border-radius: 50%;
         width: 32px;
