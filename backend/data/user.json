@@ -1,0 +1,26 @@
+[
+    {
+        "_id": ObjectId("60f7d53d868291425cb9c0e3"),
+        "username": "sahar",
+        "password": "$2b$10$Nt2WpbS/B31MHh0TZbS42.kX07448c.9xyHH1s32Tm0PZpzpjwdaO",
+        "fullname": "Sahar Davidian",
+        "notifications": [],
+        "imgUrl": "https://trello-members.s3.amazonaws.com/5e5ad6ca4e7adc4a3b8cf9db/1480e469745bf6bac3f0b7ab6013f318/original.png",
+    },
+    {
+        "_id": ObjectId("60f7d582868291425cb9c0e4"),
+        "username": "liran",
+        "password": "$2b$10$HahqWaa.RybHt/nBzFl6cOXgDZHQsmbUE1nleUflK.pa0bMzRRGPm",
+        "fullname": "Liran Barzilay",
+        "notifications": [],
+        "imgUrl": "https://ca.slack-edge.com/T01RYA29LLB-U01SE0KL7RQ-c4725a6539f2-72",
+    },
+    {
+        "_id": ObjectId("60f7d5a3868291425cb9c0e5"),
+        "username": "meidan",
+        "password": "$2b$10$1hZ4ufFtm3Uz8E.1.hmWi.dgd7GkQzjeaO9RDkrlNxrXGBz9Vd24y",
+        "fullname": "Meidan Yona",
+        "notifications": [],
+        "imgUrl": "https://trello-members.s3.amazonaws.com/60e75346a139822337c8c5ad/da3326afdf656a4aed9ae1f46db124b3/original.png",
+    }
+]

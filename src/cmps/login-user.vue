@@ -7,40 +7,58 @@
     <section v-else>
       <form @submit.prevent="signup">
         <h2>Signup</h2>
+        <label>
+          Full name: 
         <input
           type="text"
-          placeholder="Your full name"
+          placeholder="Enter full name"
           v-model="signupCred.fullname"
-        />
+        /> 
+        <label>
+        </label>
+          Username: 
         <input
           type="text"
-          placeholder="username"
+          placeholder="Enter username"
           v-model="signupCred.username"
         />
+          </label> 
+        <label>
+          Email: 
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Enter email"
           v-model="signupCred.email"
         />
+        </label>
+        <label>
+          Password: 
         <input
           type="text"
-          placeholder="password"
+          placeholder="Enter password"
           v-model="signupCred.password"
         />
+        </label>
         <button>Signup</button>
       </form>
       <form @submit.prevent="login">
         <h2>Login</h2>
+        <label>
+          Username: 
         <input
           type="text"
-          placeholder="username"
+          placeholder="Enter username"
           v-model="credentials.username"
         />
+        </label>
+        <label>
+          Password: 
         <input
           type="text"
-          placeholder="password"
+          placeholder="Enter password"
           v-model="credentials.password"
         />
+        </label>
         <button>Login</button>
       </form>
     </section>
@@ -57,19 +75,14 @@ export default {
   data() {
     return {
       credentials: {
-        username: "Mosh@Mosh.com",
-        password: "mosh123",
-        fullname: "Mosho mosho",
-        imgUrl: "",
-        mentions: [{}],
+        username: "sahar",
+        password: "1234",
       },
       signupCred: {
-        username: "Shimi balili",
+        username: "shimi",
         password: "1234",
-        fullname: "shimi balili",
-        email:"Shimi@balili.com",
-        imgUrl: "",
-        mentions: [{}],
+        fullname: "Shimi Balili",
+        email:"shimi@balili.com",
       }
       // loggedInUser: this.$store.getters.loggedinUser
     };
