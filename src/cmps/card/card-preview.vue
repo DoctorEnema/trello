@@ -2,7 +2,7 @@
   <section @click.stop="openCard(group.id, card.id,isEditCard=false)">
     <button
       class="edit-card-preview"
-      @click.stop="openCard(group.id, card.id,isEditCard=true)"
+      @click.stop="openCard(group.id, card.id,isEditCard=true,$event)"
     ></button>
     <!-- <button
       class="edit-card-preview"
@@ -88,7 +88,8 @@ export default {
     removeCard(cardId) {
       this.$emit("removeCard", cardId);
     },
-    openCard(groupId, cardId,isEditCard) {
+    openCard(groupId, cardId,isEditCard,ev) {
+      console.log("ev", ev)
       this.$router.push(
         `/board/${this.selectedBoard._id}/${groupId}/${cardId}/${isEditCard}`
       );

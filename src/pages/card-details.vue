@@ -212,9 +212,10 @@
             :users="usersToShow"
           ></component>
         </section>
-      <card-edit-preview :group="group" :card="card"></card-edit-preview>
+      <card-edit-preview :style="'left:' + modalEv.clientX" :group="group" :card="card"></card-edit-preview>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -263,7 +264,8 @@ export default {
       searchBy: "",
       searchType: "",
       isEditCard: null,
-      isUpdated: false
+      isUpdated: false,
+      modalEv:''
     };
   },
   async created() {
@@ -576,6 +578,8 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
+      this.modalEv = ev
+      console.log("this.modalEv", this.modalEv)
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },

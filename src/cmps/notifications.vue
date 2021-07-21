@@ -19,9 +19,9 @@
                 v-if="notification.byMember.imgUrl"
                 :src="notification.byMember.imgUrl"
               />
-              <div v-else class="to-user activity-user">
+              <!-- <div v-else class="to-user activity-user">
                 {{ notification.byMember.fullname }}
-              </div>
+              </div> -->
             </div>
             <span class="member-name">{{
               notification.byMember.fullname
