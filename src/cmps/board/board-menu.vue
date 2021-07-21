@@ -12,18 +12,31 @@
       v-if="isCreate"
     ></add-board>
     <div class="board-menu-content">
-      <button
+      <div
         v-for="board in boards"
         :key="board._id"
         @click="selectBoard(board._id)"
-        :style="{ backgroundImage: 'url(' + board.style.backgroundImg + ')' }"
       >
-      <div class="diffuser">{{ board.title }}</div>
-      <img v-if="board.style.backgroundImg" :src="board.style.backgroundImg">
-        <button v-if="'60f42b03d2f67fa6bfa0f528'!==board._id" @click.stop="removeBoard(board._id)" class="board-remove">X</button>
-      </button>
+        <button
+          v-if="board.style"
+          :style="{ backgroundImage: 'url(' + board.style.backgroundImg + ')' }"
+        >
+          <div class="diffuser">{{ board.title }}</div>
+          <button
+            v-if="'60f42b03d2f67fa6bfa0f528' !== board._id"
+            @click.stop="removeBoard(board._id)"
+            class="board-remove"
+          >
+            X
+          </button>
+          <img
+            v-if="board.style.backgroundImg"
+            :src="board.style.backgroundImg"
+          />
+        </button>
+      </div>
     </div>
-      <a href="#" @click="toggleCreateBoard">Create new board...</a>
+    <a href="#" @click="toggleCreateBoard">Create new board...</a>
   </section>
 </template>
 
@@ -39,7 +52,11 @@ export default {
     };
   },
   async created() {
-    await this.$store.dispatch({ type: "loadBoards" });
+    try {
+      await this.$store.dispatch({ type: "loadBoards" });
+    } catch (err) {
+      console.log('cannot load boards', err);
+    }
   },
   components: {
     addBoard,
@@ -49,7 +66,7 @@ export default {
       return this.$store.getters.boards;
     },
     selectedBoard() {
-      return this.$store.getters.selectedBoard
+      return this.$store.getters.selectedBoard;
     },
     loggedInUser() {
       return this.$store.getters.loggedinUser;
@@ -73,16 +90,15 @@ export default {
       this.isCreate = !this.isCreate;
     },
     async selectBoard(boardId) {
-      if(boardId === this.selectedBoard?._id) return
+      if (boardId === this.selectedBoard?._id) return;
       await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
     },
-    async removeBoard(boardId){
-      if('60f42b03d2f67fa6bfa0f528'===boardId) return
+    async removeBoard(boardId) {
+      if ("60f42b03d2f67fa6bfa0f528" === boardId) return;
       this.$router.push("/board");
       await this.$store.dispatch({ type: "removeBoards", boardId });
       await this.$store.dispatch({ type: "loadBoards" });
-
     },
     async createBoard(title, imgUrl) {
       const board = {

@@ -22,6 +22,7 @@ async function query(filterBy = {}) {
         // TURN ON WHEN FILTERING
         // var board = await collection.find(criteria).toArray()
         var boards = await collection.find().toArray()
+        console.log('boards', boards);
         return boards
     } catch (err) {
         logger.error('cannot find boards', err)
@@ -90,7 +91,6 @@ async function add(board) {
         }
         const collection = await dbService.getCollection('board')
         const savedBoard = await collection.insertOne(boardToAdd)
-        console.log("checkBoard", checkBoard)
         return savedBoard;
     } catch (err) {
         logger.error('cannot insert board', err)

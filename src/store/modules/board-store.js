@@ -81,11 +81,14 @@ export const boardStore = {
         async loadBoards(context) {
             try {
                 const boards = await boardService.query()
+                console.log('boards', boards);
+                // log
                 context.commit({ type: 'setBoards', boards })
                 // context.commit({ type: 'setGroup', group })
                 // return card
             } catch (err) {
-                console.log('Cannot load board', err);
+                console.log('Cannot load boards', err);
+                // throw err
             }
         },
         async removeBoards(context, { boardId }) {

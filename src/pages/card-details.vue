@@ -339,9 +339,9 @@ export default {
     users() {
       return this.$store.getters.users;
     },
-    user() {
-      return this.$store.getters.user;
-    },
+    // user() {
+    //   return this.$store.getters.user;
+    // },
     showTime() {
       var actionLogged = this.act.at;
       var now = Date.now();

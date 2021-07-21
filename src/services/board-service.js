@@ -52,7 +52,6 @@ function _createBoards() {
 //     return storageService.query(BOARD_KEY);
 // }
 async function query() {
-    // return storageService.query(BOARD_KEY);
     return httpService.get('board')
 }
 
