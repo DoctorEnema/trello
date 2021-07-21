@@ -32,10 +32,12 @@
       <h2>Your boards</h2>
       <div class="board-display">
         <button
+          class="board-btn"
           @click="selectBoard(board._id)"
           v-for="board in boards"
           :key="board._id"
         >
+          <h2>{{ board.title }}</h2>
           <img
             v-if="board.style.backgroundImg"
             :src="board.style.backgroundImg"
