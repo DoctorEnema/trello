@@ -9,14 +9,13 @@
         <yuumi></yuumi>
       </div>
     <div class="hero">
-      <h2>Yuulo helps you keep organized and stay productive.</h2>
+      <h2>Yuulo helps you stay organized and be productive.</h2>
       <br>
       <h3>"You and me? We got this!"</h3>
-      <button>Sign up</button>
-      <h3>Or</h3>
       <button>Try it as a guest</button>
-    </div>
+      <h3>or</h3>
     <login-user></login-user>
+    </div>
   </section>
 </template>
 

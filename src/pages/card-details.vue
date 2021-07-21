@@ -19,7 +19,10 @@
       <header class="details-header">
         <span class="details-title"></span>
         <div>
-          <h2>{{ card.title }}</h2>
+          <!-- <h2>{{ card.title }}</h2> -->
+          <form @submit.prevent="saveTitle">
+        <textarea ref="title" @keydown.13.prevent @keyup.13="saveTitle" @blur="saveTitle">{{card.title}}</textarea>
+      </form>
           <!--this is a textarea in trello -->
           <h5>in list {{ group.title }}</h5>
         </div>
@@ -260,6 +263,7 @@ export default {
       searchBy: "",
       searchType: "",
       isEditCard: null,
+      isUpdated: false
     };
   },
   async created() {
@@ -356,6 +360,16 @@ export default {
     },
   },
   methods: {
+    saveTitle(ev) {
+      if (this.isUpdated) return 
+      console.log(ev);
+      const card = this.card
+      card.title = this.$refs.title.value
+      this.updateCard()
+      setTimeout(()=> this.isUpdated = false, 100)
+      this.isUpdated = true
+      this.$refs.title.blur()
+    },
     editCard() {
       this.isEditCard = true;
     },

@@ -2,7 +2,7 @@
   <section>
     <div class="group-header">
       <form @submit.prevent="saveTitle">
-        <textarea class="dont-drag" ref="title" @keydown.13.prevent @keyup.13="saveTitle" @blur="saveTitle">{{group.title}}</textarea>
+        <textarea ref="title" @keydown.13.prevent @keyup.13="saveTitle" @blur="saveTitle">{{group.title}}</textarea>
       </form>
       <!-- <p>{{group.title}}</p> -->
       <button @click="removeGroup(group.id)"></button>
