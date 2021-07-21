@@ -1,10 +1,10 @@
 <template>
   <section>
     <div class="group-header">
-      <!-- <form @submit.prevent="saveTitle">
-        <textarea ref="title" @keydown.13.prevent @keyup.13="saveTitle">{{group.title}}</textarea>
-      </form> -->
-      <p>{{group.title}}</p>
+      <form @submit.prevent="saveTitle">
+        <textarea class="dont-drag" ref="title" @keydown.13.prevent @keyup.13="saveTitle" @blur="saveTitle">{{group.title}}</textarea>
+      </form>
+      <!-- <p>{{group.title}}</p> -->
       <button @click="removeGroup(group.id)"></button>
     </div>
     <draggable
@@ -60,7 +60,8 @@ export default {
         title: "",
       },
       isAdding: false,
-      hardcodedBoardId: '60f42b03d2f67fa6bfa0f528'
+      hardcodedBoardId: '60f42b03d2f67fa6bfa0f528',
+      isUpdated: false
     };
   },
   computed: {
@@ -72,14 +73,16 @@ export default {
     },
   },
   methods: {
-    // saveTitle() {
-    //   console.log('pressed');
-    //   this.$refs.title.blur()
-    //   console.log(this.$refs.title.value);
-    //   const group = this.copiedGroup
-    //   group.title = this.$refs.title.value
-    //   this.$emit('updateGroup', group)
-    // },
+    saveTitle(ev) {
+      if (this.isUpdated) return 
+      console.log(ev);
+      const group = this.copiedGroup
+      group.title = this.$refs.title.value
+      this.$emit('updateGroup', group)
+      setTimeout(()=> this.isUpdated = false, 100)
+      this.isUpdated = true
+      this.$refs.title.blur()
+    },
     onDragStart(ev) {
       ev.item.classList.add("dragging");
     },

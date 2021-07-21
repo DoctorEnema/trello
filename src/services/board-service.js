@@ -33,7 +33,7 @@ export const boardService = {
     getEmptyTodo,
     getEmptyList,
     updateLabel,
-    // updateGroup
+    updateGroup
 };
 
 

@@ -74,6 +74,7 @@
             :group="group"
             :key="group.id"
             @onDragEnd="onDragEnd"
+            @updateGroup="updateGroup"
           ></group>
         </draggable>
         <div class="adding-group" v-if="isAdding">
@@ -164,9 +165,10 @@ export default {
       this.$store.commit({ type: "setBoard", board });
       this.$store.dispatch({ type: "updateBoard", board });
     },
-    // updateGroup(group) {
-    //   this.$store.dispatch({ type: "updateGroup", group})
-    // },
+    updateGroup(group) {
+      console.log('group', group);
+      this.$store.dispatch({ type: "updateGroup", board: this.board, group})
+    },
     removeGroup(groupId) {
       this.$store.dispatch({ type: "removeGroup", groupId });
     },

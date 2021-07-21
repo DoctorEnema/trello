@@ -41,6 +41,21 @@
     align-items: center;
     padding: 6px;
     padding-left: 16px;
+    textarea {
+        background: transparent;
+        border-radius: 3px;
+        box-shadow: none;
+        font-weight: 600;
+        margin: -4px 0;
+        height: 20px;
+        min-height: 20px;
+        padding: 4px 8px;
+        resize: none;
+        max-height: 256px;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        height: 28px;
+    }
     button {
         width: 32px;
         height: 32px;
@@ -129,12 +144,9 @@
     }
 }
 
-.moving-group{
+.moving-group {
     background-color: rgba($color: #2c2c2c, $alpha: 0.4);
-    >*{
+    > * {
         opacity: 0;
     }
-
 }
-
-
