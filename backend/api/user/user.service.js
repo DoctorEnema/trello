@@ -80,7 +80,6 @@ async function update(user) {
             fullname: user.fullname,
             notifications: user.notifications
         }
-        console.log('user.service line 84 userToSave',userToSave);
         const collection = await dbService.getCollection('user')
         await collection.updateOne({ '_id': userToSave._id }, { $set: userToSave })
         return userToSave;
