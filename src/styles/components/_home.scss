@@ -18,64 +18,79 @@
         );
     }
 
-    .yuumi{
+    .yuumi {
         width: 200px;
         height: 200px;
         position: absolute;
         right: -40px;
-        transform: rotate(-0.1turn );
+        transform: rotate(-0.1turn);
     }
 
-    .yuumi-container{
+    .yuumi-container {
         animation: yuumiMove ease normal forwards 1000ms;
     }
-    @keyframes yuumiMove{
-        0%{
-            transform:translateX(30%);
+    @keyframes yuumiMove {
+        0% {
+            transform: translateX(30%);
         }
-        100%{
-            
+        100% {
             transform: translateX(2%);
         }
-    };
+    }
 }
 
-.home-logo{
+.signup-form {
+    display: flex;
+    align-items: flex-end;
+    button{
+        padding:20px 40px;
+    }
+}
+.signup-inputs {
+    display: flex;
+    flex-direction: column;
+    input[type="text"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    label {
+        padding-bottom: 2px;
+    }
+}
+
+.home-logo {
     display: flex;
     align-items: center;
-    img{
+    img {
         margin-bottom: 16px;
         height: 50px;
         width: 50px;
     }
-    h1{
+    h1 {
         font-weight: 700;
         font-size: 40px;
     }
 }
 
-
-
-.hero{
-    h2{
+.hero {
+    h2 {
         font-weight: 600;
         font-size: 32px;
     }
-    h3{
+    h3 {
         font-size: 26px;
     }
 
     margin: 0 auto;
 
-    @include for-narrow-layout{
+    @include for-narrow-layout {
         max-width: $break-narrow;
     }
 
-    @include for-normal-layout{
-        
+    @include for-normal-layout {
         max-width: $break-normal;
     }
-    @include for-wide-layout{
+    @include for-wide-layout {
         max-width: $break-wide;
     }
 }
