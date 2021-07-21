@@ -274,7 +274,7 @@ export default {
         groupId,
         cardId,
       });
-      document.title = `Yuulo - ${this.card.title}`
+      window.document.title = `Yuulo - ${this.card.title}`
       socketService.emit("card topic", cardId);
       // this.isUserAssignedToCard()
     } catch (err) {

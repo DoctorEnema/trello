@@ -19,7 +19,7 @@ export default {
 
 <template >
   <section class="yuumi">
-      <button @click="turnRed">TURN RED</button>
+      <!-- <button @click="turnRed">TURN RED</button> -->
     <svg
       id="e4Xr2tP63Cp1"
       xmlns="http://www.w3.org/2000/svg"

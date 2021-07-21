@@ -1,6 +1,21 @@
 <template>
-  <section>
-    <h2>Home</h2>
+  <section class="home">
+    <div class="background"></div>
+    <div class="home-logo">
+      <img src="@/assets/img/yuumi-head3.png" />
+      <h1>Yuulo</h1>
+    </div>
+      <div class="yuumi-container">
+        <yuumi></yuumi>
+      </div>
+    <div class="hero">
+      <h2>Yuulo helps you keep organized and stay productive.</h2>
+      <br>
+      <h3>"You and me? We got this!"</h3>
+      <button>Sign up</button>
+      <h3>Or</h3>
+      <button>Try it as a guest</button>
+    </div>
     <login-user></login-user>
   </section>
 </template>
@@ -8,14 +23,15 @@
 <script>
 // @ is an alias to /src
 import loginUser from "../cmps/login-user.vue";
-
+import yuumi from "../cmps/yuumi.vue";
 export default {
   name: "home",
   components: {
-    loginUser
+    loginUser,
+    yuumi,
   },
-  mounted(){
-    document.title = `Yuulo - Home`
-  }
+  mounted() {
+    document.title = `Yuulo - Home`;
+  },
 };
 </script>
