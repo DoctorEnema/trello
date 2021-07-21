@@ -274,6 +274,7 @@ export default {
         groupId,
         cardId,
       });
+      document.title = `Yuulo - ${this.card.title}`
       socketService.emit("card topic", cardId);
       // this.isUserAssignedToCard()
     } catch (err) {
@@ -288,6 +289,7 @@ export default {
     //   card: null,
     // });
     this.$store.commit("removeCurrent");
+    document.title = `Yuulo`
   },
   computed: {
     selectedBoard() {

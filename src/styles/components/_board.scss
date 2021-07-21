@@ -45,6 +45,10 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
+        .to-user{
+            padding-top: 6px;
+            cursor: pointer;
+        }
         img {
             border-radius: 50%;
             position: absolute;
