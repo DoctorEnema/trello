@@ -42,24 +42,25 @@
         </div>
         <button>Signup</button>
       </form>
-      <form @submit.prevent="login">
-        <h2>Login</h2>
-        <label>
-          Username:
-          <input
-            type="text"
-            placeholder="Enter username"
-            v-model="credentials.username"
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            placeholder="Enter password"
-            v-model="credentials.password"
-          />
-        </label>
+      <form class="login-form" @submit.prevent="login">
+        <div class="login-inputs">
+          <label>
+            <!-- Username: -->
+            <input
+              type="text"
+              placeholder="Enter username"
+              v-model="credentials.username"
+            />
+          </label>
+          <label>
+            <!-- Password: -->
+            <input
+              type="password"
+              placeholder="Enter password"
+              v-model="credentials.password"
+            />
+          </label>
+        </div>
         <button>Login</button>
       </form>
     </section>

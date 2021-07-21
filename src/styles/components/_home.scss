@@ -1,12 +1,14 @@
 .home {
     width: 100vw;
-    padding: 12px;
     button {
-        padding: 12px;
+        padding: 14px;
         background-color: #0065ff;
         color: $clr4;
+        font-size: 18px;
+        &:first-of-type{
+            margin-top: 20px;
+        }
     }
-
     .background {
         background: linear-gradient(
             180deg,
@@ -42,14 +44,44 @@
 .signup-form {
     display: flex;
     align-items: flex-end;
-    button{
-        padding:20px 40px;
+    margin-bottom: 40px;
+    button {
+        padding: 12px 36px;
     }
 }
 .signup-inputs {
     display: flex;
     flex-direction: column;
     input[type="text"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    input[type="password"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    label {
+        padding-bottom: 2px;
+    }
+}
+
+.login-form{
+    display: flex;
+    align-items: flex-end;
+    button {
+        height: 46px;
+        padding: 12px 42px;
+    }
+}
+
+.login-inputs{
+    display: flex;
+    flex-direction: column;
+    input[type="text"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    input[type="password"] {
         @include trello-txt;
         margin: 0;
     }
@@ -76,6 +108,7 @@
     h2 {
         font-weight: 600;
         font-size: 32px;
+        padding-bottom: 46px;
     }
     h3 {
         font-size: 26px;

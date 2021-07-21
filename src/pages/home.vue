@@ -10,7 +10,6 @@
       </div>
     <div class="hero">
       <h2>Yuulo helps you stay organized and be productive.</h2>
-      <br>
       <h3>"You and me? We got this!"</h3>
       <button>Try it as a guest</button>
       <h3>or</h3>
