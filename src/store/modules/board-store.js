@@ -81,7 +81,6 @@ export const boardStore = {
         async loadBoards(context) {
             try {
                 const boards = await boardService.query()
-                console.log('boards', boards);
                 // log
                 context.commit({ type: 'setBoards', boards })
                 // context.commit({ type: 'setGroup', group })
@@ -104,12 +103,10 @@ export const boardStore = {
         },
         async addBoard(context, { board }) {
             try {
-                const newBoard =  await boardService.saveBoard(board)
-                console.log("newBoard", newBoard)
-                this.$router.push("/board/" + newBoard._id);
+                const newBoardId =  await boardService.saveBoard(board)
                 // context.commit({ type: 'setCard', card })
                 // context.commit({ type: 'setGroup', group })
-                // return card
+                return newBoardId
             } catch (err) {
                 console.log('Cannot load board', err);
             }

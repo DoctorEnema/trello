@@ -55,7 +55,7 @@ export default {
     try {
       await this.$store.dispatch({ type: "loadBoards" });
     } catch (err) {
-      console.log('cannot load boards', err);
+      console.log("cannot load boards", err);
     }
   },
   components: {
@@ -186,7 +186,11 @@ export default {
         groups: [],
         activities: [],
       };
-      await this.$store.dispatch({ type: "addBoard", board });
+      const newBoardId = await this.$store.dispatch({
+        type: "addBoard",
+        board,
+      });
+      this.$router.push("/board/" + newBoardId);
       this.$store.dispatch({ type: "loadBoards" });
     },
   },

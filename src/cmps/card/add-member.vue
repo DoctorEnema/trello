@@ -48,7 +48,6 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "loadUsers" });
-    console.log(this.users);
   },
   mounted() {
     this.$refs.searchInput.focus();

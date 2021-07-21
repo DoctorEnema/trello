@@ -527,7 +527,7 @@ export default {
     },
     async removeMember(member) {
       const memberIdx = this.card.members.findIndex(
-        (mem) => mem._id === member.id
+        (mem) => mem._id === member._id
       );
       this.card.members.splice(memberIdx, 1);
       await this.setActivity(
@@ -563,7 +563,6 @@ export default {
       this.openModalType = null;
     },
     setModalType(ev) {
-      console.log("ev", ev)
       var value = ev.target.dataset.cmp;
       this.openModalType = value;
     },
