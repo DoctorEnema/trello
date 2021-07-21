@@ -8,7 +8,8 @@ export const boardStore = {
         selectedGroup: null,
         selectedCard: null,
         card: null,
-        textareaOpen: false
+        textareaOpen: false,
+        position: {posY: 136.96180725097656, posX: 242.01390075683594}
     },
     getters: {
         boards(state) {
@@ -25,6 +26,9 @@ export const boardStore = {
         },
         isTextareaOpen(state) {
             return state.textareaOpen
+        },
+        position(state) {
+           return state.position
         }
     },
     mutations: {
@@ -70,6 +74,10 @@ export const boardStore = {
         },
         clearBaord(state){
             state.selectedBoard = null
+        },
+        setPosition(state, {position}) {
+            console.log('store', position);
+            state.position = position
         }
     },
     actions: {

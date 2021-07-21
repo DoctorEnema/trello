@@ -1,6 +1,7 @@
 <template>
   <section @click.stop="openCard(group.id, card.id,isEditCard=false)">
     <button
+    ref="edit"
       class="edit-card-preview"
       @click.stop="openCard(group.id, card.id,isEditCard=true,$event)"
     ></button>
@@ -76,7 +77,8 @@ export default {
   },
   data(){
     return{
-      isEditCard:false
+      isEditCard:false,
+      position: null
     }
   },
   created() {
@@ -90,6 +92,14 @@ export default {
     },
     openCard(groupId, cardId,isEditCard,ev) {
       console.log("ev", ev)
+      
+      const position = { 
+        posY: this.$refs.edit.getBoundingClientRect().top + window.scrollY,
+        posX: this.$refs.edit.getBoundingClientRect().left + window.scrollX
+      }
+      // this.$refs.edit.style.top =`${position.posY}`
+      // this.$refs.edit.style.left =`${position.posX}`
+      this.$store.commit({type: 'setPosition', position}) 
       this.$router.push(
         `/board/${this.selectedBoard._id}/${groupId}/${cardId}/${isEditCard}`
       );

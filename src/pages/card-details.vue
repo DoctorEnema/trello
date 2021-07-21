@@ -212,7 +212,7 @@
             :users="usersToShow"
           ></component>
         </section>
-      <card-edit-preview :group="group" :card="card"></card-edit-preview>
+      <card-edit-preview :style="position" :group="group" :card="card"></card-edit-preview>
     </div>
   </div>
   
@@ -359,6 +359,11 @@ export default {
         return new Date(time).getHours() + " Hours ago";
       else return "A while ago";
     },
+    position() {
+      const position = this.$store.getters.position;
+      console.log(position, 'cardDetails');
+      return `top: ${position.posY-1}px; left: ${position.posX-229}px`
+    }
   },
   methods: {
     saveTitle(ev) {
