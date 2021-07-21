@@ -1,34 +1,43 @@
 
 <template>
   <section class="notifications">
-    Notifications
-    {{isNewNotifications}}
-    <button @click="toggleNotifModal">X</button>
-    <section v-if="!loggedinUser.notifications.length">
-      No notifications to show
-    </section>
-    <section v-else class="activities">
-      <button @click="clearNotifications">Clear</button>
-      <div v-for="(notification, idx) in loggedinUser.notifications" :key="idx">
-        <div class="activity">
-          <div>
-            <img
-              v-if="notification.byMember.imgUrl"
-              :src="notification.byMember.imgUrl"
-            />
-            <div v-else class="to-user activity-user">
-              {{ notification.byMember.fullname }}
+    <section v-if="loggedinUser">
+      <h4>Notifications</h4>
+      <button @click="toggleNotifModal">X</button>
+      <section v-if="!loggedinUser.notifications.length">
+        No notifications to show
+      </section>
+      <section v-else class="activities">
+        <button @click="clearNotifications">Clear</button>
+        <div
+          v-for="(notification, idx) in loggedinUser.notifications"
+          :key="idx"
+        >
+          <div class="activity">
+            <div>
+              <img
+                v-if="notification.byMember.imgUrl"
+                :src="notification.byMember.imgUrl"
+              />
+              <div v-else class="to-user activity-user">
+                {{ notification.byMember.fullname }}
+              </div>
             </div>
+            <span class="member-name">{{
+              notification.byMember.fullname
+            }}</span>
+            <span><span> </span> {{ notification.txt }}</span>
+            <show-time
+              v-if="notification"
+              class="activity-time"
+              :time="notification.creatAt"
+            ></show-time>
           </div>
-          <span class="member-name">{{ notification.byMember.fullname }}</span>
-          <span><span> </span> {{ notification.txt }}</span>
-          <show-time
-            v-if="notification"
-            class="activity-time"
-            :time="notification.creatAt"
-          ></show-time>
         </div>
-      </div>
+      </section>
+    </section>
+    <section v-else>
+      Sign in to see notifications
     </section>
   </section>
 </template>
@@ -62,8 +71,8 @@ export default {
       this.$emit("clearNotifications", this.loggedinUser._id);
     },
     toggleNotifModal() {
-      this.$emit('toggleNotifModal')
-    }
+      this.$emit("toggleNotifModal");
+    },
   },
 };
 </script>

@@ -44,10 +44,11 @@ export default {
   },
   props: {
     card: Object,
-    users: Array,
+    // users: Array,
   },
   created() {
-    this.$store.dispatch({ type: "loadUsers" });
+    // this.$store.dispatch({ type: "loadUsers" });
+    console.log(this.users);
   },
   mounted() {
     this.$refs.searchInput.focus();
