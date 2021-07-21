@@ -23,15 +23,30 @@
       <h3>"You and me? We got this!"</h3>
       <button @click="loginAsGuest">Try it as a guest</button>
     </div>
-      <login-user @closeModal="displayModal=false" v-if="displayModal" :isSignup="isSignup"></login-user>
-      <div v-if="loggedinUser">
-        <div class="board-display" v-for="board in boards" :key="board._id">
-          <button >
-            <img v-if="board.style.backgroundImg" :src="board.style.backgroundImg">
-            <div v-else :style="{backgroundColor:board.style.backgroundColor}"></div>
-          </button>
-        </div>
+    <login-user
+      @closeModal="displayModal = false"
+      v-if="displayModal"
+      :isSignup="isSignup"
+    ></login-user>
+    <div v-if="loggedinUser">
+      <h2>Your boards</h2>
+      <div class="board-display">
+        <button
+          @click="selectBoard(board._id)"
+          v-for="board in boards"
+          :key="board._id"
+        >
+          <img
+            v-if="board.style.backgroundImg"
+            :src="board.style.backgroundImg"
+          />
+          <div
+            v-else
+            :style="{ backgroundColor: board.style.backgroundColor }"
+          ></div>
+        </button>
       </div>
+    </div>
   </section>
 </template>
 
@@ -55,13 +70,13 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-    userOrModal(){
-      if (this.loggedinUser || this.displayModal) return false
-      else return true
+    userOrModal() {
+      if (this.loggedinUser || this.displayModal) return false;
+      else return true;
     },
-    boards(){
-      return this.$store.getters.boards
-    }
+    boards() {
+      return this.$store.getters.boards;
+    },
   },
   methods: {
     loginPage() {
@@ -86,10 +101,14 @@ export default {
     logout() {
       this.$store.dispatch({ type: "logout" });
     },
+    async selectBoard(boardId) {
+      const board = await this.$store.dispatch({ type: "loadBoard", boardId });
+      this.$router.push("/board/" + boardId);
+    },
   },
   created() {
     this.$store.commit({ type: "clearBaord" });
-    this.$store.dispatch('loadBoards')
+    this.$store.dispatch("loadBoards");
   },
   mounted() {
     document.title = `Yuulo - Home`;
