@@ -183,7 +183,6 @@ export default {
       });
     },
     addCard(groupId, card) {
-      console.log("addCard - board");
       this.$store.dispatch({
         type: "addCard",
         board: this.board,

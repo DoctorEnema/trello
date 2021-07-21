@@ -307,10 +307,6 @@ export default {
       return true;
     },
     isItEditCard(){
-      console.log("this.isEditCard", this.isEditCard)
-      console.log(this.card);
-      if((this.isEditCard===true) && (this.card===true)) {console.log('true')}
-      else console.log('false')
       return (this.isEditCard && this.card)
     },
     isLabels() {

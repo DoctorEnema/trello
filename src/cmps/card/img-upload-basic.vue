@@ -15,7 +15,6 @@ export default {
     async onUploadImg(ev) {
       this.isLoading = true
       const res = await uploadImg(ev);
-      console.log("onUploadImg -> res.url", res.url);
       this.$emit('saveImg', res.url)
       this.isLoading = false
     },
