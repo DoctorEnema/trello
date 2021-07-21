@@ -16,7 +16,7 @@
     />
     <div class="board-header">
       <div class="main-header-side">
-        <button><h2>Electricity~</h2></button>
+        <button @click="openDashboard"><h2>Electricity~</h2></button>
         <button class="favorite-board"></button>
         <div class="board-members">
           <button
@@ -35,14 +35,14 @@
         <div v-if="isMember" class="invite-member">
           <button @click="memberModal">X</button>
           <section v-if="users">
-          <button
-            v-for="user in users"
-            :key="user._id"
-            @click="addMember(user)"
-          >
-            <img class="img-invite" :src="user.imgUrl" alt="" />
-            {{ user.fullname }}
-          </button>
+            <button
+              v-for="user in users"
+              :key="user._id"
+              @click="addMember(user)"
+            >
+              <img class="img-invite" :src="user.imgUrl" alt="" />
+              {{ user.fullname }}
+            </button>
           </section>
         </div>
       </div>
@@ -147,6 +147,9 @@ export default {
     },
   },
   methods: {
+    openDashboard() {
+      this.$router.push(`/board/${this.board._id}/dashboard`);
+    },
     async addMember(user) {
       const member = {
         fullname: user.fullname,
@@ -168,8 +171,8 @@ export default {
       this.$store.dispatch({ type: "updateBoard", board });
     },
     updateGroup(group) {
-      console.log('group', group);
-      this.$store.dispatch({ type: "updateGroup", board: this.board, group})
+      console.log("group", group);
+      this.$store.dispatch({ type: "updateGroup", board: this.board, group });
     },
     removeGroup(groupId) {
       this.$store.dispatch({ type: "removeGroup", groupId });
@@ -231,7 +234,7 @@ export default {
     // });
     this.setUpdatedLoggedInUser();
     socketService.emit("board topic", this.boardId);
-    if (this.loggedinUser){
+    if (this.loggedinUser) {
       this.$store.dispatch({
         type: "loadUserCardWatch",
         userId: this.loggedinUser._id,
