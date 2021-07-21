@@ -68,15 +68,11 @@ export const boardStore = {
             state.selectedCard = null
             state.selectedGroup = null
         },
+        clearBaord(state){
+            state.selectedBoard = null
+        }
     },
     actions: {
-        // async removeCurrent(context, {group, card}){
-        //     try{
-        //         context.commit({type: 'removeCurrent', card, group})
-        //     }catch(err){
-        //         console.log('Cannot remove current', err);
-        //     }
-        // },
 
         async loadBoards(context) {
             try {
@@ -190,7 +186,7 @@ export const boardStore = {
                 if (!board.members) board.members = []
                 if (board.members.some(m => m._id === member._id)) return
                 console.log(context);
-                
+
                 board.members.unshift(member)
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })
