@@ -5,25 +5,36 @@
       <h3>Dates</h3>
     </div>
     <hr class="date-hr" />
-        <button class="remove-date" v-if="card.dueDate" @click="removeDate() ; closeModal()">Remove Date</button>
-
-    <el-date-picker
-      @change="addDate(); closeModal()"
-      ref="dateInput"
-      v-model="date"
-      type="datetime"
-      placeholder="Select date and time"
-      value-format="timestamp"
-      default-time="12:00:00"
+    <button
+      class="remove-date"
+      v-if="card.dueDate"
+      @click="
+        removeDate();
+        closeModal();
+      "
     >
-    </el-date-picker>
+      Remove Date
+    </button>
+      <el-date-picker
+        @change="
+          addDate();
+          closeModal();
+        "
+        ref="dateInput"
+        v-model="date"
+        type="datetime"
+        placeholder="Select date and time"
+        value-format="timestamp"
+        default-time="12:00:00"
+      >
+      </el-date-picker>
   </section>
 </template>
 
 <script>
 export default {
-  props:{
-    card:Object
+  props: {
+    card: Object,
   },
   data() {
     return {

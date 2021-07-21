@@ -1,9 +1,11 @@
 .el-date-picker {
     width: 300px;
+    right: 0;
 }
 
-.add-date{
+.add-date {
     padding: 12px;
+    // position: relative;
 }
 
 .add-to-card {
@@ -13,15 +15,15 @@
     i {
         display: none;
     }
-    .date-hr{
-        margin-bottom: 5px
+    .date-hr {
+        margin-bottom: 5px;
+    }
+    .el-picker-panel {
+        top: 0;
     }
 }
 
-.el-picker-panel{
-    left: 602px!important
-}
-.remove-date{
+.remove-date {
     @include control-btn;
     width: 100%;
     margin-bottom: 8px;
@@ -31,8 +33,6 @@ button.el-button:nth-child(1) {
     display: none;
 }
 
-
 .el-picker-panel__content {
     margin: 0;
 }
-

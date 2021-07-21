@@ -15,7 +15,7 @@
           Cover
         </button>
       </div>
-      <button class="close-details" @click="closeCard"></button>
+      <button :class="{'no-cover-details':!card.cover}" class="close-details" @click="closeCard"></button>
       <header class="details-header">
         <span class="details-title"></span>
         <div>
@@ -316,6 +316,9 @@ export default {
     isLabels() {
       if (!this.card.labelIds || !this.card.labelIds.length) return false;
       return true;
+    },
+    isCover(){
+      if(!this.card.cover || !this.card.cover) return 'transparent'
     },
     isMembers() {
       if (!this.card.members || !this.card.members.length) return false;
