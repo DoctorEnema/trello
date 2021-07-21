@@ -189,6 +189,8 @@ export const boardStore = {
                 const board = JSON.parse(JSON.stringify(context.getters.selectedBoard))
                 if (!board.members) board.members = []
                 if (board.members.some(m => m._id === member._id)) return
+                console.log(context);
+                
                 board.members.unshift(member)
                 await boardService.saveBoard(board)
                 context.commit({ type: 'setBoard', board })

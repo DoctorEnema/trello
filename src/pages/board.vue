@@ -34,6 +34,7 @@
         <button @click="memberModal">Invite</button>
         <div v-if="isMember" class="invite-member">
           <button @click="memberModal">X</button>
+          <section v-if="users">
           <button
             v-for="user in users"
             :key="user._id"
@@ -42,6 +43,7 @@
             <img class="img-invite" :src="user.imgUrl" alt="" />
             {{ user.fullname }}
           </button>
+          </section>
         </div>
       </div>
       <button class="show-board-menu" @click="toggleMenu">Show menu</button>
@@ -105,7 +107,7 @@ import draggable from "vuedraggable";
 import activities from "../cmps/card/activities.vue";
 import sideMenu from "../cmps/board/side-menu.vue";
 import { userService } from "../services/user-service.js";
-import yuumi from "../cmps/board/yuumi.vue";
+import yuumi from "../cmps/yuumi.vue";
 export default {
   components: {
     group,
@@ -221,20 +223,21 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     this.$store.dispatch({ type: "loadBoard", boardId: this.boardId });
-    this.$store.dispatch({ type: "loadUsers" });
+    await this.$store.dispatch({ type: "loadUsers" });
     // boardService.getById(this.boardId).then((board) => {
     //   this.selectedBoard = board;
     // });
     this.setUpdatedLoggedInUser();
     socketService.emit("board topic", this.boardId);
-    if (this.loggedinUser)
+    if (this.loggedinUser){
       this.$store.dispatch({
         type: "loadUserCardWatch",
         userId: this.loggedinUser._id,
       });
-    document.title = `Yuulo`;
+    }
+    window.document.title = `Yuulo`;
   },
 };
 </script>

@@ -274,7 +274,7 @@ export default {
         groupId,
         cardId,
       });
-      document.title = `Yuulo - ${this.card.title}`
+      window.document.title = `Yuulo - ${this.card.title}`
       socketService.emit("card topic", cardId);
       // this.isUserAssignedToCard()
     } catch (err) {
@@ -519,6 +519,7 @@ export default {
         this.removeMember(member);
         return;
       }
+      if(!this.selectedBoard.members.some(m=>m._id === member._id)) return
       this.card.members.push(member);
       await this.setActivity(`Added ${member.fullname} to ${this.card.title}`);
       await this.updateCard();

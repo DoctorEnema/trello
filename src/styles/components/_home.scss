@@ -1,0 +1,81 @@
+.home {
+    width: 100vw;
+    padding: 12px;
+    button {
+        padding: 12px;
+        background-color: #0065ff;
+        color: $clr4;
+    }
+
+    .background {
+        background: linear-gradient(
+            180deg,
+            rgba(#0065ff, 0.3) 0%,
+            rgba(0, 101, 255, 0.2) 10%,
+            rgba(0, 101, 255, 0.1) 20%,
+            rgba(0, 101, 255, 0) 30%,
+            rgba(255, 255, 255, 1) 60%
+        );
+    }
+
+    .yuumi{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        right: -40px;
+        transform: rotate(-0.1turn );
+    }
+
+    .yuumi-container{
+        animation: yuumiMove ease normal forwards 1000ms;
+    }
+    @keyframes yuumiMove{
+        0%{
+            transform:translateX(30%);
+        }
+        100%{
+            
+            transform: translateX(2%);
+        }
+    };
+}
+
+.home-logo{
+    display: flex;
+    align-items: center;
+    img{
+        margin-bottom: 16px;
+        height: 50px;
+        width: 50px;
+    }
+    h1{
+        font-weight: 700;
+        font-size: 40px;
+    }
+}
+
+
+
+.hero{
+    h2{
+        font-weight: 600;
+        font-size: 32px;
+    }
+    h3{
+        font-size: 26px;
+    }
+
+    margin: 0 auto;
+
+    @include for-narrow-layout{
+        max-width: $break-narrow;
+    }
+
+    @include for-normal-layout{
+        
+        max-width: $break-normal;
+    }
+    @include for-wide-layout{
+        max-width: $break-wide;
+    }
+}
