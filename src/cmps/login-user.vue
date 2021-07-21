@@ -5,9 +5,9 @@
       <button @click="logout">Logout</button>
     </div>
     <div v-else>
-    <button class="close-adding" @click="closeModal">X</button>
-    <h3>Sign up for your account</h3>
+      <button class="close-modal" @click="closeModal">X</button>
       <form v-if="isSignup" class="signup-form" @submit.prevent="signup">
+        <h3>Sign up for your account</h3>
         <div class="signup-inputs">
           <label>
             Name:
@@ -45,9 +45,10 @@
         <button>Signup</button>
       </form>
       <form v-else class="login-form" @submit.prevent="login">
+        <h3>Log in to your account</h3>
         <div class="login-inputs">
           <label>
-            <!-- Username: -->
+            Username:
             <input
               type="text"
               placeholder="Enter username"
@@ -55,7 +56,7 @@
             />
           </label>
           <label>
-            <!-- Password: -->
+            Password:
             <input
               type="password"
               placeholder="Enter password"
@@ -110,8 +111,8 @@ export default {
     },
   },
   methods: {
-    closeModal(){
-      this.$emit('closeModal')
+    closeModal() {
+      this.$emit("closeModal");
     },
     async login() {
       try {
