@@ -94,6 +94,7 @@
     }
     h3 {
         font-size: 26px;
+        padding-bottom: 24px;
     }
 
     margin: 0 auto;
@@ -111,6 +112,7 @@
 }
 
 .login {
+    padding: 40px;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -121,38 +123,55 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 0px;
     text-align: center;
     height: 600px;
-    width: 400px;
+    max-width: 400px;
+    h3 {
+        font-size: 20px;
+        padding-bottom: 24px;
+    }
+    .close-modal {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        padding: 0;
+        background-color: transparent;
+        color: $clr2;
+        &:hover {
+            color: $clr1;
+        }
+    }
+    label {
+        text-align: left;
+    }
 }
 .signup-form {
-    display: flex;
-    align-items: flex-end;
     margin-bottom: 40px;
     button {
-        padding: 12px 36px;
+        width: 100%;
     }
 }
 .signup-inputs {
     display: flex;
     flex-direction: column;
+    padding-bottom: 8px;
+
     input[type="text"] {
         @include trello-txt;
         margin: 0;
+        width: 100%;
+        margin-bottom: 8px;
     }
     input[type="password"] {
         @include trello-txt;
         margin: 0;
-    }
-    label {
-        padding-bottom: 2px;
+        width: 100%;
+        margin-bottom: 8px;
     }
 }
 
 .login-form {
-    display: flex;
-    align-items: flex-end;
     button {
         height: 46px;
-        padding: 12px 42px;
+        width: 100%;
     }
 }
 
@@ -162,12 +181,29 @@
     input[type="text"] {
         @include trello-txt;
         margin: 0;
+        width: 100%;
+        margin-bottom: 8px;
     }
     input[type="password"] {
         @include trello-txt;
         margin: 0;
+        width: 100%;
+        margin-bottom: 8px;
     }
     label {
         padding-bottom: 2px;
+    }
+}
+
+.board-display {
+    img{
+        height: 160px;
+        object-fit: cover;
+    }
+    button {
+        background-color: transparent;
+        padding: 0;
+        width: 150px;
+        height: 150px;
     }
 }

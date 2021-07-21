@@ -24,7 +24,14 @@
       <button @click="loginAsGuest">Try it as a guest</button>
     </div>
       <login-user @closeModal="displayModal=false" v-if="displayModal" :isSignup="isSignup"></login-user>
-      <div v-if="loggedinUser">ALL THE BOARDS</div>
+      <div v-if="loggedinUser">
+        <div class="board-display" v-for="board in boards" :key="board._id">
+          <button >
+            <img v-if="board.style.backgroundImg" :src="board.style.backgroundImg">
+            <div v-else :style="{backgroundColor:board.style.backgroundColor}"></div>
+          </button>
+        </div>
+      </div>
   </section>
 </template>
 
@@ -51,6 +58,9 @@ export default {
     userOrModal(){
       if (this.loggedinUser || this.displayModal) return false
       else return true
+    },
+    boards(){
+      return this.$store.getters.boards
     }
   },
   methods: {
@@ -79,6 +89,7 @@ export default {
   },
   created() {
     this.$store.commit({ type: "clearBaord" });
+    this.$store.dispatch('loadBoards')
   },
   mounted() {
     document.title = `Yuulo - Home`;
