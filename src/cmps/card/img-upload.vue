@@ -66,7 +66,7 @@ export default {
       this.isDragOver = false;
       const res = await uploadImg(file);
       console.log("res", res.url)
-      this.$emit("save", res.url);
+      this.$emit("saveImg", res.url);
       this.isLoading = false;
     },
   },

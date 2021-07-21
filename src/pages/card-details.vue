@@ -215,6 +215,7 @@
       <card-edit-preview :group="group" :card="card"></card-edit-preview>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -263,7 +264,7 @@ export default {
       searchBy: "",
       searchType: "",
       isEditCard: null,
-      isUpdated: false
+      isUpdated: false,
     };
   },
   async created() {

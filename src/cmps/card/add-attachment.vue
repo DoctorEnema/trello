@@ -8,7 +8,7 @@
     <form class="add-attachments" @submit.prevent="setLink(), closeModal()">
       <!-- <label for="attachment">Attach a link</label> -->
       <h3>Attach a link</h3>
-      <image-upload @save="saveLink"></image-upload>
+      <image-upload @saveImg="saveImg"></image-upload>
       <input ref="attach" v-model="link" type="text" placeholder="Paste any link here..." />
       <button>Attach</button>
     </form>
@@ -33,7 +33,7 @@ export default {
     resetModals() {
       this.$emit("closeModals");
     },
-    saveLink(link){
+    saveImg(link){
       this.link=link
     },
     setLink() {

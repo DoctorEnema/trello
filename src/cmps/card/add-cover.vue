@@ -28,7 +28,7 @@
         </ul>
       </form>
       <h3>Attachments</h3>
-      <img-upload-basic></img-upload-basic>
+      <img-upload-basic @saveImg="saveImg"></img-upload-basic>
       <h3>Unsplash</h3>
       <div class="cover-unsplash">
         <button
@@ -69,6 +69,7 @@ export default {
         color: "#344563",
       },
       isRemoved: true,
+      link: ''
     };
   },
   computed: {
@@ -78,6 +79,13 @@ export default {
     },
   },
   methods: {
+     saveImg(link){
+      this.link=link
+      this.setLink()
+    },
+    setLink() {
+      this.$emit('linkAdded', this.link)
+    },
     setCover(cover) {
       this.isRemoved = true;
       this.$emit("setCover", cover);
