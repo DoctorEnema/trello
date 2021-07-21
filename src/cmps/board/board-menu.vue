@@ -91,7 +91,7 @@ export default {
     },
     async selectBoard(boardId) {
       if (boardId === this.selectedBoard?._id) return;
-      await this.$store.dispatch({ type: "loadBoard", boardId });
+      const board = await this.$store.dispatch({ type: "loadBoard", boardId });
       this.$emit("selectBoard", boardId);
     },
     async removeBoard(boardId) {

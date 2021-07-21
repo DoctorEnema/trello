@@ -64,7 +64,7 @@ export default {
     return {
       search: "",
       isBoardMenu: false,
-      currBoard: "60f42b03d2f67fa6bfa0f528",
+      currBoard: "",
       isNotifOpen: false,
     };
   },
@@ -86,8 +86,8 @@ export default {
     },
     selectBoard(boardId) {
       this.currBoard = boardId;
+      this.isBoardMenu = !this.isBoardMenu;
       this.$router.push("/board/" + boardId);
-      this.toggleMenu()
     },
     toggleNotifModal() {
       this.isNotifOpen = !this.isNotifOpen;

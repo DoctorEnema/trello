@@ -30,6 +30,9 @@ export default {
     loginUser,
     yuumi,
   },
+  created(){
+    this.$store.commit({type:'clearBaord'})
+  },
   mounted() {
     document.title = `Yuulo - Home`;
   },
