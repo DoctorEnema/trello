@@ -5,9 +5,6 @@
         background-color: #0065ff;
         color: $clr4;
         font-size: 18px;
-        &:first-of-type{
-            margin-top: 20px;
-        }
     }
     .background {
         background: linear-gradient(
@@ -41,52 +38,37 @@
     }
 }
 
-.signup-form {
+.home-header {
     display: flex;
-    align-items: flex-end;
-    margin-bottom: 40px;
-    button {
-        padding: 12px 36px;
-    }
+    justify-content: space-between;
+    padding: 0 12px;
 }
-.signup-inputs {
+
+.home-header-btns {
     display: flex;
-    flex-direction: column;
-    input[type="text"] {
-        @include trello-txt;
-        margin: 0;
-    }
-    input[type="password"] {
-        @include trello-txt;
-        margin: 0;
-    }
-    label {
-        padding-bottom: 2px;
+    align-items: center;
+    button {
+        margin-inline-start: 8px;
+        padding: 8px;
+        &:first-of-type {
+            background-color: transparent;
+            color: #0065ff;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 
-.login-form{
+.home-header-user {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     button {
-        height: 46px;
-        padding: 12px 42px;
-    }
-}
-
-.login-inputs{
-    display: flex;
-    flex-direction: column;
-    input[type="text"] {
-        @include trello-txt;
-        margin: 0;
-    }
-    input[type="password"] {
-        @include trello-txt;
-        margin: 0;
-    }
-    label {
-        padding-bottom: 2px;
+        display: flex;
+        align-items: center;
+        margin-inline-start: 8px;
+        font-size: 14px;
+        height: 40px;
     }
 }
 
@@ -125,5 +107,67 @@
     }
     @include for-wide-layout {
         max-width: $break-wide;
+    }
+}
+
+.login {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 0px;
+    text-align: center;
+    height: 600px;
+    width: 400px;
+}
+.signup-form {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    button {
+        padding: 12px 36px;
+    }
+}
+.signup-inputs {
+    display: flex;
+    flex-direction: column;
+    input[type="text"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    input[type="password"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    label {
+        padding-bottom: 2px;
+    }
+}
+
+.login-form {
+    display: flex;
+    align-items: flex-end;
+    button {
+        height: 46px;
+        padding: 12px 42px;
+    }
+}
+
+.login-inputs {
+    display: flex;
+    flex-direction: column;
+    input[type="text"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    input[type="password"] {
+        @include trello-txt;
+        margin: 0;
+    }
+    label {
+        padding-bottom: 2px;
     }
 }

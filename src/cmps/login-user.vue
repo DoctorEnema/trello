@@ -1,14 +1,16 @@
 <template>
-  <div class="login">
-    <section v-if="loggedInUser">
+  <section class="login">
+    <div v-if="loggedInUser">
       Hello {{ loggedInUser.fullname }}
       <button @click="logout">Logout</button>
-    </section>
-    <section v-else>
-      <form class="signup-form" @submit.prevent="signup">
+    </div>
+    <div v-else>
+    <button class="close-adding" @click="closeModal">X</button>
+    <h3>Sign up for your account</h3>
+      <form v-if="isSignup" class="signup-form" @submit.prevent="signup">
         <div class="signup-inputs">
           <label>
-            <!-- Name: -->
+            Name:
             <input
               type="text"
               placeholder="Enter full name"
@@ -16,7 +18,7 @@
             />
           </label>
           <label>
-            <!-- Username: -->
+            Username:
             <input
               type="text"
               placeholder="Enter username"
@@ -32,7 +34,7 @@
         />
         </label> -->
           <label>
-            <!-- Password: -->
+            Password:
             <input
               type="password"
               placeholder="Enter password"
@@ -42,7 +44,7 @@
         </div>
         <button>Signup</button>
       </form>
-      <form class="login-form" @submit.prevent="login">
+      <form v-else class="login-form" @submit.prevent="login">
         <div class="login-inputs">
           <label>
             <!-- Username: -->
@@ -63,8 +65,8 @@
         </div>
         <button>Login</button>
       </form>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -73,7 +75,7 @@ import { socketService } from "../services/socket-service";
 import { userService } from "../services/user-service";
 
 export default {
-  components: {},
+  props: { isSignup: Boolean },
   data() {
     return {
       credentials: {
@@ -108,6 +110,9 @@ export default {
     },
   },
   methods: {
+    closeModal(){
+      this.$emit('closeModal')
+    },
     async login() {
       try {
         const user = await this.$store.dispatch({

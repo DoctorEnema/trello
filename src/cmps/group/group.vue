@@ -47,9 +47,7 @@
 import cardPreview from "../card/card-preview.vue";
 import draggable from "vuedraggable";
 export default {
-  props: { group: Object 
-  
-  },
+  props: { group: Object },
   components: {
     cardPreview,
     draggable,

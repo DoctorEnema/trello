@@ -17,7 +17,7 @@
         @blur="setDesc"
         placeholder="Add a more detailed description..."
       ></textarea>
-      <p @click="focusTxt" v-if="!isActive">{{ desc }}</p>
+      <pre @click="focusTxt" v-if="!isActive">{{ desc }}</pre>
     </div>
     <div v-if="this.isActive" class="description-controls">
       <button @click.stop="setDesc">Save</button>
