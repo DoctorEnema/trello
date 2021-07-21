@@ -78,7 +78,6 @@
             <button class="create-new-label">Create</button>
           </div>
         </form>
-        {{modalEv}}
       </div>
     </section>
   </section>
@@ -91,7 +90,6 @@ export default {
     utilService,
   },
   props: {
-    modalEv:Object,
     card: Object,
     labels: Array,
   },
@@ -163,7 +161,6 @@ export default {
       this.$emit("closeModal");
     },
     setLabel(label) {
-      console.log(this.modalEv);
       this.$emit("setLabel", label);
     },
 
