@@ -8,7 +8,7 @@
       </header>
       <hr />
       <section v-if="!loggedinUser.notifications.length">
-        No notifications to show
+        <div class="yuumi-sleep">No notifications to show</div>
       </section>
       <section v-else class="activities">
         <button @click="clearNotifications">Clear</button>

@@ -1,8 +1,8 @@
 .notifications {
     z-index: 2;
     position: absolute;
-    right: 0;
-    top: 40px;
+    right: 2px;
+    top: 42px;
     padding: 12px;
     width: 432px;
     min-height: 500px;
@@ -16,12 +16,14 @@
         filter: brightness(250%);
         width: 100%;
     }
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 }
 
 .close-notifications {
     position: absolute;
     right: 0;
     top: 0;
+    background-color: transparent;
     font-size: 16px;
     &::before {
         font-family: fontAwesome, sans serif;
