@@ -15,6 +15,9 @@
         font-size: 3.5rem;
         color: white;
         margin-bottom: 130px;
+        @media (max-width: 995px) {
+            margin-bottom: 40px;
+          }
     }
     .close-dashboard {
             background-color: transparent;

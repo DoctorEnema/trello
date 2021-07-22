@@ -1,11 +1,30 @@
-.notifications{
-    z-index: 5;
+.notifications {
+    z-index: 2;
     position: absolute;
     right: 0;
-    top:40px;
-    width: 300px;
-    height: 100vh;
+    top: 40px;
+    padding: 12px;
+    width: 432px;
+    min-height: 500px;
+    max-height: 80vh;
     background-color: #fff;
     overflow: hidden;
     overflow-y: auto;
+
+    hr {
+        margin: 0 auto 12px;
+        filter: brightness(250%);
+        width: 100%;
+    }
+}
+
+.close-notifications {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 16px;
+    &::before {
+        font-family: fontAwesome, sans serif;
+        content: "\f00d";
+    }
 }
