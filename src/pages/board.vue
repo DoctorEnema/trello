@@ -46,7 +46,7 @@
           </section>
         </div>
       </div>
-      <button class="show-board-menu" @click="toggleMenu">Show menu</button>
+      <button class="show-board-menu" @click="toggleMenu"> Show menu</button>
       <transition name="go-side">
         <side-menu
           @boardCoverColor="boardCoverColor"

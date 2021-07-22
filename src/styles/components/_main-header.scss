@@ -5,7 +5,7 @@
     justify-content: space-between;
     height: 40px; //maybe change to padding
     color: white;
-    button{
+    button {
         min-width: 32px;
         max-width: 32px;
         height: 32px;
@@ -59,43 +59,42 @@
         flex-grow: 1;
         justify-content: flex-end;
         > * {
-            &:last-child{
+            &:last-child {
                 border-radius: 50%;
             }
             &:hover {
                 background-color: rgba($color: #000000, $alpha: 0.2);
             }
             background-color: rgba($color: #ffffff, $alpha: 0.3);
-
         }
     }
 }
-.header-user{
+.header-user {
     padding: 0;
-    .to-user{
+    .to-user {
         background-color: inherit;
         padding-top: 7px;
     }
-    img{
+    img {
         border-radius: 50%;
         width: 32px;
         height: 32px;
     }
 }
 
-.logo{
+.logo {
     font-size: 22px;
     display: flex;
 }
 
-.yuumi-header{
+.yuumi-header {
     padding: 0 2rem;
     margin-left: 30px;
     background-image: url(../assets/img/yuumi-head3.png);
     background-size: 55px;
     background-repeat: no-repeat;
-    background-position: center -.8rem;
-    &:hover{
+    background-position: center -0.8rem;
+    &:hover {
         background-image: url(../assets/img/yuumi-head-tilt.png);
     }
 }
@@ -104,8 +103,6 @@
     font-family: fontAwesome, sans serif;
     content: "\f80c";
 }
-
-
 
 .search {
     position: relative;
@@ -137,11 +134,10 @@
         width: 250px;
     }
 
-    &::placeholder{
+    &::placeholder {
         opacity: 1;
     }
 }
-
 
 .to-create-board::before {
     font-family: fontAwesome, sans serif;
@@ -156,14 +152,22 @@
 .to-notifications::before {
     font-family: fontAwesome, sans serif;
     content: "\f0f3";
-    &.active {
-        background-color:red;
-    }
+    // .active {
+    //     background-color:#b04632;
+    // }
 }
-.to-notifications.active::before {
-    font-family: fontAwesome, sans serif;
-    content: "\f0f3";
-    background-color:red;
+.to-notifications {
+    transition: background-color 80ms;
+    &::before {
+        font-family: fontAwesome, sans serif;
+        content: "\f0f3";
+    }
+    &.active {
+        background-color: #eb5a46;
+        &:hover{
+            background-color: #b04632;
+        }
+    }
 }
 
 .search-glass::before {

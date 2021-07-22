@@ -67,6 +67,9 @@
         <button>Login</button>
       </form>
     </div>
+    <!-- <div class="yuumi-container">
+      <yuumi></yuumi>
+    </div> -->
   </section>
 </template>
 
@@ -74,8 +77,12 @@
 // @ is an alias to /src
 import { socketService } from "../services/socket-service";
 import { userService } from "../services/user-service";
+import yuumi from '../cmps/yuumi.vue'
 
 export default {
+  components:{
+    yuumi,
+  },
   props: { isSignup: Boolean },
   data() {
     return {
@@ -121,6 +128,7 @@ export default {
           userCred: this.credentials,
         });
         this.$store.dispatch({ type: "loadUserCardWatch", userId: user._id });
+        this.$emit("closeModal");
       } catch (err) {
         console.log("cannot login", err);
       }
@@ -133,6 +141,7 @@ export default {
           userCred: this.signupCred,
         });
         this.$store.dispatch({ type: "loadUserCardWatch", userId: user._id });
+        this.$emit("closeModal");
       } catch (err) {
         console.log("cannot signup", err);
       }

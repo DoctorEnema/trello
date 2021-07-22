@@ -15,7 +15,7 @@
       </div>
     </header>
     <div class="background"></div>
-    <div class="yuumi-container">
+    <div v-if="userOrModal" class="yuumi-container">
       <yuumi></yuumi>
     </div>
     <div v-if="userOrModal" class="hero">
@@ -28,8 +28,8 @@
       v-if="displayModal"
       :isSignup="isSignup"
     ></login-user>
-    <div v-if="loggedinUser">
-      <h2>Your boards</h2>
+    <div class="home-boards" v-if="loggedinUser">
+      <h2>Starred boards</h2>
       <div class="board-display">
         <button
           class="board-btn"
@@ -48,6 +48,10 @@
           ></div>
         </button>
       </div>
+      <h2>All boards</h2>
+    </div>
+    <div v-if="loggedinUser" class="yuumi-container">
+      <yuumi></yuumi>
     </div>
   </section>
 </template>

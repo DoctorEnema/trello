@@ -18,21 +18,25 @@
         @click="selectBoard(board._id)"
       >
         <button
+          class="board-bar"
           v-if="board.style"
           :style="{ backgroundImage: 'url(' + board.style.backgroundImg + ')' }"
         >
-          <div class="diffuser">{{ board.title }}</div>
-          <button
-            v-if="'60f42b03d2f67fa6bfa0f528' !== board._id"
-            @click.stop="removeBoard(board._id)"
-            class="board-remove"
-          >
-            X
-          </button>
+          <section class="diffuser">{{ board.title }}</section>
           <img
             v-if="board.style.backgroundImg"
             :src="board.style.backgroundImg"
           />
+          <div
+            class="board-bar-color"
+            v-else
+            :style="{ backgroundColor: board.style.backgroundColor }"
+          ></div>
+          <button
+            v-if="'60f42b03d2f67fa6bfa0f528' !== board._id"
+            @click.stop="removeBoard(board._id)"
+            class="board-remove"
+          ></button>
         </button>
       </div>
     </div>
@@ -71,6 +75,9 @@ export default {
     loggedInUser() {
       return this.$store.getters.loggedinUser;
     },
+    boardIdParams() {
+      return this.$route.params.boardId;
+    },
   },
   methods: {
     toggleMenu() {
@@ -96,7 +103,7 @@ export default {
     },
     async removeBoard(boardId) {
       if ("60f42b03d2f67fa6bfa0f528" === boardId) return;
-      this.$router.push("/board");
+      if (boardId === this.boardIdParams) this.$router.push("/");
       await this.$store.dispatch({ type: "removeBoards", boardId });
       await this.$store.dispatch({ type: "loadBoards" });
     },
@@ -192,6 +199,7 @@ export default {
       });
       this.$router.push("/board/" + newBoardId);
       this.$store.dispatch({ type: "loadBoards" });
+      this.$store.dispatch({ type: "loadBoard", boardId: newBoardId });
     },
   },
 };
