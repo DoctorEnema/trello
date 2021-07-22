@@ -15,9 +15,9 @@
             rgba(0, 101, 255, 0) 30%,
             rgba(255, 255, 255, 1) 60%
         );
-        background-size: cover;
-        background-position-x: 40%;
-        background-image: url(https://img2.storyblok.com/f/84907/2560x1280/807c0c915f/the-syren.jpg);
+        // background-size: cover;
+        // background-position-x: 40%;
+        // background-image: url(https://img2.storyblok.com/f/84907/2560x1280/807c0c915f/the-syren.jpg);
     }
 
     .yuumi {
@@ -236,5 +236,8 @@
         background-color: transparent;
         padding: 0;
         height: 96px;
+        &:hover{
+            filter: brightness(110%);
+        }
     }
 }

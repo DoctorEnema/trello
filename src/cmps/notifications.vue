@@ -2,8 +2,11 @@
 <template>
   <section class="notifications">
     <section v-if="loggedinUser">
-      <h4>Notifications</h4>
-      <button @click="toggleNotifModal">X</button>
+      <header class="add-card-header">
+        <h4>Notifications</h4>
+        <button class="close-notifications" @click="toggleNotifModal"></button>
+      </header>
+      <hr />
       <section v-if="!loggedinUser.notifications.length">
         No notifications to show
       </section>
@@ -36,9 +39,7 @@
         </div>
       </section>
     </section>
-    <section v-else>
-      Sign in to see notifications
-    </section>
+    <section v-else>Sign in to see notifications</section>
   </section>
 </template>
 
