@@ -7,8 +7,12 @@
         <button class="close-notifications" @click="toggleNotifModal"></button>
       </header>
       <hr />
-      <section v-if="!loggedinUser.notifications.length">
-        <div class="yuumi-sleep">No notifications to show</div>
+      <section class="yuumi-section" v-if="!loggedinUser.notifications.length">
+        <div class="yuumi-sleep">
+          <img src="../assets/img/yuumi-sleep.png" />
+          <div class="cutter"></div>
+          <h4>No notifications to show</h4>
+        </div>
       </section>
       <section v-else class="activities">
         <button @click="clearNotifications">Clear</button>
